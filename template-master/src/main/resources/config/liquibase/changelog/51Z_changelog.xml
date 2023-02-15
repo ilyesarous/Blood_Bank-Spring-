@@ -1,0 +1,1042 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="s (generated)" id="1491902464625-1">
+        <createTable tableName="Banque">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Banque"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-2">
+        <createTable tableName="Beneficiere_Service">
+            <column name="Code" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-3">
+        <createTable tableName="Chambre">
+            <column name="NumCha" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_Service" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_Prestation_Sejour" type="int"/>
+            <column name="Code_Prestation_Accompagnant" type="int"/>
+            <column name="Etage" type="nvarchar(10)"/>
+            <column name="Is_Virtuelle" type="bit"/>
+            <column name="Memo" type="nvarchar(MAX)"/>
+            <column name="User_Create" type="nvarchar(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-4">
+        <createTable tableName="Compte_Comptable">
+            <column name="Table_Tiers" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Table" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Rubrique_Comptable" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Code_Comptable" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-5">
+        <createTable tableName="Contact_Societe">
+            <column name="Code_Societe" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Type_Contact" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Valeur" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-6">
+        <createTable tableName="Contact_responsable_Societe">
+            <column name="NomConatct" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CodeTypeContact" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Valeur" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-7">
+        <createTable tableName="Convention">
+            <column name="Code" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NumSoc" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DateDeb_Conv" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DateFin_Conv" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="Autoriser_Admission_Sans_Empreinte" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="Autoriser_Ajout_Dossier_Patient" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Plafond" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Bloquer_Admission_Plafond" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="Actif" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-8">
+        <createTable tableName="Couverture_Par_Sous_Famille">
+            <column name="Code_Sous_Famille" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Liste_Couverture" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Taux" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-9">
+        <createTable tableName="Degre_Medecin">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Degre_Medecin"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-10">
+        <createTable tableName="Details_Convention">
+            <column name="Code_Convention" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Price_List" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Liste_Couverture" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Du" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Au" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="CSYS" name="User_Create" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Create" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-11">
+        <createTable tableName="Details_Couverture">
+            <column name="Code_Liste_Couverture" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Prestation" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Taux_Couverture" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Is_Exception" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Is_Exception_Famille" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-12">
+        <createTable tableName="Details_Price_List">
+            <column name="Code_Prestation" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Type_Intervenant" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Type_Intervenant_Remplaçant" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Prix" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Nature_Admission" type="nvarchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Price_List" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Degre_Medecin" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Is_Exception" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Is_Exception_Famille" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Nature" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Valeur" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-13">
+        <createTable tableName="Dossier_Patient">
+            <column name="ID_Patient" type="nvarchar(15)"/>
+            <column defaultValue="" name="Prenom" type="nvarchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Pere" type="nvarchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Nom" type="nvarchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="First_Name" type="nvarchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Father" type="nvarchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Name" type="nvarchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Nom_Patient_Ar" type="nvarchar(77)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Nom_Patient_En" type="nvarchar(77)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Nom_Patient_Ar_Modifie" type="nvarchar(MAX)"/>
+            <column name="Date_Naissance" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Sexe" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="FingerPrint" type="nvarchar(MAX)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Tel" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Email" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Nationalite" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Nature_Idendite" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Num_Idendite" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Idendite" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-14">
+        <createTable tableName="Famille_Facturation">
+            <column autoIncrement="true" name="Code_Famille" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Famille_Facturation"/>
+            </column>
+            <column name="Code_Famille_Saisie" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_En" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_Fr" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_Ar" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Memo" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Ordre" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-15">
+        <createTable tableName="Famille_Prestation">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Famille_Service"/>
+            </column>
+            <column name="Designation_En" type="nvarchar(200)"/>
+            <column name="Designation_Fr" type="nvarchar(200)"/>
+            <column name="Designation_Ar" type="nvarchar(200)"/>
+            <column name="Code_Type_Prestation" type="nchar(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-16">
+        <createTable tableName="Fonction_Responsable_Societe">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Fonction_Responsable_Societe"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-17">
+        <createTable tableName="Liste_Couverture">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Liste_Couverture"/>
+            </column>
+            <column defaultValue="" name="Designation_En" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_Fr" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_Ar" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="CSYS" name="User_Create" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Create" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-18">
+        <createTable tableName="Medecin">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Medecin"/>
+            </column>
+            <column defaultValue="" name="Code_Saisie" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Nom_Med" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SPEC99" name="Code_Specialite" type="nvarchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Degre" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Is_Chirugien" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Permis_Admission" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Permis_Controle" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Delais_Controle" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Pourcent_Honoraire" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Taux_Taxe" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Taux_Assurance" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Create" type="datetime"/>
+            <column defaultValue="CSYS" name="User_Create" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-19">
+        <createTable tableName="Mode_Reglement">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Mode_Reglement"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-20">
+        <createTable tableName="Nature_Admission">
+            <column name="Code" type="nvarchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-21">
+        <createTable tableName="Nature_Exception_Price_List">
+            <column name="Nature" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-22">
+        <createTable tableName="Nature_Intervenant">
+            <column name="Code" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-23">
+        <createTable tableName="Organisme">
+            <column name="Code_Organisme" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Convention" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DescOrganisme" type="nvarchar(250)"/>
+            <column defaultValueNumeric="0" name="Plafond_OPD" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Plafond_InPatient" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Plafond_Annuel" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="IsActif" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-24">
+        <createTable tableName="Piece_Jointe_Bordereau_Societe">
+            <column name="Code_Type_Piece_Jointe" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Societe" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Nombre" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-25">
+        <createTable tableName="Pourcent_PEC_Service">
+            <column name="Code_Organisme" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Service" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Pourcent_OPD" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Pourcent_InPatient" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-26">
+        <createTable tableName="Prestation">
+            <column autoIncrement="true" name="Code_Prestation" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Service_1"/>
+            </column>
+            <column name="Code_Prestation_Saisie" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_En" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_Ar" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation_Fr" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="Code_Type_Prestation" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Sous_Famille" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Famille_Facturation" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Panier" type="int"/>
+            <column name="Code_Beneficiere" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="TVA" type="nvarchar(10)"/>
+            <column defaultValueNumeric="0" name="Autoris_Modifier_Prix" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Demande_Obligatoire" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Compte_Rendu" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="Etage" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Facturation" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Sous_Traitance" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="CSYS" name="User_Create" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Create" type="datetime"/>
+            <column defaultValueNumeric="1" name="Actif" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-27">
+        <createTable tableName="Price_List">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Price_List"/>
+            </column>
+            <column defaultValue="" name="Code_Saisie" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="designation" type="nvarchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="CSYS" name="User_Create" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Create" type="datetime"/>
+            <column name="Price_List_Pere" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-28">
+        <createTable tableName="Price_List_Par_Convention">
+            <column name="Code_Convention" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Price_List" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Debut" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Fin" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Is_Courante" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="CSYS" name="User_Create" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Date_Create" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-29">
+        <createTable tableName="Price_liste_Par_Sous_Famille">
+            <column name="Code_Sous_Famille" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Price_List" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Taux" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-30">
+        <createTable tableName="Reception_Recouvrement">
+            <column name="NumFac" type="nvarchar(15)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-31">
+        <createTable tableName="Responsable_Societe">
+            <column name="code_societe" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NomContact" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Fonction_Responsable_Societe" type="int"/>
+            <column defaultValueNumeric="1" name="Actif" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-32">
+        <createTable tableName="Secteur_Activite">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Secteur_Activite"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-33">
+        <createTable tableName="Service">
+            <column name="Code" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="DesignationAr" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="DesignationEN" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Designation" type="nvarchar(401)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Autoris_Admission" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Nature_Admission" type="nvarchar(5)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-34">
+        <createTable tableName="Societe">
+            <column name="Code" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CodeSaisie" type="nvarchar(20)"/>
+            <column name="Designation" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="SeuilCredit" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="SeuilCreditAlerte" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="Timbre" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DelaisFacturation" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DelaisReglement" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="Actif" type="bit">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="RIB" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="CodeSecteurActivite" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="ValeurTimbre" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CodeBanque" type="int"/>
+            <column name="CodeModeReglement" type="int"/>
+            <column defaultValue="C" name="NiveauBordereau" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="UserCreation" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DateCreation" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-35">
+        <createTable tableName="Sous_Famille_Prestation">
+            <column autoIncrement="true" name="Code_Sous_Famille" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Sous_Famille"/>
+            </column>
+            <column name="Designation" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Famille" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Num_Cost_Center" type="nvarchar(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-36">
+        <createTable tableName="Specialite_Medecin">
+            <column name="Code" type="nvarchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-37">
+        <createTable tableName="TVA">
+            <column name="TVA" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Num_Compte_Comptable" type="nvarchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-38">
+        <createTable tableName="TVA_Facture">
+            <column name="TVA" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NumFac" type="nvarchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Montant" type="numeric(18, 3)"/>
+            <column name="Montant_Patient" type="numeric(18, 3)"/>
+            <column name="Montant_Pec" type="numeric(18, 3)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-39">
+        <createTable tableName="Tarif_Medecin">
+            <column name="Code_Price_List" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Type_Tarif" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Code_Medecin" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="Tarif" type="numeric(18, 3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-40">
+        <createTable tableName="Type_Arrivee">
+            <column name="Code" type="nvarchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-41">
+        <createTable tableName="Type_Contacte">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Type_Contacte"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-42">
+        <createTable tableName="Type_Facture">
+            <column name="Type_Facture" type="nvarchar(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-43">
+        <createTable tableName="Type_Intervenant">
+            <column name="Code" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="T" name="Code_Nature_Intervenant" type="nvarchar(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-44">
+        <createTable tableName="Type_Piece_Jointe_Bordereau">
+            <column autoIncrement="true" name="code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Type_Piece_Jointe_Bordereau"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-45">
+        <createTable tableName="Type_Prestation">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Type_Prestation_1"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-46">
+        <createTable tableName="Type_Sortie">
+            <column name="Code" type="nvarchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-47">
+        <createTable tableName="Type_Tarif_Medecin">
+            <column autoIncrement="true" name="Code" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_Type_Tarif_Medecin"/>
+            </column>
+            <column defaultValue="" name="Designation" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-48">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Beneficiere_Service" tableName="Beneficiere_Service"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-49">
+        <addPrimaryKey columnNames="NumCha" constraintName="PK_Chambre" tableName="Chambre"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-50">
+        <addPrimaryKey columnNames="Table_Tiers, Code_Table, Rubrique_Comptable" constraintName="PK_Compte_Comptable" tableName="Compte_Comptable"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-51">
+        <addPrimaryKey columnNames="Code_Societe, Code_Type_Contact" constraintName="PK_Contact_Societe" tableName="Contact_Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-52">
+        <addPrimaryKey columnNames="code_societe, NomContact" constraintName="PK_Contavt_responsable_Soxiztz" tableName="Responsable_Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-53">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Convention" tableName="Convention"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-54">
+        <addPrimaryKey columnNames="Code_Sous_Famille, Code_Liste_Couverture" constraintName="PK_Couverture_Par_Sous_Famille" tableName="Couverture_Par_Sous_Famille"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-55">
+        <addPrimaryKey columnNames="Code_Convention, Code_Price_List, Code_Liste_Couverture" constraintName="PK_Details_Convention" tableName="Details_Convention"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-56">
+        <addPrimaryKey columnNames="Code_Liste_Couverture, Code_Prestation" constraintName="PK_Details_Couverture" tableName="Details_Couverture"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-57">
+        <addPrimaryKey columnNames="Code_Prestation, Code_Type_Intervenant, Code_Nature_Admission, Code_Price_List, Code_Degre_Medecin" constraintName="PK_Details_Service" tableName="Details_Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-58">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Nature_Admission" tableName="Nature_Admission"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-59">
+        <addPrimaryKey columnNames="Nature" constraintName="PK_Nature_Exception_Price_List" tableName="Nature_Exception_Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-60">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Nature_Intervenant" tableName="Nature_Intervenant"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-61">
+        <addPrimaryKey columnNames="Code_Organisme" constraintName="PK_Organisme" tableName="Organisme"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-62">
+        <addPrimaryKey columnNames="Code_Type_Piece_Jointe, Code_Societe" constraintName="PK_Piece_Jointe_Bordereau_Societe" tableName="Piece_Jointe_Bordereau_Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-63">
+        <addPrimaryKey columnNames="Code_Organisme, Code_Service" constraintName="PK_PourcentPEC_Rad_Lab_Prest" tableName="Pourcent_PEC_Service"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-64">
+        <addPrimaryKey columnNames="Code_Sous_Famille, Code_Price_List" constraintName="PK_Price_liste_Par_Sous_Famille" tableName="Price_liste_Par_Sous_Famille"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-65">
+        <addPrimaryKey columnNames="Code_Convention, Code_Price_List" constraintName="PK_Prix_Service_PEC_1" tableName="Price_List_Par_Convention"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-66">
+        <addPrimaryKey columnNames="NomConatct, CodeTypeContact" constraintName="PK_Responsable_Societe_1" tableName="Contact_responsable_Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-67">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Service" tableName="Service"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-68">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Societe" tableName="Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-69">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Specialite_Medecin" tableName="Specialite_Medecin"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-70">
+        <addPrimaryKey columnNames="TVA" constraintName="PK_TVA" tableName="TVA"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-71">
+        <addPrimaryKey columnNames="TVA, NumFac" constraintName="PK_TVA_Facture" tableName="TVA_Facture"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-72">
+        <addPrimaryKey columnNames="Code_Price_List, Code_Type_Tarif, Code_Medecin" constraintName="PK_Tarif_Medecin" tableName="Tarif_Medecin"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-73">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Type_Arrivee" tableName="Type_Arrivee"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-74">
+        <addPrimaryKey columnNames="Type_Facture" constraintName="PK_Type_Facture" tableName="Type_Facture"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-75">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Type_Intervenant" tableName="Type_Intervenant"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-76">
+        <addPrimaryKey columnNames="Code" constraintName="PK_Type_Sortie" tableName="Type_Sortie"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-77">
+        <addForeignKeyConstraint baseColumnNames="code_Prestation_Sejour" baseTableName="Chambre" constraintName="FK_Chambre_Prestation" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Prestation" referencedTableName="Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-78">
+        <addForeignKeyConstraint baseColumnNames="Code_Prestation_Accompagnant" baseTableName="Chambre" constraintName="FK_Chambre_Prestation1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Prestation" referencedTableName="Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-79">
+        <addForeignKeyConstraint baseColumnNames="code_Service" baseTableName="Chambre" constraintName="FK_Chambre_Service" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Service"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-80">
+        <addForeignKeyConstraint baseColumnNames="Code_Societe" baseTableName="Contact_Societe" constraintName="FK_Contact_Societe_Societe" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-81">
+        <addForeignKeyConstraint baseColumnNames="Code_Type_Contact" baseTableName="Contact_Societe" constraintName="FK_Contact_Societe_Type_Contacte1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Type_Contacte"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-82">
+        <addForeignKeyConstraint baseColumnNames="NumSoc" baseTableName="Convention" constraintName="FK_Convention_Societe" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-83">
+        <addForeignKeyConstraint baseColumnNames="Code_Liste_Couverture" baseTableName="Couverture_Par_Sous_Famille" constraintName="FK_Couverture_Par_Sous_Famille_Liste_Couverture" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Liste_Couverture"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-84">
+        <addForeignKeyConstraint baseColumnNames="Code_Sous_Famille" baseTableName="Couverture_Par_Sous_Famille" constraintName="FK_Couverture_Par_Sous_Famille_Sous_Famille_Prestation" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Sous_Famille" referencedTableName="Sous_Famille_Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-85">
+        <addForeignKeyConstraint baseColumnNames="Code_Convention" baseTableName="Details_Convention" constraintName="FK_Details_Convention_Convention" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Convention"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-86">
+        <addForeignKeyConstraint baseColumnNames="Code_Liste_Couverture" baseTableName="Details_Convention" constraintName="FK_Details_Convention_Liste_Couverture" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Liste_Couverture"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-87">
+        <addForeignKeyConstraint baseColumnNames="Code_Price_List" baseTableName="Details_Convention" constraintName="FK_Details_Convention_Price_List" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-88">
+        <addForeignKeyConstraint baseColumnNames="Code_Liste_Couverture" baseTableName="Details_Couverture" constraintName="FK_Details_Couverture_Liste_Couverture" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Liste_Couverture"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-89">
+        <addForeignKeyConstraint baseColumnNames="Code_Prestation" baseTableName="Details_Couverture" constraintName="FK_Details_Couverture_Prestation" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Prestation" referencedTableName="Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-90">
+        <addForeignKeyConstraint baseColumnNames="Code_Degre_Medecin" baseTableName="Details_Price_List" constraintName="FK_Details_Price_List_Degre_Medecin" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Degre_Medecin"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-91">
+        <addForeignKeyConstraint baseColumnNames="Code_Nature_Admission" baseTableName="Details_Price_List" constraintName="FK_Details_Price_List_Nature_Admission" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Nature_Admission"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-92">
+        <addForeignKeyConstraint baseColumnNames="Nature" baseTableName="Details_Price_List" constraintName="FK_Details_Price_List_Nature_Exception_Price_List" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Nature" referencedTableName="Nature_Exception_Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-93">
+        <addForeignKeyConstraint baseColumnNames="Code_Price_List" baseTableName="Details_Price_List" constraintName="FK_Details_Service_Price_List" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-94">
+        <addForeignKeyConstraint baseColumnNames="Code_Prestation" baseTableName="Details_Price_List" constraintName="FK_Details_Service_Service" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Prestation" referencedTableName="Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-95">
+        <addForeignKeyConstraint baseColumnNames="Code_Type_Intervenant" baseTableName="Details_Price_List" constraintName="FK_Details_Service_Type_Intervenant" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Type_Intervenant"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-96">
+        <addForeignKeyConstraint baseColumnNames="Code_Degre" baseTableName="Medecin" constraintName="FK_Medecin_Degre_Medecin" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Degre_Medecin"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-97">
+        <addForeignKeyConstraint baseColumnNames="Code_Specialite" baseTableName="Medecin" constraintName="FK_Medecin_Specialite_Medecin" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Specialite_Medecin"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-98">
+        <addForeignKeyConstraint baseColumnNames="Code_Convention" baseTableName="Organisme" constraintName="FK_Organisme_Convention" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Convention"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-99">
+        <addForeignKeyConstraint baseColumnNames="Code_Societe" baseTableName="Piece_Jointe_Bordereau_Societe" constraintName="FK_Piece_Jointe_Bordereau_Societe_Societe" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-100">
+        <addForeignKeyConstraint baseColumnNames="Code_Type_Piece_Jointe" baseTableName="Piece_Jointe_Bordereau_Societe" constraintName="FK_Piece_Jointe_Bordereau_Societe_Type_Piece_Jointe_Bordereau" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="code" referencedTableName="Type_Piece_Jointe_Bordereau"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-101">
+        <addForeignKeyConstraint baseColumnNames="Code_Organisme" baseTableName="Pourcent_PEC_Service" constraintName="FK_Pourcent_PEC_Service_Organisme" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Organisme" referencedTableName="Organisme"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-102">
+        <addForeignKeyConstraint baseColumnNames="Code_Type_Prestation" baseTableName="Prestation" constraintName="FK_Prestation_Type_Prestation" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Type_Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-103">
+        <addForeignKeyConstraint baseColumnNames="Price_List_Pere" baseTableName="Price_List" constraintName="FK_Price_List_Price_List" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-104">
+        <addForeignKeyConstraint baseColumnNames="Code_Price_List" baseTableName="Price_liste_Par_Sous_Famille" constraintName="FK_Price_liste_Par_Sous_Famille_Price_List" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-105">
+        <addForeignKeyConstraint baseColumnNames="Code_Sous_Famille" baseTableName="Price_liste_Par_Sous_Famille" constraintName="FK_Price_liste_Par_Sous_Famille_Sous_Famille_Prestation" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Sous_Famille" referencedTableName="Sous_Famille_Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-106">
+        <addForeignKeyConstraint baseColumnNames="Code_Convention" baseTableName="Price_List_Par_Convention" constraintName="FK_Prix_Service_PEC_Convention" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Convention"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-107">
+        <addForeignKeyConstraint baseColumnNames="Code_Fonction_Responsable_Societe" baseTableName="Responsable_Societe" constraintName="FK_Responsable_Societe_Fonction_Responsable_Societe" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Fonction_Responsable_Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-108">
+        <addForeignKeyConstraint baseColumnNames="NomConatct" baseTableName="Contact_responsable_Societe" constraintName="FK_Responsable_Societe_Societe" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Societe"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-109">
+        <addForeignKeyConstraint baseColumnNames="Code_Famille_Facturation" baseTableName="Prestation" constraintName="FK_Service_Famille_Facturation" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Famille" referencedTableName="Famille_Facturation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-110">
+        <addForeignKeyConstraint baseColumnNames="Code_Sous_Famille" baseTableName="Prestation" constraintName="FK_Service_Sous_Famille_service" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code_Sous_Famille" referencedTableName="Sous_Famille_Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-111">
+        <addForeignKeyConstraint baseColumnNames="TVA" baseTableName="Prestation" constraintName="FK_Service_TVA" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TVA" referencedTableName="TVA"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-112">
+        <addForeignKeyConstraint baseColumnNames="CodeBanque" baseTableName="Societe" constraintName="FK_Societe_Banque" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Banque"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-113">
+        <addForeignKeyConstraint baseColumnNames="CodeModeReglement" baseTableName="Societe" constraintName="FK_Societe_Mode_Reglement" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Mode_Reglement"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-114">
+        <addForeignKeyConstraint baseColumnNames="CodeSecteurActivite" baseTableName="Societe" constraintName="FK_Societe_Secteur_Activite" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Secteur_Activite"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-115">
+        <addForeignKeyConstraint baseColumnNames="Code_Famille" baseTableName="Sous_Famille_Prestation" constraintName="FK_Sous_Famille_service_Famille_Service" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Famille_Prestation"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-116">
+        <addForeignKeyConstraint baseColumnNames="TVA" baseTableName="TVA_Facture" constraintName="FK_TVA_Facture_TVA" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TVA" referencedTableName="TVA"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-117">
+        <addForeignKeyConstraint baseColumnNames="Code_Medecin" baseTableName="Tarif_Medecin" constraintName="FK_Tarif_Medecin_Medecin" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Medecin"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-118">
+        <addForeignKeyConstraint baseColumnNames="Code_Price_List" baseTableName="Tarif_Medecin" constraintName="FK_Tarif_Medecin_Price_List" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Price_List"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-119">
+        <addForeignKeyConstraint baseColumnNames="Code_Type_Tarif" baseTableName="Tarif_Medecin" constraintName="FK_Tarif_Medecin_Type_Tarif_Medecin" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Type_Tarif_Medecin"/>
+    </changeSet>
+    <changeSet author="s (generated)" id="1491902464625-120">
+        <addForeignKeyConstraint baseColumnNames="Code_Nature_Intervenant" baseTableName="Type_Intervenant" constraintName="FK_Type_Intervenant_Nature_Intervenant" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="Code" referencedTableName="Nature_Intervenant"/>
+    </changeSet>
+</databaseChangeLog>

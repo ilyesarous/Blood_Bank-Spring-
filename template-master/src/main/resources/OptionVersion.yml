@@ -1,0 +1,4 @@
+tailleCodeFournisseur : 10
+
+medicationsNamingStrategy: brand+forme+unitedosage+generic
+medicalNamingStrategy: generic+brand

@@ -1,0 +1,78 @@
+ 
+
+
+# Notice : After completing this configuration, it must be pushed into the config-server and removed from the project directory. Please contact Farouk or Salmen before deploying your application in the integration environement
+
+ 
+management:
+    security:
+        enabled: false
+    endpoints:
+        web:
+            base-path: /
+            #exposure:
+            #    include: "*"
+    graceful.shutdown.enabled: true
+
+security:
+    basic:
+        enabled: false
+
+spring:
+    application:
+        name: prod-personne
+    redis:
+        host: redis
+    devtools:
+        restart:
+            enabled: false
+        livereload:
+            enabled: false
+    datasource:
+        #url: jdbc:h2:file:./h2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        #driverClassName: org.h2.Driver
+        #username: SA
+        #password:
+        url: jdbc:sqlserver://DESKTOP-2LF1VAI\sql2019;databaseName=test;encrypt=false;trustServerCertificate=true
+        username: SA
+        password: P@ssw0rd
+
+    jpa:
+        database-platform: org.hibernate.dialect.SQLServer2012Dialect
+        database: SQL_SERVER
+        show-sql: true
+        hibernate:
+            naming:
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            #hibernate.default_schema: param_achat
+            hibernate.id.new_generator_mappings: true
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+    liquibase:
+        #change-log: master.xml
+        #default-schema: param_achat
+        enabled: false
+        contexts: prod
+    jackson:
+        serialization:
+            write-dates-as-timestamps: true
+
+ 
+server:
+    servlet:
+        contextPath: /template
+    port: 80
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+        min-response-size: 1024
+ 
+lang:
+    secondary: ar
+#profiles:
+    #include: secure
+ 
+

@@ -1,0 +1,17 @@
+
+spring:
+    application:
+        name: template
+#    profiles:
+#        active: 
+    cloud:
+        config:
+            uri: http://config-server:8888
+
+management:
+    endpoints:
+        web:
+            base-path: /https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide#base-path
+            exposure:
+                include: "*"
+    graceful.shutdown.enabled: true
