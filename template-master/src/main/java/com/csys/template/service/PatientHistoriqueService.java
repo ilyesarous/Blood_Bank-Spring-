@@ -23,20 +23,18 @@ public class PatientHistoriqueService {
 
     @Transactional(readOnly = true)
     public List<PatientHistoriqueDTO> findHistory(String code){
-        List<PatientHistoriqueDTO> patientHistoriqueDTOList = PatientHistoriqueFactory.
-                patientHistoriquesToPatientHistoriqueDTOS(patientHistoriqueRepository.findAll());
-        List<PatientHistoriqueDTO> list = new ArrayList<>();
-        for (PatientHistoriqueDTO patientHistoriqueDTO : patientHistoriqueDTOList){
-            if (patientHistoriqueDTO.getCodePatient().equals(code)) {
-                list.add(PatientHistoriqueFactory.patientHisoriqueToPatientHistoriqueDTO(
-                        patientHistoriqueRepository.findByPatientCode(code)));
+        List<PatientHistorique> list = new ArrayList<>();
+        for (PatientHistorique patientHistorique : patientHistoriqueRepository.findAll()){
+            if (patientHistorique.getCodePatient().equals(code)) {
+                list.add(patientHistorique);
             }
         }
-        return list;
+        return PatientHistoriqueFactory.patientHistoriquesToPatientHistoriqueDTOS(list);
     }
 
     @Transactional
     public PatientHistorique addHistorique(PatientHistoriqueDTO patientHistoriqueDTO){
+        Preconditions.checkArgument (patientHistoriqueDTO != null, "Patient added!");
         return patientHistoriqueRepository.save(PatientHistoriqueFactory.
                 patientHisoriqueDTOToPatientHistorique(patientHistoriqueDTO));
     }

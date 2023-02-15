@@ -43,9 +43,8 @@ public class PatientService {
     }
 
     public List<PatientDTO>findPatientsWithBloodCode(Integer bloodCode){
-        List<PatientDTO> patientDTOList = findAll();
         List<PatientDTO> patientDTOS = new ArrayList<>();
-        for (PatientDTO patientDTO : patientDTOList){
+        for (PatientDTO patientDTO : findAll()){
             if (patientDTO.getBloodCode().equals(bloodCode))
                 patientDTOS.add(patientDTO);
         }
