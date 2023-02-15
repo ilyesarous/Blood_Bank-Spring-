@@ -7,14 +7,14 @@ import java.util.Date;
 @Entity
 @Table(name = "donation_history")
 public class PatientHistorique {
-
     @Column(name = "code", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer code;
     @Column(name = "code_patient", nullable = false)
-    private String codePatient;
+    private String patientCode;
     @Column(name = "state", nullable = false)
-    private String state;
+    private Integer state;
     @Column(name = "observation", nullable = false)
     private String observation;
     @Column(name = "user_create", nullable = false)
@@ -31,18 +31,18 @@ public class PatientHistorique {
     }
 
     public String getCodePatient() {
-        return codePatient;
+        return patientCode;
     }
 
     public void setCodePatient(String codePatient) {
-        this.codePatient = codePatient;
+        this.patientCode = codePatient;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 

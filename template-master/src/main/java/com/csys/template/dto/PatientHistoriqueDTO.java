@@ -3,7 +3,7 @@ package com.csys.template.dto;
 public class PatientHistoriqueDTO {
     private Integer code;
     private String codePatient;
-    private String state;
+    private Integer state;
     private String observation;
     private String userCreate;
     private Long dateCreate;
@@ -24,11 +24,11 @@ public class PatientHistoriqueDTO {
         this.codePatient = codePatient;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 

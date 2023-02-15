@@ -1,6 +1,5 @@
 package com.csys.template.web.rest;
 
-import com.csys.template.domain.Counter;
 import com.csys.template.domain.Patient;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.PatientDTO;
