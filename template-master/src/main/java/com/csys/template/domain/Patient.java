@@ -10,6 +10,7 @@ import java.util.Date;
 @Table(name = "patient")
 public class
 Patient implements Serializable {
+    //@OneToMany
 
     @Column(name = "code", nullable = false)
     @Id
@@ -50,8 +51,8 @@ Patient implements Serializable {
     private Date creation_date;
     //@Column(name = "state", nullable = false)
 
-    @Column(name = "state", nullable = false)
-    private String state;
+//    @Column(name = "state", nullable = false)
+//    private String state;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "code_blood")
@@ -201,11 +202,11 @@ Patient implements Serializable {
         this.creation_date = creation_date;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
+//    public String getState() {
+//        return state;
+//    }
+//
+//    public void setState(String state) {
+//        this.state = state;
+//    }
 }

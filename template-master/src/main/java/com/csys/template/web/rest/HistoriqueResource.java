@@ -1,7 +1,7 @@
 package com.csys.template.web.rest;
 
 import com.csys.template.domain.donations_history;
-import com.csys.template.dto.PatientHistoriqueDTO;
+import com.csys.template.dto.donations_historyDTO;
 import com.csys.template.service.PatientHistoriqueService;
 import com.csys.template.util.RestPreconditions;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +26,14 @@ public class HistoriqueResource {
     }
 
     @GetMapping("/{code}")
-    public List<PatientHistoriqueDTO> getAllPatientsWithBloodCode(@PathVariable String code){
-        List<PatientHistoriqueDTO> patientHistoriqueDTOS = patientHistoriqueService.findHistory(code);
+    public List<donations_historyDTO> getAllPatientsWithBloodCode(@PathVariable String code){
+        List<donations_historyDTO> patientHistoriqueDTOS = patientHistoriqueService.findHistory(code);
         RestPreconditions.checkFound(patientHistoriqueDTOS,ENTITY_NAME + "Code not found!");
         return patientHistoriqueDTOS;
     }
 
     @PostMapping
-    public ResponseEntity<donations_history> addPatient(@RequestBody PatientHistoriqueDTO patientDTO, BindingResult bindingResult)
+    public ResponseEntity<donations_history> addPatient(@RequestBody donations_historyDTO patientDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", " You can not add patient with code"));
@@ -44,7 +44,7 @@ public class HistoriqueResource {
     }
 
     @PutMapping
-    public ResponseEntity<donations_history> updatePatient(@RequestBody PatientHistoriqueDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
+    public ResponseEntity<donations_history> updatePatient(@RequestBody donations_historyDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", "Put does not allow patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);

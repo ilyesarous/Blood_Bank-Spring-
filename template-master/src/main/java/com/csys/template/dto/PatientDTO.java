@@ -24,7 +24,7 @@ public class PatientDTO {
     private String adress;
     private String email;
     private Long creation_date;
-    private String State;
+   // private String State;
     private Integer bloodCode;
 
     public String getCode() {
@@ -179,11 +179,11 @@ public class PatientDTO {
         this.creation_date = creation_date;
     }
 
-    public String getState() {
-        return State;
-    }
-
-    public void setState(String state) {
-        State = state;
-    }
+//    public String getState() {
+//        return State;
+//    }
+//
+//    public void setState(String state) {
+//        State = state;
+//    }
 }

@@ -32,7 +32,7 @@ public class PatientFactory {
         patientDTO.setGender(patient.getGender());
         patientDTO.setPhoneNumber(patient.getPhoneNumber());
         patientDTO.setCreation_date(patient.getCreation_date().getTime());
-        patientDTO.setState(patient.getState());
+        //patientDTO.setState(patient.getState());
         patientDTO.setBloodCode(patient.getBloodCode().getCodeBlood());
 
         return patientDTO;
@@ -60,7 +60,7 @@ public class PatientFactory {
         patient.setGender(patientDTO.getGender());
         patient.setPhoneNumber(patientDTO.getPhoneNumber());
         patient.setCreation_date(new Date(patientDTO.getCreation_date()));
-        patient.setState(patientDTO.getState());
+        //patient.setState(patientDTO.getState());
 
         Blood codeBlood = new Blood();
         codeBlood.setCodeBlood(patientDTO.getBloodCode());

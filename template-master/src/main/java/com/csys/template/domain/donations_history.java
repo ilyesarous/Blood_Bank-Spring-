@@ -11,8 +11,10 @@ public class donations_history {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer code;
+
+    @JoinColumn(name = "code")
     @Column(name = "code_patient", nullable = false)
-    private String patientCode;
+    private Patient patientCode;
     @Column(name = "state", nullable = false)
     private Integer state;
     @Column(name = "observation", nullable = false)
@@ -30,11 +32,11 @@ public class donations_history {
         this.code = code;
     }
 
-    public String getCodePatient() {
+    public Patient getCodePatient() {
         return patientCode;
     }
 
-    public void setCodePatient(String codePatient) {
+    public void setCodePatient(Patient codePatient) {
         this.patientCode = codePatient;
     }
 
