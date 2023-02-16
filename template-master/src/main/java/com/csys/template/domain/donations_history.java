@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "donation_history")
-public class PatientHistorique {
+public class donations_history {
     @Column(name = "code", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

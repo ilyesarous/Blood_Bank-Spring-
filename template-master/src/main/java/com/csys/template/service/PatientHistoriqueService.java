@@ -1,7 +1,8 @@
 package com.csys.template.service;
 
-import com.csys.template.domain.PatientHistorique;
+import com.csys.template.domain.donations_history;
 import com.csys.template.dto.PatientHistoriqueDTO;
+import com.csys.template.enumeration.StateEnum;
 import com.csys.template.factory.PatientHistoriqueFactory;
 import com.csys.template.repository.PatientHistoriqueRepository;
 import com.google.common.base.Preconditions;
@@ -23,8 +24,8 @@ public class PatientHistoriqueService {
 
     @Transactional(readOnly = true)
     public List<PatientHistoriqueDTO> findHistory(String code){
-        List<PatientHistorique> list = new ArrayList<>();
-        for (PatientHistorique patientHistorique : patientHistoriqueRepository.findAll()){
+        List<donations_history> list = new ArrayList<>();
+        for (donations_history patientHistorique : patientHistoriqueRepository.findAll()){
             if (patientHistorique.getCodePatient().equals(code)) {
                 list.add(patientHistorique);
             }
@@ -33,14 +34,16 @@ public class PatientHistoriqueService {
     }
 
     @Transactional
-    public PatientHistorique addHistorique(PatientHistoriqueDTO patientHistoriqueDTO){
+    public donations_history addHistorique(PatientHistoriqueDTO patientHistoriqueDTO){
         Preconditions.checkArgument (patientHistoriqueDTO != null, "Patient added!");
+        donations_history p = new donations_history();
+        p.setState(StateEnum.PENDING.intValue());
         return patientHistoriqueRepository.save(PatientHistoriqueFactory.
                 patientHisoriqueDTOToPatientHistorique(patientHistoriqueDTO));
     }
 
-    public PatientHistorique updateHistoriy(PatientHistoriqueDTO historyDTO){
-        PatientHistorique historyInDB = patientHistoriqueRepository.findByPatientCode(historyDTO.getCodePatient());
+    public donations_history updateHistoriy(PatientHistoriqueDTO historyDTO){
+        donations_history historyInDB = patientHistoriqueRepository.findByPatientCode(historyDTO.getCodePatient());
         Preconditions.checkArgument (historyInDB != null, "Patient has been updated");
         return patientHistoriqueRepository.save(PatientHistoriqueFactory.patientHisoriqueDTOToPatientHistorique(historyDTO));
     }

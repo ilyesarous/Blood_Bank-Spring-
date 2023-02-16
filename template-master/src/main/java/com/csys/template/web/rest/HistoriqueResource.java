@@ -1,6 +1,6 @@
 package com.csys.template.web.rest;
 
-import com.csys.template.domain.PatientHistorique;
+import com.csys.template.domain.donations_history;
 import com.csys.template.dto.PatientHistoriqueDTO;
 import com.csys.template.service.PatientHistoriqueService;
 import com.csys.template.util.RestPreconditions;
@@ -33,23 +33,23 @@ public class HistoriqueResource {
     }
 
     @PostMapping
-    public ResponseEntity<PatientHistorique> addPatient(@RequestBody PatientHistoriqueDTO patientDTO, BindingResult bindingResult)
+    public ResponseEntity<donations_history> addPatient(@RequestBody PatientHistoriqueDTO patientDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", " You can not add patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        PatientHistorique p = patientHistoriqueService.addHistorique(patientDTO);
+        donations_history p = patientHistoriqueService.addHistorique(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 
     @PutMapping
-    public ResponseEntity<PatientHistorique> updatePatient(@RequestBody PatientHistoriqueDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
+    public ResponseEntity<donations_history> updatePatient(@RequestBody PatientHistoriqueDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", "Put does not allow patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        PatientHistorique p = patientHistoriqueService.updateHistoriy(patientDTO);
+        donations_history p = patientHistoriqueService.updateHistoriy(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 }

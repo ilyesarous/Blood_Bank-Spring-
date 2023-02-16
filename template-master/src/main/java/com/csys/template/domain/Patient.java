@@ -8,7 +8,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "patient")
-public class Patient implements Serializable {
+public class
+Patient implements Serializable {
 
     @Column(name = "code", nullable = false)
     @Id
@@ -48,6 +49,7 @@ public class Patient implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creation_date;
     //@Column(name = "state", nullable = false)
+
     @Column(name = "state", nullable = false)
     private String state;
     @JsonBackReference

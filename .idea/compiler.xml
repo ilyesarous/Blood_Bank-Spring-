@@ -7,14 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="template" />
+        <module name="blood-bank" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="blood-bank" target="17" />
       <module name="template" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="blood-bank" options="-parameters" />
       <module name="template" options="-parameters" />
     </option>
   </component>
