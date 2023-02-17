@@ -1,8 +1,9 @@
 package com.csys.template.repository;
 
-import com.csys.template.domain.Donations_history;
+import com.csys.template.domain.DonationsHistory;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PatientHistoriqueRepository extends JpaRepository<Donations_history, Integer> {
-    Donations_history findByPatientCode(String code);
+public interface PatientHistoriqueRepository extends JpaRepository<DonationsHistory, Integer> {
+    DonationsHistory findByPatientCode(String code);
 }

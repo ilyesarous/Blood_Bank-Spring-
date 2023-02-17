@@ -1,8 +1,9 @@
 package com.csys.template.web.rest;
 
-import com.csys.template.domain.Donations_history;
-import com.csys.template.dto.Donations_historyDTO;
-import com.csys.template.service.PatientHistoriqueService;
+import com.csys.template.domain.DonationsHistory;
+
+import com.csys.template.dto.DonationsHistoryDTO;
+import com.csys.template.service.DonationHistoryService;
 import com.csys.template.util.RestPreconditions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,37 +20,37 @@ import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 @RestController
 @RequestMapping("/historique")
 public class HistoriqueResource {
-    private  final PatientHistoriqueService patientHistoriqueService;
+    private  final DonationHistoryService patientHistoriqueService;
 
-    public HistoriqueResource(PatientHistoriqueService patientHistoriqueService) {
+    public HistoriqueResource(DonationHistoryService patientHistoriqueService) {
         this.patientHistoriqueService = patientHistoriqueService;
     }
 
     @GetMapping("/{code}")
-    public List<Donations_historyDTO> getAllPatientsWithBloodCode(@PathVariable String code){
-        List<Donations_historyDTO> patientHistoriqueDTOS = patientHistoriqueService.findHistory(code);
+    public List<DonationsHistoryDTO> getAllPatientsWithBloodCode(@PathVariable String code){
+        List<DonationsHistoryDTO> patientHistoriqueDTOS = patientHistoriqueService.findHistory(code);
         RestPreconditions.checkFound(patientHistoriqueDTOS,ENTITY_NAME + "Code not found!");
         return patientHistoriqueDTOS;
     }
 
     @PostMapping
-    public ResponseEntity<Donations_history> addPatient(@RequestBody Donations_historyDTO patientDTO, BindingResult bindingResult)
+    public ResponseEntity<DonationsHistory> addPatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", " You can not add patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        Donations_history p = patientHistoriqueService.addHistorique(patientDTO);
+        DonationsHistory p = patientHistoriqueService.addHistorique(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 
     @PutMapping
-    public ResponseEntity<Donations_history> updatePatient(@RequestBody Donations_historyDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
+    public ResponseEntity<DonationsHistory> updatePatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", "Put does not allow patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        Donations_history p = patientHistoriqueService.updateHistoriy(patientDTO);
+        DonationsHistory p = patientHistoriqueService.updateHistoriy(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 }

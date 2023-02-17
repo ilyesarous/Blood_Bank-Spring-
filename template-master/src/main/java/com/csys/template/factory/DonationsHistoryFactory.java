@@ -1,7 +1,7 @@
 package com.csys.template.factory;
 
-import com.csys.template.domain.Donations_history;
-import com.csys.template.dto.Donations_historyDTO;
+import com.csys.template.domain.DonationsHistory;
+import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.enumeration.StateEnum;
 import com.google.common.base.Preconditions;
 
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Donations_historyFactory {
+public class DonationsHistoryFactory {
 
-    public static Donations_historyDTO patientHisoriqueToPatientHistoriqueDTO(Donations_history patientHistorique){
-        Donations_historyDTO patientHistoriqueDTO = new Donations_historyDTO();
+    public static DonationsHistoryDTO patientHisoriqueToPatientHistoriqueDTO(DonationsHistory patientHistorique){
+        DonationsHistoryDTO patientHistoriqueDTO = new DonationsHistoryDTO();
         patientHistoriqueDTO.setCodePatient(patientHistorique.getCodePatient());
         patientHistoriqueDTO.setCode(patientHistorique.getCode());
         String i = switch (patientHistorique.getState()) {
@@ -29,8 +29,8 @@ public class Donations_historyFactory {
         return patientHistoriqueDTO;
     }
 
-    public static Donations_history patientHisoriqueDTOToPatientHistorique(Donations_historyDTO patientHistoriqueDTO){
-        Donations_history patientHistorique = new Donations_history();
+    public static DonationsHistory patientHisoriqueDTOToPatientHistorique(DonationsHistoryDTO patientHistoriqueDTO){
+        DonationsHistory patientHistorique = new DonationsHistory();
 
         patientHistorique.setCodePatient(patientHistoriqueDTO.getCodePatient());
         patientHistorique.setCode(patientHistoriqueDTO.getCode());
@@ -49,9 +49,9 @@ public class Donations_historyFactory {
         return patientHistorique;
     }
 
-    public static List<Donations_historyDTO> patientHistoriquesToPatientHistoriqueDTOS(List<Donations_history> list){
-        List<Donations_historyDTO> patientHistoriqueDTOList = new ArrayList<>();
-        for (Donations_history patientHistorique : list){
+    public static List<DonationsHistoryDTO> patientHistoriquesToPatientHistoriqueDTOS(List<DonationsHistory> list){
+        List<DonationsHistoryDTO> patientHistoriqueDTOList = new ArrayList<>();
+        for (DonationsHistory patientHistorique : list){
             patientHistoriqueDTOList.add(patientHisoriqueToPatientHistoriqueDTO(patientHistorique));
         }
         return patientHistoriqueDTOList;

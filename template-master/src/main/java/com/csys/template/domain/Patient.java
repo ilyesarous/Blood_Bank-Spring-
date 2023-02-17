@@ -2,12 +2,16 @@ package com.csys.template.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "patient")
+@Audited
+@AuditTable("patient_AUD")
 public class
 Patient implements Serializable {
     //@OneToMany

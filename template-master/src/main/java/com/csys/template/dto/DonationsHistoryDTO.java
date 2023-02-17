@@ -1,6 +1,6 @@
 package com.csys.template.dto;
 
-public class Donations_historyDTO {
+public class DonationsHistoryDTO {
     private Integer code;
     private String codePatient;
     private String state;

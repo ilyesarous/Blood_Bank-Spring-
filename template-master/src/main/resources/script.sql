@@ -40,3 +40,40 @@ CREATE TABLE [Blood_Bank].[state](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
+
+
+CREATE TABLE [rcm].[revision](
+            [id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+            [timestamp] [datetime2](7) NULL,
+            [user_create] [varchar](255) NOT NULL,
+            PRIMARY KEY CLUSTERED
+            (
+            [id] ASC
+            )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+            ) ON [PRIMARY]
+
+
+CREATE TABLE [rcm].[risk_motive_AUD](
+            [code] [int] NOT NULL,
+            [REV] [int] NOT NULL,
+            [REVTYPE] [smallint] NULL,
+            [designation] [nvarchar](200) NOT NULL,
+            [designation_sec] [nvarchar](200) NOT NULL,
+            [active] [bit] not null,
+            [email] [nvarchar](max) NULL,
+            [user_create] [nvarchar](50) NULL,
+            [create_date] [datetime] NULL,
+            CONSTRAINT [PK_risk_motive_AUD] PRIMARY KEY CLUSTERED
+            (
+            [code] ASC,
+            [REV] ASC
+            )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+            ) ON [PRIMARY]
+
+
+            ALTER TABLE [rcm].[risk_motive_AUD]  WITH CHECK ADD  CONSTRAINT [FK_risk_motive_AUD_rev] FOREIGN KEY([REV])
+            REFERENCES [rcm].[revision] ([id])
+
+ALTER TABLE [rcm].[risk_motive_AUD] CHECK CONSTRAINT [FK_risk_motive_AUD_rev]

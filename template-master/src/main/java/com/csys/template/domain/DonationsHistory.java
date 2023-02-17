@@ -1,12 +1,16 @@
 package com.csys.template.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "donation_history")
-public class Donations_history {
+@Audited
+@AuditTable("donation_history_AUD")
+public class DonationsHistory {
     @Column(name = "code", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
