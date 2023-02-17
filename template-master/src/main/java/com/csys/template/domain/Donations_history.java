@@ -6,15 +6,13 @@ import java.util.Date;
 
 @Entity
 @Table(name = "donation_history")
-public class donations_history {
+public class Donations_history {
     @Column(name = "code", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer code;
-
-    @JoinColumn(name = "code")
     @Column(name = "code_patient", nullable = false)
-    private Patient patientCode;
+    private String patientCode;
     @Column(name = "state", nullable = false)
     private Integer state;
     @Column(name = "observation", nullable = false)
@@ -32,12 +30,12 @@ public class donations_history {
         this.code = code;
     }
 
-    public Patient getCodePatient() {
+    public String getCodePatient() {
         return patientCode;
     }
 
-    public void setCodePatient(Patient codePatient) {
-        this.patientCode = codePatient;
+    public void setCodePatient(String patientCode) {
+        this.patientCode = patientCode;
     }
 
     public Integer getState() {

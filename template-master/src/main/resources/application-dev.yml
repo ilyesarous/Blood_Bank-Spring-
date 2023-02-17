@@ -21,7 +21,7 @@ spring:
         livereload:
             enabled: true
     datasource:
-        url: jdbc:sqlserver://DESKTOP-E5VJUKK\sql2019;databaseName=test;encrypt=false;trustServerCertificate=true
+        url: jdbc:sqlserver://DESKTOP-2LF1VAI\SQL2019;databaseName=test;encrypt=false;trustServerCertificate=true
         username: SA
         password: P@ssw0rd
         #url: jdbc:h2:file:./h2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -69,7 +69,7 @@ lang:
      
 server:
     servlet:
-        contextPath: /demo-core
+        contextPath: /blood-bank
     port: 9005 
     compression:
         enabled: true

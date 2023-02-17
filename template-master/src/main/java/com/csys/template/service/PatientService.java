@@ -39,6 +39,18 @@ public class PatientService {
     public Patient updatePatient(PatientDTO patientDTO){
         Patient patientInDB = patientRepository.findByCode(patientDTO.getCode());
         Preconditions.checkArgument (patientInDB != null, "Patient has been updated");
+        patientDTO.setCode(patientInDB.getCode());
+        patientDTO.setFirstNameEng(patientInDB.getFirstNameEng());
+        patientDTO.setFirstNameAr(patientInDB.getFirstNameAr());
+        patientDTO.setLastNameEng(patientInDB.getLastNameEng());
+        patientDTO.setLastNameAr(patientInDB.getLastNameAr());
+        patientDTO.setFatherNameEng(patientInDB.getFatherNameEng());
+        patientDTO.setFatherNameAr(patientInDB.getFatherNameAr());
+        patientDTO.setGrandFatherNameEng(patientInDB.getGrandFatherNameEng());
+        patientDTO.setGrandFatherNameAr(patientInDB.getGrandFatherNameAr());
+        patientDTO.setGender(patientInDB.getGender());
+        patientDTO.setBirthDate(patientInDB.getBirthDate().getTime());
+        patientDTO.setCreation_date(patientInDB.getCreation_date().getTime());
         return patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
     }
 

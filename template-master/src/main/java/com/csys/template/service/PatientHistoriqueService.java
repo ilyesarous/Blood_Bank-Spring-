@@ -1,9 +1,9 @@
 package com.csys.template.service;
 
-import com.csys.template.domain.donations_history;
-import com.csys.template.dto.donations_historyDTO;
+import com.csys.template.domain.Donations_history;
+import com.csys.template.dto.Donations_historyDTO;
 import com.csys.template.enumeration.StateEnum;
-import com.csys.template.factory.donations_historyFactory;
+import com.csys.template.factory.Donations_historyFactory;
 import com.csys.template.repository.PatientHistoriqueRepository;
 import com.google.common.base.Preconditions;
 import org.springframework.stereotype.Service;
@@ -23,29 +23,29 @@ public class PatientHistoriqueService {
     }
 
     @Transactional(readOnly = true)
-    public List<donations_historyDTO> findHistory(String code){
-        List<donations_history> list = new ArrayList<>();
-        for (donations_history patientHistorique : patientHistoriqueRepository.findAll()){
+    public List<Donations_historyDTO> findHistory(String code){
+        List<Donations_history> list = new ArrayList<>();
+        for (Donations_history patientHistorique : patientHistoriqueRepository.findAll()){
             if (patientHistorique.getCodePatient().equals(code)) {
                 list.add(patientHistorique);
             }
         }
-        return donations_historyFactory.patientHistoriquesToPatientHistoriqueDTOS(list);
+        return Donations_historyFactory.patientHistoriquesToPatientHistoriqueDTOS(list);
     }
 
     @Transactional
-    public donations_history addHistorique(donations_historyDTO patientHistoriqueDTO){
+    public Donations_history addHistorique(Donations_historyDTO patientHistoriqueDTO){
         Preconditions.checkArgument (patientHistoriqueDTO != null, "Patient added!");
-        donations_history p = new donations_history();
+        Donations_history p = new Donations_history();
         p.setState(StateEnum.PENDING.intValue());
-        return patientHistoriqueRepository.save(donations_historyFactory.
+        return patientHistoriqueRepository.save(Donations_historyFactory.
                 patientHisoriqueDTOToPatientHistorique(patientHistoriqueDTO));
     }
 
-    public donations_history updateHistoriy(donations_historyDTO historyDTO){
-        donations_history historyInDB = patientHistoriqueRepository.findByPatientCode(historyDTO.getCodePatient());
+    public Donations_history updateHistoriy(Donations_historyDTO historyDTO){
+        Donations_history historyInDB = patientHistoriqueRepository.findByPatientCode(historyDTO.getCodePatient());
         Preconditions.checkArgument (historyInDB != null, "Patient has been updated");
-        return patientHistoriqueRepository.save(donations_historyFactory.patientHisoriqueDTOToPatientHistorique(historyDTO));
+        return patientHistoriqueRepository.save(Donations_historyFactory.patientHisoriqueDTOToPatientHistorique(historyDTO));
     }
 
 

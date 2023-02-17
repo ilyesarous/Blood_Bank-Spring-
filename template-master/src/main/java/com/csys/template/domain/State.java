@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "state")
 
 public class State {
-    @Column(name = "code", nullable = false)
 
+    @Column(name = "code", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer code;

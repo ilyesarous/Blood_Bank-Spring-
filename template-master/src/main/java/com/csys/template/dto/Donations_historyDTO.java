@@ -1,9 +1,9 @@
 package com.csys.template.dto;
 
-public class donations_historyDTO {
+public class Donations_historyDTO {
     private Integer code;
     private String codePatient;
-    private Integer state;
+    private String state;
     private String observation;
     private String userCreate;
     private Long dateCreate;
@@ -24,11 +24,11 @@ public class donations_historyDTO {
         this.codePatient = codePatient;
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(String state) {
         this.state = state;
     }
 
