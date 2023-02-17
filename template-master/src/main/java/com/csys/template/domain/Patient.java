@@ -49,10 +49,6 @@ Patient implements Serializable {
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creation_date;
-    //@Column(name = "state", nullable = false)
-
-//    @Column(name = "state", nullable = false)
-//    private String state;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "code_blood")

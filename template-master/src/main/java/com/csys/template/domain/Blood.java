@@ -22,8 +22,6 @@ public class Blood {
     private String givenTo;
     @Column(name = "receive_from", nullable = false)
     private String receivedFrom;
-    //@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bloodCode")
-    //private List<Patient> patients;
 
     public Integer getCodeBlood() {
         return codeBlood;
@@ -65,12 +63,5 @@ public class Blood {
         this.receivedFrom = receivedFrom;
     }
 
-   /* public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }*/
 
 }
