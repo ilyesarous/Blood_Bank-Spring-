@@ -20,6 +20,7 @@ import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
 @RequestMapping("/counter")
+//@CrossOrigin
 public class CounterResource {
 
     private final CounterService counterService;

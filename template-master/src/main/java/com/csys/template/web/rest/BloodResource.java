@@ -18,6 +18,7 @@ import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
 @RequestMapping("/blood")
+@CrossOrigin
 public class BloodResource {
 
     private final BloodService bloodService;

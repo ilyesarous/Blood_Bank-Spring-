@@ -1,9 +1,8 @@
 package com.csys.template.web.rest;
 
 import com.csys.template.domain.DonationsHistory;
-
 import com.csys.template.dto.DonationsHistoryDTO;
-import com.csys.template.service.DonationHistoryService;
+import com.csys.template.service.PatientHistoriqueService;
 import com.csys.template.util.RestPreconditions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,12 +16,13 @@ import java.util.List;
 
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/historique")
 public class HistoriqueResource {
-    private  final DonationHistoryService patientHistoriqueService;
+    private  final PatientHistoriqueService patientHistoriqueService;
 
-    public HistoriqueResource(DonationHistoryService patientHistoriqueService) {
+    public HistoriqueResource(PatientHistoriqueService patientHistoriqueService) {
         this.patientHistoriqueService = patientHistoriqueService;
     }
 

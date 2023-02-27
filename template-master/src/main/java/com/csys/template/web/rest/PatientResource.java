@@ -21,6 +21,7 @@ import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
 @RequestMapping("/patient")
+//@CrossOrigin
 public class PatientResource {
 
     private final PatientService patientService;
