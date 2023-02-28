@@ -11,12 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
-import org.hibernate.envers.RevisionEntity;
-import org.hibernate.envers.RevisionNumber;
-import org.hibernate.envers.RevisionTimestamp;
+import org.hibernate.envers.*;
 
 @Entity(name = "revision")
 @RevisionEntity(AuditListener.class)
+//@Audited
 @SuppressWarnings({"IdDefinedInHierarchy", "ConsistentAccessType"})
 public class Revision implements Serializable {
 
@@ -76,10 +75,7 @@ public class Revision implements Serializable {
         if (this.id != other.id) {
             return false;
         }
-        if (this.timestamp != other.timestamp) {
-            return false;
-        }
-        return true;
+        return this.timestamp == other.timestamp;
     }
 
     @Override

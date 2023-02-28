@@ -2,11 +2,13 @@ package com.csys.template.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
-import java.util.List;
 
 @Entity
 @Table(name = "blood")
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Blood {
     @Column(name = "blood_code", nullable = false)
     @JsonManagedReference
