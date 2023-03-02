@@ -2,6 +2,7 @@ package com.csys.template.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,12 +19,12 @@ public class PatientDTO {
     private String fatherNameEng;
     private String grandFatherNameEng;
     private String fullNameEng;
-    private Long birthDate;
+    private LocalDate birthDate;
     private String gender;
     private String phoneNumber;
     private String adress;
     private String email;
-    private Long creation_date;
+    private LocalDate creation_date;
    // private String State;
     private Integer bloodCode;
 
@@ -115,11 +116,11 @@ public class PatientDTO {
         this.fullNameEng = this.getFirstNameEng()+this.getFatherNameEng()+this.getGrandFatherNameEng()+getLastNameEng();
     }
 
-    public Long getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Long birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -171,11 +172,11 @@ public class PatientDTO {
         this.id = id;
     }
 
-    public Long getCreation_date() {
+    public LocalDate getCreation_date() {
         return creation_date;
     }
 
-    public void setCreation_date(Long creation_date) {
+    public void setCreation_date(LocalDate creation_date) {
         this.creation_date = creation_date;
     }
 

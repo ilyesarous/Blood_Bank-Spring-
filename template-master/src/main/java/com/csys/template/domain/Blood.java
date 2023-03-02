@@ -2,13 +2,16 @@ package com.csys.template.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import org.hibernate.envers.RelationTargetAuditMode;
+
+import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "blood")
-@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+@Audited
+@AuditTable("blood_AUD")
 public class Blood {
     @Column(name = "blood_code", nullable = false)
     @JsonManagedReference
@@ -20,10 +23,16 @@ public class Blood {
     private String bloodGrp;
     @Column(name = "blood_type", nullable = false)
     private String bloodType;
-    @Column(name = "given_to", nullable = false)
+    @Column(name = "given_to", nullable = true)
     private String givenTo;
-    @Column(name = "receive_from", nullable = false)
+    @Column(name = "receive_from", nullable = true)
     private String receivedFrom;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+    @Column(name = "user_create")
+    private String userCreate;
+    @Column(name = "active")
+    private Integer active;
 
     public Integer getCodeBlood() {
         return codeBlood;
@@ -65,5 +74,27 @@ public class Blood {
         this.receivedFrom = receivedFrom;
     }
 
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
 
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(String userCreate) {
+        this.userCreate = userCreate;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
 }

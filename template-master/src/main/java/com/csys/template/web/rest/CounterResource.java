@@ -41,13 +41,13 @@ public class CounterResource {
         return counterDTO;
     }
     @PostMapping
-    public ResponseEntity<Counter> addCounter(@RequestBody CounterDTO counterDTO, BindingResult bindingResult)
+    public ResponseEntity<CounterDTO> addCounter(@RequestBody @Valid CounterDTO counterDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(counterDTO.getId()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "id", "You can not add a counter with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        Counter c = counterService.addCounter(counterDTO);
+        CounterDTO c = counterService.addCounter(counterDTO);
         return ResponseEntity.created(new URI("/counter"+ c.getType())).body(c);
     }
 

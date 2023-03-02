@@ -6,7 +6,7 @@ import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "patient")
@@ -40,8 +40,7 @@ Patient implements Serializable {
     @Column(name = "full_name_eng", nullable = false)
     private String fullNameEng;
     @Column(name = "birth_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date birthDate;
+    private LocalDate birthDate;
     @Column(name = "gender", nullable = false)
     private String gender;
     @Column(name = "phone_number", nullable = false)
@@ -51,8 +50,7 @@ Patient implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
     @Column(name = "creation_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creation_date;
+    private LocalDate creation_date;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "code_blood")
@@ -146,11 +144,11 @@ Patient implements Serializable {
         this.fullNameEng = this.getFirstNameEng()+this.getFatherNameEng()+this.getGrandFatherNameEng()+getLastNameEng();
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -194,11 +192,11 @@ Patient implements Serializable {
         this.bloodCode = bloodCode;
     }
 
-    public Date getCreation_date() {
+    public LocalDate getCreation_date() {
         return creation_date;
     }
 
-    public void setCreation_date(Date creation_date) {
+    public void setCreation_date(LocalDate creation_date) {
         this.creation_date = creation_date;
     }
 

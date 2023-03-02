@@ -1,10 +1,9 @@
 package com.csys.template.factory;
 
 import com.csys.template.domain.Blood;
-import com.csys.template.domain.Patient;
 import com.csys.template.dto.BloodDTO;
-import com.csys.template.dto.PatientDTO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +11,15 @@ public class BloodFactory {
 
     public static Blood bloodDTOToBlood(BloodDTO bloodDTO) {
         Blood blood = new Blood();
-
+        LocalDate d = LocalDate.now();
         blood.setCodeBlood(bloodDTO.getCodeBlood());
         blood.setBloodGrp(bloodDTO.getBloodGrp());
         blood.setBloodType(bloodDTO.getBloodType());
         blood.setGivenTo(bloodDTO.getGivenTo());
         blood.setReceivedFrom(bloodDTO.getReceivedFrom());
+        blood.setCreationDate(d);
+        blood.setUserCreate(bloodDTO.getUserCreate());
+        blood.setActive(bloodDTO.getActive());
         return blood;
     }
 
@@ -30,6 +32,10 @@ public class BloodFactory {
         bloodDTO.setGivenTo(blood.getGivenTo());
         bloodDTO.setReceivedFrom(blood.getReceivedFrom());
 
+        //bloodDTO.setCreationDate(blood.getCreationDate());
+        bloodDTO.setUserCreate(blood.getUserCreate());
+        bloodDTO.setActive(blood.getActive());
+
         return bloodDTO;
     }
 
@@ -41,6 +47,9 @@ public class BloodFactory {
         bloodDTO.setBloodType(blood.getBloodType());
         bloodDTO.setGivenTo(blood.getGivenTo());
         bloodDTO.setReceivedFrom(blood.getReceivedFrom());
+        bloodDTO.setCreationDate(blood.getCreationDate());
+        bloodDTO.setUserCreate(blood.getUserCreate());
+        bloodDTO.setActive(blood.getActive());
 
         return bloodDTO;
     }

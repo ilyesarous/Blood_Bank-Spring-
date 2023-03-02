@@ -4,6 +4,7 @@ import com.csys.template.domain.DonationsHistory;
 import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.service.PatientHistoriqueService;
 import com.csys.template.util.RestPreconditions;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,23 +35,23 @@ public class HistoriqueResource {
     }
 
     @PostMapping
-    public ResponseEntity<DonationsHistory> addPatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult)
+    public ResponseEntity<DonationsHistoryDTO> addPatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", " You can not add patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        DonationsHistory p = patientHistoriqueService.addHistorique(patientDTO);
+        DonationsHistoryDTO p = patientHistoriqueService.addHistorique(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 
-    @PutMapping
-    public ResponseEntity<DonationsHistory> updatePatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
+    @PutMapping("/{code}")
+    public ResponseEntity<DonationsHistoryDTO> updatePatient(@PathVariable String code , @RequestBody @Valid DonationsHistoryDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getCode()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", "Put does not allow patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        DonationsHistory p = patientHistoriqueService.updateHistoriy(patientDTO);
+        DonationsHistoryDTO p = patientHistoriqueService.updateHistoriy(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 }

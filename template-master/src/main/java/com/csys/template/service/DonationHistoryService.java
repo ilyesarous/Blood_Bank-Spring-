@@ -35,12 +35,13 @@ public class DonationHistoryService {
     }
 
     @Transactional
-    public DonationsHistory addHistorique(DonationsHistoryDTO patientHistoriqueDTO){
+    public DonationsHistoryDTO addHistorique(DonationsHistoryDTO patientHistoriqueDTO){
         Preconditions.checkArgument (patientHistoriqueDTO != null, "Patient added!");
         DonationsHistory p = new DonationsHistory();
         p.setState(StateEnum.PENDING.intValue());
-        return patientHistoriqueRepository.save(DonationsHistoryFactory.
+        DonationsHistory d = patientHistoriqueRepository.save(DonationsHistoryFactory.
                 patientHisoriqueDTOToPatientHistorique(patientHistoriqueDTO));
+        return DonationsHistoryFactory.patientHisoriqueToPatientHistoriqueDTO(d);
     }
 
     public DonationsHistory updateHistoriy(DonationsHistoryDTO historyDTO){

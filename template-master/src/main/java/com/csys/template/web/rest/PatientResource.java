@@ -6,6 +6,7 @@ import com.csys.template.dto.PatientDTO;
 import com.csys.template.service.CounterService;
 import com.csys.template.service.PatientService;
 import com.csys.template.util.RestPreconditions;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -58,16 +59,13 @@ public class PatientResource {
             bindingResult.addError(new FieldError(ENTITY_NAME, "id", " You can not add patient with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        CounterDTO counter = counterService.findCounterByType("patient");
-        patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
-        counter.setSuffix(counter.getSuffix()+1);
-        counterService.updateCounter(counter);
+
         Patient p = patientService.addPatient(patientDTO);
         return ResponseEntity.created(new URI("/patient"+ p.getCode())).body(p);
     }
 
     @PutMapping
-    public ResponseEntity<Patient> updatePatient(@RequestBody PatientDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
+    public ResponseEntity<Patient> updatePatient(@RequestBody @Valid PatientDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getId()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "id", "Put does not allow patient with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);

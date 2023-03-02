@@ -30,10 +30,10 @@ public class CounterService {
         Counter counter = counterRepository.findByType(type);
         return CounterFactory.counterToCounterDTO(counter);
     }
-    public Counter addCounter(CounterDTO counterDTO) {
+    public CounterDTO addCounter(CounterDTO counterDTO) {
         Counter counter = CounterFactory.counterDTOToCounter(counterDTO);
         counter = counterRepository.save(counter);
-        return counter;
+        return CounterFactory.counterToCounterDTO(counter);
     }
     public CounterDTO updateCounter(CounterDTO counterDTO){
         Counter counterInDB = counterRepository.findByType(counterDTO.getType());

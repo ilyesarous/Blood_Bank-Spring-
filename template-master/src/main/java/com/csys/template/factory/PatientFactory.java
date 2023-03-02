@@ -4,8 +4,8 @@ import com.csys.template.domain.Blood;
 import com.csys.template.domain.Patient;
 import com.csys.template.dto.PatientDTO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PatientFactory {
@@ -28,10 +28,10 @@ public class PatientFactory {
 
         patientDTO.setAdress(patient.getAdress());
         patientDTO.setEmail(patient.getEmail());
-        patientDTO.setBirthDate(patient.getBirthDate().getTime());
+        patientDTO.setBirthDate(patient.getBirthDate());
         patientDTO.setGender(patient.getGender());
         patientDTO.setPhoneNumber(patient.getPhoneNumber());
-        patientDTO.setCreation_date(patient.getCreation_date().getTime());
+        patientDTO.setCreation_date(patient.getCreation_date());
         //patientDTO.setState(patient.getState());
         patientDTO.setBloodCode(patient.getBloodCode().getCodeBlood());
 
@@ -40,6 +40,7 @@ public class PatientFactory {
 
     public static Patient patientDTOToPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
+        LocalDate d = LocalDate.now();
 
         patient.setCode(patientDTO.getCode());
         patient.setFirstNameAr(patientDTO.getFirstNameAr());
@@ -56,10 +57,10 @@ public class PatientFactory {
 
         patient.setAdress(patientDTO.getAdress());
         patient.setEmail(patientDTO.getEmail());
-        patient.setBirthDate(new Date(patientDTO.getBirthDate()));
+        patient.setBirthDate(patientDTO.getBirthDate());
         patient.setGender(patientDTO.getGender());
         patient.setPhoneNumber(patientDTO.getPhoneNumber());
-        patient.setCreation_date(new Date(patientDTO.getCreation_date()));
+        patient.setCreation_date(d);
         //patient.setState(patientDTO.getState());
 
         Blood codeBlood = new Blood();

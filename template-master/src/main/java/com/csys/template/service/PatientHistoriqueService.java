@@ -23,9 +23,9 @@ public class PatientHistoriqueService {
     }
 
     @Transactional(readOnly = true)
-    public List<DonationsHistoryDTO> findHistory(String code){
+    public List<DonationsHistoryDTO> findHistory(String code) {
         List<DonationsHistory> list = new ArrayList<>();
-        for (DonationsHistory patientHistorique : patientHistoriqueRepository.findAll()){
+        for (DonationsHistory patientHistorique : patientHistoriqueRepository.findAll()) {
             if (patientHistorique.getCodePatient().equals(code)) {
                 list.add(patientHistorique);
             }
@@ -34,18 +34,21 @@ public class PatientHistoriqueService {
     }
 
     @Transactional
-    public DonationsHistory addHistorique(DonationsHistoryDTO patientHistoriqueDTO){
-        Preconditions.checkArgument (patientHistoriqueDTO != null, "Patient added!");
+    public DonationsHistoryDTO addHistorique(DonationsHistoryDTO patientHistoriqueDTO) {
+        Preconditions.checkArgument(patientHistoriqueDTO != null, "Patient added!");
         DonationsHistory p = new DonationsHistory();
         p.setState(StateEnum.PENDING.intValue());
-        return patientHistoriqueRepository.save(DonationsHistoryFactory.
+        DonationsHistory d = patientHistoriqueRepository.save(DonationsHistoryFactory.
                 patientHisoriqueDTOToPatientHistorique(patientHistoriqueDTO));
+        return DonationsHistoryFactory.patientHisoriqueToPatientHistoriqueDTO(d);
     }
 
-    public DonationsHistory updateHistoriy(DonationsHistoryDTO historyDTO){
+    public DonationsHistoryDTO updateHistoriy(DonationsHistoryDTO historyDTO) {
         DonationsHistory historyInDB = patientHistoriqueRepository.findByPatientCode(historyDTO.getCodePatient());
-        Preconditions.checkArgument (historyInDB != null, "Patient has been updated");
-        return patientHistoriqueRepository.save(DonationsHistoryFactory.patientHisoriqueDTOToPatientHistorique(historyDTO));
+        Preconditions.checkArgument(historyInDB != null, "Patient has been updated");
+        DonationsHistory d = patientHistoriqueRepository.save(DonationsHistoryFactory.patientHisoriqueDTOToPatientHistorique(historyDTO));
+
+        return DonationsHistoryFactory.patientHisoriqueToPatientHistoriqueDTO(d);
     }
 
 

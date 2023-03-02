@@ -4,6 +4,7 @@ import com.csys.template.domain.Blood;
 import com.csys.template.dto.BloodDTO;
 import com.csys.template.service.BloodService;
 import com.csys.template.util.RestPreconditions;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -38,14 +39,30 @@ public class BloodResource {
         RestPreconditions.checkFound(bloodDTO,ENTITY_NAME + " Not found!");
         return bloodDTO;
     }
+
+    @GetMapping("/getType/{code}")
+    public String getTypeByCodeBlood(@Valid @PathVariable Integer code){
+        return bloodService.findTypeByBloodCode(code);
+    }
+
+    @GetMapping("/getType")
+    public List<String> getAllTypes(){
+        return bloodService.findAllTypes();
+    }
+
+    @GetMapping("/getGroups")
+    public List<String> getAllGroups(){
+        return bloodService.findAllGroups();
+    }
+
     @PostMapping
-    public ResponseEntity<Blood> addBlood(@RequestBody BloodDTO bloodDTO, BindingResult bindingResult)
+    public ResponseEntity<BloodDTO> addBlood(@RequestBody @Valid BloodDTO bloodDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(bloodDTO.getCodeBlood()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "codeBlood", "You can not add blood with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        Blood c = bloodService.addBlood(bloodDTO);
+        BloodDTO c = bloodService.addBlood(bloodDTO);
         return ResponseEntity.created(new URI("/blood"+ c.getCodeBlood())).body(c);
     }
 

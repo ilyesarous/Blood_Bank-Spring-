@@ -2,6 +2,9 @@ package com.csys.template.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BloodDTO {
     private Integer codeBlood;
@@ -9,7 +12,9 @@ public class BloodDTO {
     private String bloodType;
     private String givenTo;
     private String receivedFrom;
-    //private List<PatientDTO> patientDTOs;
+    private LocalDate creationDate;
+    private String userCreate;
+    private Integer active;
 
     public Integer getCodeBlood() {
         return codeBlood;
@@ -51,11 +56,27 @@ public class BloodDTO {
         this.receivedFrom = receivedFrom;
     }
 
-   /* public List<PatientDTO> getPatientDTOs() {
-        return patientDTOs;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setPatientDTOs(List<PatientDTO> patients) {
-        this.patientDTOs = patients;
-    }*/
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(String userCreate) {
+        this.userCreate = userCreate;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
 }

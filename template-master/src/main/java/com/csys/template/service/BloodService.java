@@ -7,7 +7,9 @@ import com.csys.template.repository.BloodRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -20,18 +22,45 @@ public class BloodService {
     }
 
     @Transactional(readOnly = true)
-    public List<BloodDTO> findAll(){
+    public List<BloodDTO> findAll() {
         return BloodFactory.bloodsToBloodsDTO(bloodRepository.findAll());
     }
+
     @Transactional(readOnly = true)
-    public BloodDTO findBloodByType(String type){
-        Blood blood = bloodRepository.findByCodeBlood(type);
+    public BloodDTO findBloodByType(String type) {
+        Blood blood = bloodRepository.findBybloodType(type);
         return BloodFactory.bloodToBloodDTO(blood);
     }
-    public Blood addBlood(BloodDTO bloodDTO) {
+
+    @Transactional(readOnly = true)
+    public String findTypeByBloodCode(Integer codeBlood) {
+        Blood blood = bloodRepository.findByCodeBlood(codeBlood);
+        return blood.getBloodType();
+    }
+
+    @Transactional(readOnly = true)
+    public List<String> findAllTypes() {
+        List<String> types = (findAll().stream()
+                .map(BloodDTO::getBloodType)
+                .filter(bloodType -> bloodType != null)
+                .distinct()
+                .toList());
+        return types;
+    }
+    @Transactional(readOnly = true)
+    public List<String> findAllGroups() {
+        List<String> groups = (findAll().stream()
+                .map(BloodDTO::getBloodGrp)
+                .filter(bloodGrp -> bloodGrp != null)
+                .distinct()
+                .toList());
+        return groups;
+    }
+
+    public BloodDTO addBlood(BloodDTO bloodDTO) {
         Blood blood = BloodFactory.bloodDTOToBlood(bloodDTO);
         blood = bloodRepository.save(blood);
-        return blood;
+        return BloodFactory.bloodToBloodDTO(blood);
     }
 
 

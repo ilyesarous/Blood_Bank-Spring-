@@ -1,13 +1,16 @@
 package com.csys.template.service;
 
 import com.csys.template.domain.Patient;
+import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.PatientDTO;
 import com.csys.template.factory.PatientFactory;
 import com.csys.template.repository.PatientRepository;
 import com.google.common.base.Preconditions;
+import org.hibernate.envers.Audited;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,8 @@ import java.util.List;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    @Audited
+    CounterService counterService ;
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
@@ -30,8 +35,12 @@ public class PatientService {
         return PatientFactory.patientToPatientDTO(patient);
     }
 
-    public Patient addPatient(PatientDTO articleDTO) {
-        Patient patient = PatientFactory.patientDTOToPatient(articleDTO);
+    public Patient addPatient(PatientDTO patientDTO) {
+        CounterDTO counter = counterService.findCounterByType("patient");
+        patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
+        counter.setSuffix(counter.getSuffix()+1);
+        counterService.updateCounter(counter);
+        Patient patient = PatientFactory.patientDTOToPatient(patientDTO);
         patient = patientRepository.save(patient);
         return patient;
     }
@@ -49,8 +58,8 @@ public class PatientService {
         patientDTO.setGrandFatherNameEng(patientInDB.getGrandFatherNameEng());
         patientDTO.setGrandFatherNameAr(patientInDB.getGrandFatherNameAr());
         patientDTO.setGender(patientInDB.getGender());
-        patientDTO.setBirthDate(patientInDB.getBirthDate().getTime());
-        patientDTO.setCreation_date(patientInDB.getCreation_date().getTime());
+        patientDTO.setBirthDate(LocalDate.now());
+        patientDTO.setCreation_date(patientInDB.getCreation_date());
         return patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
     }
 
