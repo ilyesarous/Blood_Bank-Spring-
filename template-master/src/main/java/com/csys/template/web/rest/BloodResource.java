@@ -34,23 +34,23 @@ public class BloodResource {
     }
 
     @GetMapping("/{type}")
-    public BloodDTO findOne(@PathVariable String type){
-        BloodDTO bloodDTO = bloodService.findBloodByType(type);
-        RestPreconditions.checkFound(bloodDTO,ENTITY_NAME + " Not found!");
-        return bloodDTO;
+    public Integer findBloodCodeByType(@PathVariable String type){
+        Integer bloodCode = bloodService.findBloodCodeByType(type);
+        RestPreconditions.checkFound(bloodCode,ENTITY_NAME + " Not found!");
+        return bloodCode;
     }
 
-    @GetMapping("/getType/{code}")
+    @GetMapping("/type/{code}")
     public String getTypeByCodeBlood(@Valid @PathVariable Integer code){
         return bloodService.findTypeByBloodCode(code);
     }
 
-    @GetMapping("/getType")
+    @GetMapping("/type")
     public List<String> getAllTypes(){
         return bloodService.findAllTypes();
     }
 
-    @GetMapping("/getGroups")
+    @GetMapping("/groups")
     public List<String> getAllGroups(){
         return bloodService.findAllGroups();
     }
@@ -62,9 +62,23 @@ public class BloodResource {
             bindingResult.addError(new FieldError(ENTITY_NAME, "codeBlood", "You can not add blood with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
+        List<BloodDTO> list = getAll();
+        for(BloodDTO blood : list){
+            if(blood.getBloodType().equals(bloodDTO.getBloodType())) {
+               return  null;
+            }
+        }
         BloodDTO c = bloodService.addBlood(bloodDTO);
         return ResponseEntity.created(new URI("/blood"+ c.getCodeBlood())).body(c);
     }
+
+    @PutMapping("/{code}")
+    public ResponseEntity<BloodDTO> updateBlood(@RequestBody @Valid BloodDTO bloodDTO, BindingResult bindingResult)
+            throws MethodArgumentNotValidException, URISyntaxException {
+        BloodDTO c = bloodService.updateBlood(bloodDTO);
+        return ResponseEntity.created(new URI("/blood"+ c.getCodeBlood())).body(c);
+    }
+
 
 
 

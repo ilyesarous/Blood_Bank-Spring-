@@ -27,9 +27,9 @@ public class BloodService {
     }
 
     @Transactional(readOnly = true)
-    public BloodDTO findBloodByType(String type) {
+    public Integer findBloodCodeByType(String type) {
         Blood blood = bloodRepository.findBybloodType(type);
-        return BloodFactory.bloodToBloodDTO(blood);
+        return blood.getCodeBlood();
     }
 
     @Transactional(readOnly = true)
