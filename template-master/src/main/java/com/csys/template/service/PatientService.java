@@ -6,28 +6,44 @@ import com.csys.template.dto.PatientDTO;
 import com.csys.template.factory.PatientFactory;
 import com.csys.template.repository.PatientRepository;
 import com.google.common.base.Preconditions;
-import org.hibernate.envers.Audited;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class PatientService {
 
     private final PatientRepository patientRepository;
-    @Audited
-    CounterService counterService ;
-    public PatientService(PatientRepository patientRepository) {
+
+    private final CounterService counterService ;
+    private final BloodService bloodService;
+    public PatientService(PatientRepository patientRepository, CounterService counterService, BloodService bloodService) {
         this.patientRepository = patientRepository;
+        this.counterService = counterService;
+        this.bloodService = bloodService;
     }
 
     @Transactional(readOnly = true)
     public List<PatientDTO> findAll(){
-        return PatientFactory.patientsToPatientsDTO(patientRepository.findAll());
+        List<PatientDTO> patientDTOS= PatientFactory.patientsToPatientsDTO(patientRepository.findAll());
+      //  List<Integer> bloodcode = patientDTOS.stream().filter( x-> x.getBloodCode()!= null)
+        // .map(x-> x.getBloodCode())
+        //.distinct().collect(Collectors.toList());
+
+        //for (Integer blood: bloodcode) {
+          //  String ch=bloodService.findTypeByBloodCode(blood);
+
+
+        //}
+
+
+        //find all by blood code in
+        return patientDTOS;
     }
     @Transactional(readOnly = true)
     public PatientDTO findPatientByCode(String code){
@@ -35,14 +51,14 @@ public class PatientService {
         return PatientFactory.patientToPatientDTO(patient);
     }
 
-    public Patient addPatient(PatientDTO patientDTO) {
+    public PatientDTO addPatient(PatientDTO patientDTO) {
         CounterDTO counter = counterService.findCounterByType("patient");
         patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
         Patient patient = PatientFactory.patientDTOToPatient(patientDTO);
         patient = patientRepository.save(patient);
-        return patient;
+        return patientDTO;
     }
 
     public Patient updatePatient(PatientDTO patientDTO){
@@ -58,7 +74,7 @@ public class PatientService {
         patientDTO.setGrandFatherNameEng(patientInDB.getGrandFatherNameEng());
         patientDTO.setGrandFatherNameAr(patientInDB.getGrandFatherNameAr());
         patientDTO.setGender(patientInDB.getGender());
-        patientDTO.setBirthDate(LocalDate.now());
+        patientDTO.setBirthDate(patientInDB.getBirthDate());
         patientDTO.setCreation_date(patientInDB.getCreation_date());
         return patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
     }

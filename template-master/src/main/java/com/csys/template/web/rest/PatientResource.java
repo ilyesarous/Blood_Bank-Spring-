@@ -53,14 +53,14 @@ public class PatientResource {
     }
 
     @PostMapping
-    public ResponseEntity<Patient> addPatient(@RequestBody PatientDTO patientDTO, BindingResult bindingResult)
+    public ResponseEntity<PatientDTO> addPatient(@RequestBody PatientDTO patientDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getId()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "id", " You can not add patient with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
 
-        Patient p = patientService.addPatient(patientDTO);
+        PatientDTO p = patientService.addPatient(patientDTO);
         return ResponseEntity.created(new URI("/patient"+ p.getCode())).body(p);
     }
 

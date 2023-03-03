@@ -63,5 +63,12 @@ public class BloodService {
         return BloodFactory.bloodToBloodDTO(blood);
     }
 
+    public BloodDTO updateBlood(BloodDTO bloodDTO){
+        Blood bloodInDB = bloodRepository.findByCodeBlood(bloodDTO.getCodeBlood());
+        bloodDTO.setCodeBlood(bloodInDB.getCodeBlood());
+        bloodDTO.setCreationDate(bloodInDB.getCreationDate());
+        return BloodFactory.bloodToBloodDTO((bloodRepository.save(BloodFactory.bloodDTOToBlood(bloodDTO))));
+    }
+
 
 }

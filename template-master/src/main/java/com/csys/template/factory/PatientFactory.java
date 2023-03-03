@@ -3,6 +3,7 @@ package com.csys.template.factory;
 import com.csys.template.domain.Blood;
 import com.csys.template.domain.Patient;
 import com.csys.template.dto.PatientDTO;
+import com.csys.template.service.BloodService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,6 +42,9 @@ public class PatientFactory {
     public static Patient patientDTOToPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
         LocalDate d = LocalDate.now();
+        //String ch=patientDTO.getBloodCode();
+        //BloodService bloodService;
+        //bloodService.findBloodByType(ch);
 
         patient.setCode(patientDTO.getCode());
         patient.setFirstNameAr(patientDTO.getFirstNameAr());
