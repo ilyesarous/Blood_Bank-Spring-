@@ -2,12 +2,23 @@ package com.csys.template.factory;
 
 import com.csys.template.domain.Blood;
 import com.csys.template.dto.BloodDTO;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BloodFactory {
+
+    public static String getUserAuthenticated() {
+        String user;
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            user = SecurityContextHolder.getContext().getAuthentication().getName();
+        } else {
+            user = "anonymousUser";
+        }
+        return user;
+    }
 
     public static Blood bloodDTOToBlood(BloodDTO bloodDTO) {
         Blood blood = new Blood();
@@ -18,8 +29,8 @@ public class BloodFactory {
         blood.setGivenTo(bloodDTO.getGivenTo());
         blood.setReceivedFrom(bloodDTO.getReceivedFrom());
         blood.setCreationDate(d);
-        blood.setUserCreate(bloodDTO.getUserCreate());
-        blood.setActive(bloodDTO.getActive());
+        blood.setUserCreate(getUserAuthenticated());
+        blood.setActive(1);
         return blood;
     }
 
@@ -31,8 +42,6 @@ public class BloodFactory {
         bloodDTO.setBloodType(blood.getBloodType());
         bloodDTO.setGivenTo(blood.getGivenTo());
         bloodDTO.setReceivedFrom(blood.getReceivedFrom());
-
-        //bloodDTO.setCreationDate(blood.getCreationDate());
         bloodDTO.setUserCreate(blood.getUserCreate());
         bloodDTO.setActive(blood.getActive());
 
@@ -61,4 +70,17 @@ public class BloodFactory {
         return bloodDTOList;
     }
 
+    public static Blood statusChangeHandler(Blood blood){
+        blood.setCodeBlood(blood.getCodeBlood());
+        blood.setBloodGrp(blood.getBloodGrp());
+        blood.setBloodType(blood.getBloodType());
+        blood.setGivenTo(blood.getGivenTo());
+        blood.setReceivedFrom(blood.getReceivedFrom());
+        blood.setCreationDate(blood.getCreationDate());
+        blood.setUserCreate(blood.getUserCreate());
+        if (blood.getActive() == 1)
+            blood.setActive(0);
+        else blood.setActive(1);
+        return blood;
+    }
 }

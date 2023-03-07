@@ -27,11 +27,11 @@ public class Blood {
     private String givenTo;
     @Column(name = "receive_from", nullable = true)
     private String receivedFrom;
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
-    @Column(name = "user_create")
+    @Column(name = "user_create", nullable = false)
     private String userCreate;
-    @Column(name = "active")
+    @Column(name = "active", nullable = false)
     private Integer active;
 
     public Integer getCodeBlood() {

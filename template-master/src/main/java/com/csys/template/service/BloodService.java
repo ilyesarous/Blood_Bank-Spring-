@@ -7,9 +7,8 @@ import com.csys.template.repository.BloodRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -20,54 +19,130 @@ public class BloodService {
     public BloodService(BloodRepository bloodRepository) {
         this.bloodRepository = bloodRepository;
     }
-
     @Transactional(readOnly = true)
     public List<BloodDTO> findAll() {
-        return BloodFactory.bloodsToBloodsDTO(bloodRepository.findAll());
+        List<Blood> bloods = bloodRepository.findAll();
+        for (Blood b : bloods) {
+            if(!Objects.equals(b.getGivenTo(), "-")){
+                String[] given = b.getGivenTo().split(",");
+                StringBuilder s = new StringBuilder(" ");
+                for (String ch : given) {
+                    if (!Objects.equals(ch, "")) {
+                        s.append(findTypeByBloodCode(Integer.parseInt(ch))).append(",");
+                    }
+                }
+                b.setGivenTo(s.substring(0, s.length() - 1).trim());
+            }
+            if(!Objects.equals(b.getReceivedFrom(), "-")){
+                String[] received = b.getReceivedFrom().split(",");
+                StringBuilder s1 = new StringBuilder(" ");
+                for (String ch : received) {
+                    if (!Objects.equals(ch, "")) {
+                        s1.append(findTypeByBloodCode(Integer.parseInt(ch))).append(",");
+                    }
+                }
+                b.setReceivedFrom(s1.substring(0, s1.length() - 1).trim());
+            }
+        }
+        return BloodFactory.bloodsToBloodsDTO(bloods);
     }
 
     @Transactional(readOnly = true)
     public Integer findBloodCodeByType(String type) {
-        Blood blood = bloodRepository.findBybloodType(type);
-        return blood.getCodeBlood();
+        if (bloodRepository.findBybloodType(type) != null) {
+            return bloodRepository.findBybloodType(type).getCodeBlood();
+        }
+        return null;
     }
 
     @Transactional(readOnly = true)
     public String findTypeByBloodCode(Integer codeBlood) {
-        Blood blood = bloodRepository.findByCodeBlood(codeBlood);
-        return blood.getBloodType();
+        if (bloodRepository.findByCodeBlood(codeBlood) != null) {
+            return bloodRepository.findByCodeBlood(codeBlood).getBloodType();
+        }
+        return null;
     }
 
     @Transactional(readOnly = true)
     public List<String> findAllTypes() {
-        List<String> types = (findAll().stream()
+        return (findAll().stream()
                 .map(BloodDTO::getBloodType)
                 .filter(bloodType -> bloodType != null)
                 .distinct()
                 .toList());
-        return types;
     }
+
     @Transactional(readOnly = true)
     public List<String> findAllGroups() {
-        List<String> groups = (findAll().stream()
+        return (findAll().stream()
                 .map(BloodDTO::getBloodGrp)
                 .filter(bloodGrp -> bloodGrp != null)
                 .distinct()
                 .toList());
-        return groups;
     }
 
     public BloodDTO addBlood(BloodDTO bloodDTO) {
+        if (!Objects.equals(bloodDTO.getGivenTo(), "-")) {
+            String[] given = bloodDTO.getGivenTo().split(",");
+            StringBuilder s = new StringBuilder(" ");
+            for (String ch : given) {
+                if (findBloodCodeByType(ch) != null) {
+                    s.append(findBloodCodeByType(ch)).append(",");
+                }
+            }
+            bloodDTO.setGivenTo(s.substring(0, s.length() - 1).trim());
+        }
+
+        if (!Objects.equals(bloodDTO.getReceivedFrom(), "-")) {
+            String[] received = bloodDTO.getReceivedFrom().split(",");
+            StringBuilder s1 = new StringBuilder(" ");
+            for (String ch : received) {
+                if (findBloodCodeByType(ch) != null) {
+                    s1.append(findBloodCodeByType(ch)).append(",");
+                }
+            }
+            bloodDTO.setReceivedFrom(s1.substring(0, s1.length() - 1).trim());
+        }
         Blood blood = BloodFactory.bloodDTOToBlood(bloodDTO);
         blood = bloodRepository.save(blood);
         return BloodFactory.bloodToBloodDTO(blood);
     }
 
-    public BloodDTO updateBlood(BloodDTO bloodDTO){
+    public BloodDTO updateBlood(BloodDTO bloodDTO) {
         Blood bloodInDB = bloodRepository.findByCodeBlood(bloodDTO.getCodeBlood());
         bloodDTO.setCodeBlood(bloodInDB.getCodeBlood());
         bloodDTO.setCreationDate(bloodInDB.getCreationDate());
+        bloodDTO.setUserCreate(bloodInDB.getUserCreate());
+
+        if (!Objects.equals(bloodDTO.getGivenTo(), "-")) {
+            String[] given = bloodDTO.getGivenTo().split(",");
+            StringBuilder s = new StringBuilder(" ");
+            for (String ch : given) {
+                if (findBloodCodeByType(ch) != null) {
+                    s.append(findBloodCodeByType(ch)).append(",");
+                }
+            }
+            bloodDTO.setGivenTo(s.substring(0, s.length() - 1).trim());
+        }
+
+        if (!Objects.equals(bloodDTO.getReceivedFrom(), "-")) {
+            String[] received = bloodDTO.getReceivedFrom().split(",");
+            StringBuilder s1 = new StringBuilder(" ");
+            for (String ch : received) {
+                if (findBloodCodeByType(ch) != null) {
+                    s1.append(findBloodCodeByType(ch)).append(",");
+                }
+            }
+            bloodDTO.setReceivedFrom(s1.substring(0, s1.length() - 1).trim());
+        }
+
         return BloodFactory.bloodToBloodDTO((bloodRepository.save(BloodFactory.bloodDTOToBlood(bloodDTO))));
+    }
+
+    public BloodDTO updateStatusBlood(Integer code) {
+        Blood bloodInDB = bloodRepository.findByCodeBlood(code);
+        BloodFactory.statusChangeHandler(bloodInDB);
+        return BloodFactory.bloodToBloodDTO((bloodRepository.save(bloodInDB)));
     }
 
 

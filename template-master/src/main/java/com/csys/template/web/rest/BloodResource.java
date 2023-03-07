@@ -15,6 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import static com.csys.template.TemplateApplication.log;
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
@@ -32,6 +33,7 @@ public class BloodResource {
     public List<BloodDTO> getAll(){
         return bloodService.findAll();
     }
+
 
     @GetMapping("/{type}")
     public Integer findBloodCodeByType(@PathVariable String type){
@@ -73,9 +75,16 @@ public class BloodResource {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<BloodDTO> updateBlood(@RequestBody @Valid BloodDTO bloodDTO, BindingResult bindingResult)
+    public ResponseEntity<BloodDTO> updateBlood(@RequestBody @Valid BloodDTO bloodDTO,@Valid @PathVariable Integer code, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         BloodDTO c = bloodService.updateBlood(bloodDTO);
+        return ResponseEntity.created(new URI("/blood"+ c.getCodeBlood())).body(c);
+    }
+
+    @PutMapping("/status/{code}")
+    public ResponseEntity<BloodDTO> updateBloodStatus( @Valid @PathVariable Integer code)
+            throws MethodArgumentNotValidException, URISyntaxException {
+        BloodDTO c = bloodService.updateStatusBlood(code);
         return ResponseEntity.created(new URI("/blood"+ c.getCodeBlood())).body(c);
     }
 
