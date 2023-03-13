@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
@@ -32,24 +33,18 @@ public class BloodResource {
 
     @GetMapping
     public List<BloodDTO> getAll(@RequestParam(value = "group", required = false) String group,
-                                  @RequestParam(value = "type", required = false) String type,
                                   @RequestParam(value = "given", required = false) String given,
                                   @RequestParam(value = "receive", required = false) String receive){
-        Specification<Blood> specification = BloodSearch.getSearch(group, type, given, receive);
-
+        String codeFromGiven = "";
+        String codeFromReceive= "";
+        if(!Objects.equals(given, ""))
+            codeFromGiven = codeFromGiven + bloodService.findBloodCodeByType(given);
+        if(!Objects.equals(receive, ""))
+            codeFromReceive = codeFromReceive + bloodService.findBloodCodeByType(receive);
+        Specification<Blood> specification = BloodSearch.getSearch(group, codeFromGiven, codeFromReceive);
         return bloodService.findAll(specification);
-
     }
 
-
-   /* public List<BloodDTO> getAll() {
-        return bloodService.findAll();
-    }*/
-
-    /*@GetMapping("/{code}")
-    public Blood getBloodByCodeBlood(@Valid @PathVariable Integer code) {
-        return bloodService.findBloodByCode(code);
-    }*/
     @GetMapping("/specifc-type/{code}")
     public String getTypeByCodeBlood(@Valid @PathVariable Integer code) {
         return bloodService.findTypeByBloodCode(code);
