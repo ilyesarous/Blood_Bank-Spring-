@@ -3,10 +3,11 @@ package com.csys.template.repository;
 import com.csys.template.domain.Blood;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface BloodRepository extends JpaRepository<Blood, String> {
+public interface BloodRepository extends JpaRepository<Blood, String>{
     Blood findBybloodType(String Type);
     Blood findByCodeBlood(Integer codeBlood);
+
+
+
 
 }
