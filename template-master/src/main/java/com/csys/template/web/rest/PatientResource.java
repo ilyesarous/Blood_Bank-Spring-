@@ -78,8 +78,8 @@ public class PatientResource {
         return ResponseEntity.created(new URI("/patient"+ p.getCode())).body(p);
     }
 
-    @PutMapping
-    public ResponseEntity<Patient> updatePatient(@RequestBody @Valid PatientDTO patientDTO, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
+    @PutMapping("/{code}")
+    public ResponseEntity<Patient> updatePatient(@RequestBody @Valid PatientDTO patientDTO, @PathVariable String code, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getId()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "id", "Put does not allow patient with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);
