@@ -3,10 +3,12 @@ package com.csys.template.web.rest;
 import com.csys.template.domain.Patient;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.PatientDTO;
+import com.csys.template.search.PatientSearch;
 import com.csys.template.service.CounterService;
 import com.csys.template.service.PatientService;
 import com.csys.template.util.RestPreconditions;
 import jakarta.validation.Valid;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -33,38 +35,47 @@ public class PatientResource {
         this.counterService = counterService;
     }
 
-    @GetMapping
-    public List<PatientDTO> getAll(){
-        return patientService.findAll();
-    }
+//    @GetMapping
+//    public List<PatientDTO> getAll(){
+//        return patientService.findAll();
+//    }
 
-    @GetMapping("/num/{Numtel}")
-    public List<PatientDTO> findByNumTel(@PathVariable String Numtel){
-        List<PatientDTO> patientDTO = patientService.findPatientByNumTel(Numtel);
-        RestPreconditions.checkFound(patientDTO,ENTITY_NAME + " Not found!");
-        return patientDTO;
-    }
-    @GetMapping("/nom/{LastNamear}")
-    public List<PatientDTO> findByLastNameAr(@PathVariable String LastNamear){
-        List<PatientDTO> patientDTO = patientService.findPatientByLastNamear(LastNamear);
-        RestPreconditions.checkFound(patientDTO,ENTITY_NAME + " Not found!");
-        return patientDTO;
-    }
+//    @GetMapping("/num/{Numtel}")
+//    public List<PatientDTO> findByNumTel(@PathVariable String Numtel){
+//        List<PatientDTO> patientDTO = patientService.findPatientByNumTel(Numtel);
+//
+//        return patientDTO;
+//    }
+//    @GetMapping("/nom/{LastNamear}")
+//    public List<PatientDTO> findByLastNameAr(@PathVariable String LastNamear){
+//        List<PatientDTO> patientDTO = patientService.findPatientByLastNamear(LastNamear);
+//
+//        return patientDTO;
+//    }
+//
+//
+//    @GetMapping("/{code}")
+//    public PatientDTO findOne(@PathVariable String code){
+//        PatientDTO patientDTO = patientService.findPatientByCode(code);
+//
+//        return patientDTO;
+//    }
+@GetMapping
+public List<PatientDTO> getAll(@RequestParam(value = "lastNameAr", required = false) String name,
+                             @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+                             @RequestParam(value = "codepatient", required = false) String codepatient ){
+    Specification<Patient> patient = PatientSearch.getSearch(name,phoneNumber,codepatient);
 
+    return patientService.findAll(patient);
 
-    @GetMapping("/{code}")
-    public PatientDTO findOne(@PathVariable String code){
-        PatientDTO patientDTO = patientService.findPatientByCode(code);
-        RestPreconditions.checkFound(patientDTO,ENTITY_NAME + " Not found!");
-        return patientDTO;
-    }
+}
 
-    @GetMapping("/blood-code/{code}")
-    public List<PatientDTO> getAllPatientsWithBloodCode(@PathVariable Integer code){
-        List<PatientDTO> patientDTOS = patientService.findPatientsWithBloodCode(code);
-        RestPreconditions.checkFound(patientDTOS,ENTITY_NAME + "Code not found!");
-        return patientDTOS;
-    }
+//    @GetMapping("/blood-code/{code}")
+//    public List<PatientDTO> getAllPatientsWithBloodCode(@PathVariable Integer code){
+//        List<PatientDTO> patientDTOS = patientService.findPatientsWithBloodCode(code);
+//        RestPreconditions.checkFound(patientDTOS,ENTITY_NAME + "Code not found!");
+//        return patientDTOS;
+//    }
 
     @PostMapping
     public ResponseEntity<PatientDTO> addPatient(@RequestBody PatientDTO patientDTO, BindingResult bindingResult)

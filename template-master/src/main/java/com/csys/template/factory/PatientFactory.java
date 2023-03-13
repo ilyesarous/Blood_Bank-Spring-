@@ -88,11 +88,10 @@ public class PatientFactory {
         patient.setGender(result);
         patient.setPhoneNumber(patientDTO.getPhoneNumber());
         patient.setCreation_date(d);
-        //patient.setState(patientDTO.getState());
-
         Blood codeBlood = new Blood();
         codeBlood.setCodeBlood(Integer.parseInt(patientDTO.getBloodCode()));
         patient.setBloodCode(codeBlood);
+        patient.setCodeBlood(codeBlood.getCodeBlood());
         return patient;
     }
 

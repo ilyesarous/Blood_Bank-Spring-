@@ -54,6 +54,7 @@ public class Patient implements Serializable {
     @JoinColumn(name = "code_blood")
     private Blood bloodCode;
     //insertable=false, updatable =false
+    @Column(name = "blood")
     private Integer codeBlood;
 
     public String getCode() {

@@ -7,7 +7,8 @@ import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.PatientDTO;
 import com.csys.template.factory.PatientFactory;
 import com.csys.template.repository.PatientRepository;
-import com.google.common.base.Preconditions;
+import com.csys.template.util.Preconditions;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,15 +33,16 @@ public class PatientService {
     }
 
     @Transactional(readOnly = true)
-    public List<PatientDTO> findAll() {
-        List<Patient> patient = patientRepository.findAll();
-        List<Integer> bloodCodes = patient.stream()
+    public List<PatientDTO> findAll(Specification<Patient> patient) {
+        List<Patient> patients = patientRepository.findAll(patient);
+        List<Integer> bloodCodes = patients.stream()
                 .map(Patient::getCodeBlood)
                 .distinct()
                 .collect(Collectors.toList());
+        System.out.println(bloodCodes);
         List<BloodDTO> bloodDTOs = bloodService.getListBloodByCode(bloodCodes);
         List<PatientDTO> patientDTOS = new ArrayList<>();
-        patient.forEach(p -> {
+        patients.forEach(p -> {
             PatientDTO patientDTO1 = PatientFactory.patientToPatientDTO(p);
             Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
                     .filter(b -> b.getCodeBlood().compareTo(p.getCodeBlood()) == 0)
@@ -52,50 +54,34 @@ public class PatientService {
         });
 
         return patientDTOS;
-
-       /* List<Patient> patient= patientRepository.findAll();
-        List<Patient> patients = patient.stream().filter( x-> x.getBloodCode()!= null)
-                .distinct().collect(Collectors.toList());
-
-        PatientDTO patientDTO1;
-        List<PatientDTO> patientDTOS = new ArrayList<>();
-        for (Patient p : patient) {
-            //for (PatientDTO pa : patientDTOS) {
-            patientDTO1 = PatientFactory.patientToPatientDTO(p);
-            Integer x = p.getBloodCode().getCodeBlood();
-            String ch = bloodService.findTypeByBloodCode(x);
-            patientDTO1.setBloodCode(ch);
-            patientDTOS.add(patientDTO1);
-            //}
-        }
-
-        return patientDTOS;*/
     }
-    @Transactional(readOnly = true)
-    public PatientDTO findPatientByCode(String code){
-        Patient patient = patientRepository.findByCode(code);
-        return PatientFactory.patientToPatientDTO(patient);
-    }
-    @Transactional(readOnly = true)
-
-    public List<PatientDTO>findPatientByNumTel(String Numtel){
-        List<PatientDTO> patientDTOS = new ArrayList<>();
-        for (PatientDTO patientDTO : findAll()){
-            if (patientDTO.getPhoneNumber().equals(Numtel))
-                patientDTOS.add(patientDTO);
-        }
-        return patientDTOS;
-    }
-
-    @Transactional(readOnly = true)
-    public List<PatientDTO>findPatientByLastNamear(String LastNamear){
-        List<PatientDTO> patientDTOS = new ArrayList<>();
-        for (PatientDTO patientDTO : findAll()){
-            if (patientDTO.getLastNameAr().equals(LastNamear))
-                patientDTOS.add(patientDTO);
-        }
-        return patientDTOS;
-    }
+//    @Transactional(readOnly = true)
+//    public PatientDTO findPatientByCode(String code){
+//        Preconditions.checkBusinessLogique(code != null, "eroor");
+//        Patient patient = patientRepository.findByCode(code);
+//        return PatientFactory.patientToPatientDTO(patient);
+//    }
+//    @Transactional(readOnly = true)
+//
+//    public List<PatientDTO>findPatientByNumTel(String Numtel){
+//        Preconditions.checkBusinessLogique(Numtel != null, "eroor");
+//        List<PatientDTO> patientDTOS = new ArrayList<>();
+//        for (PatientDTO patientDTO : findAll()){
+//            if (patientDTO.getPhoneNumber().equals(Numtel))
+//                patientDTOS.add(patientDTO);
+//        }
+//        return patientDTOS;
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public List<PatientDTO>findPatientByLastNamear(String LastNamear){
+//        List<PatientDTO> patientDTOS = new ArrayList<>();
+//        for (PatientDTO patientDTO : findAll()){
+//            if (patientDTO.getLastNameAr().equals(LastNamear))
+//                patientDTOS.add(patientDTO);
+//        }
+//        return patientDTOS;
+//    }
     public PatientDTO addPatient(PatientDTO patientDTO) {
         CounterDTO counter = counterService.findCounterByType("patient");
         patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
@@ -130,14 +116,14 @@ public class PatientService {
         return patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
     }
 
-    public List<PatientDTO>findPatientsWithBloodCode(Integer bloodCode){
-        List<PatientDTO> patientDTOS = new ArrayList<>();
-        for (PatientDTO patientDTO : findAll()){
-            if (patientDTO.getBloodCode().equals(bloodCode))
-                patientDTOS.add(patientDTO);
-        }
-        return patientDTOS;
-    }
+//    public List<PatientDTO>findPatientsWithBloodCode(Integer bloodCode){
+//        List<PatientDTO> patientDTOS = new ArrayList<>();
+//        for (PatientDTO patientDTO : findAll()){
+//            if (patientDTO.getBloodCode().equals(bloodCode))
+//                patientDTOS.add(patientDTO);
+//        }
+//        return patientDTOS;
+//    }
 
 
 }

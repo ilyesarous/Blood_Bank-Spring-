@@ -199,6 +199,7 @@ public class BloodService {
 
     @Transactional(readOnly = true)
     public List<BloodDTO> getListBloodByCode(List<Integer> codes){
+        Preconditions.checkBusinessLogique(codes != null, "eroor");
         List<BloodDTO> bloodDTOList = new ArrayList<>();
         for (Integer x : codes){
             bloodDTOList.add(BloodFactory.bloodToBloodDTO(bloodRepository.findByCodeBlood(x)));
