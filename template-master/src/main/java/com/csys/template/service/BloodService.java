@@ -4,11 +4,17 @@ import com.csys.template.domain.Blood;
 import com.csys.template.dto.BloodDTO;
 import com.csys.template.factory.BloodFactory;
 import com.csys.template.repository.BloodRepository;
+import com.csys.template.util.Preconditions;
+import com.csys.template.util.WhereClauseBuilder;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.csys.template.TemplateApplication.log;
 
 @Service
 @Transactional
@@ -19,11 +25,12 @@ public class BloodService {
     public BloodService(BloodRepository bloodRepository) {
         this.bloodRepository = bloodRepository;
     }
+
     @Transactional(readOnly = true)
-    public List<BloodDTO> findAll() {
-        List<Blood> bloods = bloodRepository.findAll();
+    public List<BloodDTO> findAll(Specification<Blood> specification) {
+        List<Blood> bloods = bloodRepository.findAll(specification);
         for (Blood b : bloods) {
-            if(!Objects.equals(b.getGivenTo(), "-")){
+            if (!Objects.equals(b.getGivenTo(), "-")) {
                 String[] given = b.getGivenTo().split(",");
                 StringBuilder s = new StringBuilder(" ");
                 for (String ch : given) {
@@ -33,7 +40,7 @@ public class BloodService {
                 }
                 b.setGivenTo(s.substring(0, s.length() - 1).trim());
             }
-            if(!Objects.equals(b.getReceivedFrom(), "-")){
+            if (!Objects.equals(b.getReceivedFrom(), "-")) {
                 String[] received = b.getReceivedFrom().split(",");
                 StringBuilder s1 = new StringBuilder(" ");
                 for (String ch : received) {
@@ -47,41 +54,91 @@ public class BloodService {
         return BloodFactory.bloodsToBloodsDTO(bloods);
     }
 
-    @Transactional(readOnly = true)
-    public Integer findBloodCodeByType(String type) {
-        if (bloodRepository.findBybloodType(type) != null) {
-            return bloodRepository.findBybloodType(type).getCodeBlood();
+    /*public List<BloodDTO> findAll(Long codeDetailsAdmission, String codeAdmission, Boolean onFile,
+
+                                       Integer rank) {
+
+        log.debug("Request to get All Bloods codeDetailsAdmission: {},  codeAdmission: {},  onFile: {},  rank: {}",
+
+                codeDetailsAdmission, codeAdmission, onFile, rank);
+
+        QBlood qBlood = QBlood.risk;
+
+        WhereClauseBuilder clauseBuilder = new WhereClauseBuilder()
+
+                .optionalAnd(codeDetailsAdmission, () -> qBlood.codeDetailsAdmission.eq(codeDetailsAdmission))
+
+                .optionalAnd(codeAdmission, () -> qBlood.codeAdmission.eq(codeAdmission))
+
+                .optionalAnd(onFile, () -> qBlood.onFile.eq(onFile))
+
+                .optionalAnd(rank, () -> qBlood.rank.eq(rank));
+
+        List<Blood> risks = riskRepository.findAll(clauseBuilder);
+
+        List<BloodDTO> result = BloodFactory.riskToBloodDTOs(risks);
+
+        loadBloodListInfos(result);
+
+        return result;
+
+    }*/
+
+    public Blood findByGroupAndRhesus(String group, String rhesus) {
+        List<Blood> blood = bloodRepository.findBybloodGrp(group);
+        Preconditions.checkBusinessLogique(blood != null, "error.couldn't-find-blood");
+        for (Blood b : blood) {
+            if (Objects.equals(b.getRhesus(), rhesus))
+                return b;
         }
         return null;
     }
 
     @Transactional(readOnly = true)
-    public String findTypeByBloodCode(Integer codeBlood) {
-        if (bloodRepository.findByCodeBlood(codeBlood) != null) {
-            return bloodRepository.findByCodeBlood(codeBlood).getBloodType();
+    public Integer findBloodCodeByType(String ch) {
+        String rhesus;
+        rhesus = ch.substring(ch.length()-1);
+        String group = ch.substring(0, ch.length()-1);
+        System.out.println("rhesus: "+rhesus);
+        System.out.println("group: "+group);
+        if (findByGroupAndRhesus(group, rhesus) != null) {
+            return findByGroupAndRhesus(group, rhesus).getCodeBlood();
         }
         return null;
+    }
+
+    /*@Transactional(readOnly = true)
+    public Blood findBloodByCode(Integer code) {
+        return bloodRepository.findByCodeBlood(code);
+    }*/
+
+    @Transactional(readOnly = true)
+    public String findTypeByBloodCode(Integer codeBlood) {
+        Blood blood = bloodRepository.findByCodeBlood(codeBlood);
+        Preconditions.checkBusinessLogique(blood != null, "error.couldn't-find-blood");
+        return blood.getBloodGrp() + blood.getRhesus();
     }
 
     @Transactional(readOnly = true)
     public List<String> findAllTypes() {
-        return (findAll().stream()
-                .map(BloodDTO::getBloodType)
-                .filter(bloodType -> bloodType != null)
+        return (findAll(null).stream()
+                .map(x -> x.getBloodGrp() + x.getRhesus())
                 .distinct()
                 .toList());
     }
 
     @Transactional(readOnly = true)
     public List<String> findAllGroups() {
-        return (findAll().stream()
+        return (findAll(null).stream()
                 .map(BloodDTO::getBloodGrp)
-                .filter(bloodGrp -> bloodGrp != null)
                 .distinct()
                 .toList());
     }
 
+
     public BloodDTO addBlood(BloodDTO bloodDTO) {
+        Blood b = findByGroupAndRhesus(bloodDTO.getBloodGrp(), bloodDTO.getRhesus());
+        Preconditions.checkBusinessLogique(b == null, "error.blood-already-exists");
         if (!Objects.equals(bloodDTO.getGivenTo(), "-")) {
             String[] given = bloodDTO.getGivenTo().split(",");
             StringBuilder s = new StringBuilder(" ");
@@ -97,6 +154,7 @@ public class BloodService {
             String[] received = bloodDTO.getReceivedFrom().split(",");
             StringBuilder s1 = new StringBuilder(" ");
             for (String ch : received) {
+                //Preconditions.checkBusinessLogique(findBloodCodeByType(ch) != null, "error.type-not-found");
                 if (findBloodCodeByType(ch) != null) {
                     s1.append(findBloodCodeByType(ch)).append(",");
                 }
@@ -139,6 +197,14 @@ public class BloodService {
         return BloodFactory.bloodToBloodDTO((bloodRepository.save(BloodFactory.bloodDTOToBlood(bloodDTO))));
     }
 
+    @Transactional(readOnly = true)
+    public List<BloodDTO> getListBloodByCode(List<Integer> codes){
+        List<BloodDTO> bloodDTOList = new ArrayList<>();
+        for (Integer x : codes){
+            bloodDTOList.add(BloodFactory.bloodToBloodDTO(bloodRepository.findByCodeBlood(x)));
+        }
+        return bloodDTOList;
+    }
     public BloodDTO updateStatusBlood(Integer code) {
         Blood bloodInDB = bloodRepository.findByCodeBlood(code);
         BloodFactory.statusChangeHandler(bloodInDB);

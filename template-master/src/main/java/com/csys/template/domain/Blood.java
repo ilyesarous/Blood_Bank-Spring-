@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Table(name = "blood")
 @Audited
 @AuditTable("blood_AUD")
-public class Blood {
+public class Blood implements Serializable {
     @Column(name = "blood_code", nullable = false)
     @JsonManagedReference
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +22,11 @@ public class Blood {
 
     @Column(name = "blood_group", nullable = false)
     private String bloodGrp;
-    @Column(name = "blood_type", nullable = false)
-    private String bloodType;
-    @Column(name = "given_to", nullable = true)
+    @Column(name = "rhesus", nullable = false)
+    private String rhesus;
+    @Column(name = "given_to")
     private String givenTo;
-    @Column(name = "receive_from", nullable = true)
+    @Column(name = "receive_from")
     private String receivedFrom;
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
@@ -50,12 +51,12 @@ public class Blood {
         this.bloodGrp = bloodGrp;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public String getRhesus() {
+        return rhesus;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setRhesus(String rhesus) {
+        this.rhesus = rhesus;
     }
 
     public String getGivenTo() {

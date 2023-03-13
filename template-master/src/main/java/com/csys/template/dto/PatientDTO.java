@@ -1,6 +1,7 @@
 package com.csys.template.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
 public class PatientDTO {
     private Integer id;
     private String code;
+    @NotNull
     private String firstNameAr;
     private String lastNameAr;
     private String fatherNameAr;
@@ -25,8 +27,8 @@ public class PatientDTO {
     private String adress;
     private String email;
     private LocalDate creation_date;
-   // private String State;
-    private Integer bloodCode;
+    // private String State;
+    private String bloodCode;
 
     public String getCode() {
         return code;
@@ -156,11 +158,11 @@ public class PatientDTO {
         this.email = email;
     }
 
-    public Integer getBloodCode() {
+    public String getBloodCode() {
         return bloodCode;
     }
 
-    public void setBloodCode(Integer bloodCode) {
+    public void setBloodCode(String bloodCode) {
         this.bloodCode = bloodCode;
     }
 
@@ -180,11 +182,4 @@ public class PatientDTO {
         this.creation_date = creation_date;
     }
 
-//    public String getState() {
-//        return State;
-//    }
-//
-//    public void setState(String state) {
-//        State = state;
-//    }
 }

@@ -55,11 +55,7 @@ public class WhereClauseBuilder implements Predicate, Cloneable {
 
     @Override
     public <R, C> R accept(Visitor<R, C> v, C context) {
-        if (delegate != null) {
-            return delegate.accept(v, context);
-        } else {
-            return null;
-        }
+        return delegate.accept(v, context);
     }
 
     @Override
@@ -67,4 +63,14 @@ public class WhereClauseBuilder implements Predicate, Cloneable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public WhereClauseBuilder clone() {
+        try {
+            WhereClauseBuilder clone = (WhereClauseBuilder) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

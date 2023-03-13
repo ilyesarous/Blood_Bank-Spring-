@@ -38,6 +38,20 @@ public class PatientResource {
         return patientService.findAll();
     }
 
+    @GetMapping("/num/{Numtel}")
+    public List<PatientDTO> findByNumTel(@PathVariable String Numtel){
+        List<PatientDTO> patientDTO = patientService.findPatientByNumTel(Numtel);
+        RestPreconditions.checkFound(patientDTO,ENTITY_NAME + " Not found!");
+        return patientDTO;
+    }
+    @GetMapping("/nom/{LastNamear}")
+    public List<PatientDTO> findByLastNameAr(@PathVariable String LastNamear){
+        List<PatientDTO> patientDTO = patientService.findPatientByLastNamear(LastNamear);
+        RestPreconditions.checkFound(patientDTO,ENTITY_NAME + " Not found!");
+        return patientDTO;
+    }
+
+
     @GetMapping("/{code}")
     public PatientDTO findOne(@PathVariable String code){
         PatientDTO patientDTO = patientService.findPatientByCode(code);

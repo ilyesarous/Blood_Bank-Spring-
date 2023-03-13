@@ -25,7 +25,7 @@ public class BloodFactory {
         LocalDate d = LocalDate.now();
         blood.setCodeBlood(bloodDTO.getCodeBlood());
         blood.setBloodGrp(bloodDTO.getBloodGrp());
-        blood.setBloodType(bloodDTO.getBloodType());
+        blood.setRhesus(bloodDTO.getRhesus());
         blood.setGivenTo(bloodDTO.getGivenTo());
         blood.setReceivedFrom(bloodDTO.getReceivedFrom());
         blood.setCreationDate(d);
@@ -39,7 +39,7 @@ public class BloodFactory {
 
         bloodDTO.setCodeBlood(blood.getCodeBlood());
         bloodDTO.setBloodGrp(blood.getBloodGrp());
-        bloodDTO.setBloodType(blood.getBloodType());
+        bloodDTO.setRhesus(blood.getRhesus());
         bloodDTO.setGivenTo(blood.getGivenTo());
         bloodDTO.setReceivedFrom(blood.getReceivedFrom());
         bloodDTO.setUserCreate(blood.getUserCreate());
@@ -53,13 +53,13 @@ public class BloodFactory {
 
         bloodDTO.setCodeBlood(blood.getCodeBlood());
         bloodDTO.setBloodGrp(blood.getBloodGrp());
-        bloodDTO.setBloodType(blood.getBloodType());
+        bloodDTO.setRhesus(blood.getRhesus());
         bloodDTO.setGivenTo(blood.getGivenTo());
         bloodDTO.setReceivedFrom(blood.getReceivedFrom());
         bloodDTO.setCreationDate(blood.getCreationDate());
         bloodDTO.setUserCreate(blood.getUserCreate());
         bloodDTO.setActive(blood.getActive());
-
+       // bloodDTO.setChampIlyes(blood.getCodeBlood() + blood.getRhesus());
         return bloodDTO;
     }
     public static List<BloodDTO> bloodsToBloodsDTO(List<Blood> bloodList){
@@ -69,11 +69,18 @@ public class BloodFactory {
         }
         return bloodDTOList;
     }
+    public static List<Blood> bloodsDTOToBloods(List<BloodDTO> bloodDTOList){
+        List<Blood> bloodList = new ArrayList<Blood>();
+        for(BloodDTO blood : bloodDTOList){
+            bloodList.add(bloodDTOToBlood(blood));
+        }
+        return bloodList;
+    }
 
     public static Blood statusChangeHandler(Blood blood){
         blood.setCodeBlood(blood.getCodeBlood());
         blood.setBloodGrp(blood.getBloodGrp());
-        blood.setBloodType(blood.getBloodType());
+        blood.setRhesus(blood.getRhesus());
         blood.setGivenTo(blood.getGivenTo());
         blood.setReceivedFrom(blood.getReceivedFrom());
         blood.setCreationDate(blood.getCreationDate());
