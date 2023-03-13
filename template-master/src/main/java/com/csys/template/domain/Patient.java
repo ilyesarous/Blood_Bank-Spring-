@@ -55,6 +55,8 @@ Patient implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "code_blood")
     private Blood bloodCode;
+//insertable=false, updatable =false
+    private Integer codeBlood;
 
     public String getCode() {
         return code;
@@ -200,7 +202,15 @@ Patient implements Serializable {
         this.creation_date = creation_date;
     }
 
-//    public String getState() {
+    public Integer getCodeBlood() {
+        return codeBlood;
+    }
+
+    public void setCodeBlood(Integer codeBlood) {
+        this.codeBlood = codeBlood;
+    }
+
+    //    public String getState() {
 //        return state;
 //    }
 //

@@ -11,6 +11,13 @@ import java.util.List;
 
 public class PatientFactory {
 
+  private  final BloodService bloodService;
+
+    public PatientFactory(BloodService bloodService) {
+        this.bloodService = bloodService;
+    }
+
+
     public static PatientDTO patientToPatientDTO(Patient patient){
         PatientDTO patientDTO = new PatientDTO();
 
@@ -34,7 +41,7 @@ public class PatientFactory {
         patientDTO.setPhoneNumber(patient.getPhoneNumber());
         patientDTO.setCreation_date(patient.getCreation_date());
         //patientDTO.setState(patient.getState());
-        patientDTO.setBloodCode(patient.getBloodCode().getCodeBlood());
+        patientDTO.setBloodCode(patient.getBloodCode().getCodeBlood().toString());
 
         return patientDTO;
     }
@@ -42,9 +49,9 @@ public class PatientFactory {
     public static Patient patientDTOToPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
         LocalDate d = LocalDate.now();
-        //String ch=patientDTO.getBloodCode();
-        //BloodService bloodService;
-        //bloodService.findBloodByType(ch);
+        String ch=patientDTO.getBloodCode();
+
+
 
         patient.setCode(patientDTO.getCode());
         patient.setFirstNameAr(patientDTO.getFirstNameAr());
@@ -62,13 +69,29 @@ public class PatientFactory {
         patient.setAdress(patientDTO.getAdress());
         patient.setEmail(patientDTO.getEmail());
         patient.setBirthDate(patientDTO.getBirthDate());
-        patient.setGender(patientDTO.getGender());
+        String gender= patientDTO.getGender();
+        String result="";
+        switch (gender) {
+            case "10":
+                result = "Men";
+                break;
+            case "20":
+                result = "Women";
+                break;
+            case "30":
+                result = "lehou lehou";
+                break;
+            default:
+                result = "Men";
+                break;
+        }
+        patient.setGender(result);
         patient.setPhoneNumber(patientDTO.getPhoneNumber());
         patient.setCreation_date(d);
         //patient.setState(patientDTO.getState());
 
         Blood codeBlood = new Blood();
-        codeBlood.setCodeBlood(patientDTO.getBloodCode());
+        codeBlood.setCodeBlood(Integer.parseInt(patientDTO.getBloodCode()));
         patient.setBloodCode(codeBlood);
         return patient;
     }

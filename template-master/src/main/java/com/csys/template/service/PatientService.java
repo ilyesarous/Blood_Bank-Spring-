@@ -1,6 +1,8 @@
 package com.csys.template.service;
 
+import com.csys.template.domain.Blood;
 import com.csys.template.domain.Patient;
+import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.PatientDTO;
 import com.csys.template.factory.PatientFactory;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,19 +33,41 @@ public class PatientService {
 
     @Transactional(readOnly = true)
     public List<PatientDTO> findAll(){
-        List<PatientDTO> patientDTOS= PatientFactory.patientsToPatientsDTO(patientRepository.findAll());
-      //  List<Integer> bloodcode = patientDTOS.stream().filter( x-> x.getBloodCode()!= null)
-        // .map(x-> x.getBloodCode())
-        //.distinct().collect(Collectors.toList());
+//        List<Patient> patient= patientRepository.findAll();
+//        List<Integer> bloodCodes = patient.stream()
+//                .map(x -> x.getCodeBlood())
+//                .distinct()
+//                .collect(Collectors.toList());
+//        List<BloodDTO> bloodDTOs = bloodService.findByCodeIn(bloodCodes);
+//        List<PatientDTO> patientDTOS = new ArrayList<>();
+//        patient.forEach(p ->{
+//            PatientDTO patientDTO1 = PatientFactory.patientToPatientDTO(p);
+//            Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
+//                    .filter(b -> b.getCodeBlood().compareTo(p.getCodeBlood()) == 0)
+//                    .findFirst();
+//            if(bloodDTOOptional.isPresent()){
+//                patientDTO1.setBloodCode(bloodDTOOptional.get().getBloodType());
+//            }
+//            patientDTOS.add(patientDTO1);
+//        });
+//
+//        return patientDTOS;
+        List<Patient> patient= patientRepository.findAll();
+          List<Patient> patients = patient.stream().filter( x-> x.getBloodCode()!= null)
+        .distinct().collect(Collectors.toList());
 
-        //for (Integer blood: bloodcode) {
-          //  String ch=bloodService.findTypeByBloodCode(blood);
+          PatientDTO patientDTO1;
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+        for (Patient p : patient) {
+            //for (PatientDTO pa : patientDTOS) {
+                patientDTO1 = PatientFactory.patientToPatientDTO(p);
+                Integer x = p.getBloodCode().getCodeBlood();
+                String ch = bloodService.findTypeByBloodCode(x);
+                patientDTO1.setBloodCode(ch);
+               patientDTOS.add(patientDTO1);
+            //}
+        }
 
-
-        //}
-
-
-        //find all by blood code in
         return patientDTOS;
     }
     @Transactional(readOnly = true)
@@ -50,12 +75,34 @@ public class PatientService {
         Patient patient = patientRepository.findByCode(code);
         return PatientFactory.patientToPatientDTO(patient);
     }
+    @Transactional(readOnly = true)
 
+    public List<PatientDTO>findPatientByNumTel(String Numtel){
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+        for (PatientDTO patientDTO : findAll()){
+            if (patientDTO.getPhoneNumber().equals(Numtel))
+                patientDTOS.add(patientDTO);
+        }
+        return patientDTOS;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PatientDTO>findPatientByLastNamear(String LastNamear){
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+        for (PatientDTO patientDTO : findAll()){
+            if (patientDTO.getLastNameAr().equals(LastNamear))
+                patientDTOS.add(patientDTO);
+        }
+        return patientDTOS;
+    }
     public PatientDTO addPatient(PatientDTO patientDTO) {
         CounterDTO counter = counterService.findCounterByType("patient");
         patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
+        String ch =patientDTO.getBloodCode();
+        String x=bloodService.findBloodCodeByType(ch).toString();
+        patientDTO.setBloodCode(x);
         Patient patient = PatientFactory.patientDTOToPatient(patientDTO);
         patient = patientRepository.save(patient);
         return patientDTO;
@@ -63,7 +110,7 @@ public class PatientService {
 
     public Patient updatePatient(PatientDTO patientDTO){
         Patient patientInDB = patientRepository.findByCode(patientDTO.getCode());
-        Preconditions.checkArgument (patientInDB != null, "Patient has been updated");
+
         patientDTO.setCode(patientInDB.getCode());
         patientDTO.setFirstNameEng(patientInDB.getFirstNameEng());
         patientDTO.setFirstNameAr(patientInDB.getFirstNameAr());
@@ -75,7 +122,10 @@ public class PatientService {
         patientDTO.setGrandFatherNameAr(patientInDB.getGrandFatherNameAr());
         patientDTO.setGender(patientInDB.getGender());
         patientDTO.setBirthDate(patientInDB.getBirthDate());
-        patientDTO.setCreation_date(patientInDB.getCreation_date());
+
+        String ch =patientDTO.getBloodCode();
+        String x=bloodService.findBloodCodeByType(ch).toString();
+        patientDTO.setBloodCode(x);
         return patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
     }
 
