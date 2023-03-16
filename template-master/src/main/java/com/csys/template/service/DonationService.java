@@ -39,7 +39,7 @@ public class DonationService {
     @Transactional(readOnly = true)
     public DonationDTO findDonationByCode(String code) {
         Donation donation = donationRepository.findByCode(code);
-        Preconditions.checkBusinessLogique(donation != null,"error not find code");
+        Preconditions.checkBusinessLogique(donation != null,"donor does  Not found!");
         DonationDTO donationDTOS = DonationFactory.DonationToDonationDTO(donation);
 
         return donationDTOS;

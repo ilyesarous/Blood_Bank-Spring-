@@ -37,7 +37,6 @@ public class DonationResource {
     @GetMapping("/{code}")
     public DonationDTO findOne(@PathVariable String code){
         DonationDTO donationDTO = donationService.findDonationByCode(code);
-        Preconditions.checkBusinessLogique(donationDTO !=null, ENTITY_NAME + "donor does  Not found!");
         return donationDTO;
     }
 
