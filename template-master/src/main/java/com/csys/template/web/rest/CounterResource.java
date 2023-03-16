@@ -3,6 +3,7 @@ package com.csys.template.web.rest;
 import com.csys.template.domain.Counter;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.service.CounterService;
+import com.csys.template.util.Preconditions;
 import com.csys.template.util.RestPreconditions;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +38,7 @@ public class CounterResource {
     @GetMapping("/{type}")
     public CounterDTO findOne(@PathVariable String type){
         CounterDTO counterDTO = counterService.findCounterByType(type);
-        RestPreconditions.checkFound(counterDTO,ENTITY_NAME + " Not found!");
+        Preconditions.checkBusinessLogique(counterDTO != null, ENTITY_NAME + " Counter does Not found!");
         return counterDTO;
     }
     @PostMapping

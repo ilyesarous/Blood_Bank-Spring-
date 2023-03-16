@@ -54,35 +54,6 @@ public class BloodService {
         return BloodFactory.bloodsToBloodsDTO(bloods);
     }
 
-    /*public List<BloodDTO> findAll(Long codeDetailsAdmission, String codeAdmission, Boolean onFile,
-
-                                       Integer rank) {
-
-        log.debug("Request to get All Bloods codeDetailsAdmission: {},  codeAdmission: {},  onFile: {},  rank: {}",
-
-                codeDetailsAdmission, codeAdmission, onFile, rank);
-
-        QBlood qBlood = QBlood.risk;
-
-        WhereClauseBuilder clauseBuilder = new WhereClauseBuilder()
-
-                .optionalAnd(codeDetailsAdmission, () -> qBlood.codeDetailsAdmission.eq(codeDetailsAdmission))
-
-                .optionalAnd(codeAdmission, () -> qBlood.codeAdmission.eq(codeAdmission))
-
-                .optionalAnd(onFile, () -> qBlood.onFile.eq(onFile))
-
-                .optionalAnd(rank, () -> qBlood.rank.eq(rank));
-
-        List<Blood> risks = riskRepository.findAll(clauseBuilder);
-
-        List<BloodDTO> result = BloodFactory.riskToBloodDTOs(risks);
-
-        loadBloodListInfos(result);
-
-        return result;
-
-    }*/
 
     public Blood findByGroupAndRhesus(String group, String rhesus) {
         List<Blood> blood = bloodRepository.findBybloodGrp(group);

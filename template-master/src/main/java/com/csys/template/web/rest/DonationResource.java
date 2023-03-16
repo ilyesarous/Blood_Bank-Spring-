@@ -4,6 +4,7 @@ import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.service.DonationService;
+import com.csys.template.util.Preconditions;
 import com.csys.template.util.RestPreconditions;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class DonationResource {
     @GetMapping("/{code}")
     public DonationDTO findOne(@PathVariable String code){
         DonationDTO donationDTO = donationService.findDonationByCode(code);
-        RestPreconditions.checkFound(donationDTO,ENTITY_NAME + " Not found!");
+        Preconditions.checkBusinessLogique(donationDTO !=null, ENTITY_NAME + "donor does  Not found!");
         return donationDTO;
     }
 

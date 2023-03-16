@@ -35,6 +35,7 @@ public class PatientService {
     @Transactional(readOnly = true)
     public List<PatientDTO> findAll(Specification<Patient> patient) {
         List<Patient> patients = patientRepository.findAll(patient);
+        Preconditions.checkBusinessLogique(patients!=null,"error patient not exist");
         List<Integer> bloodCodes = patients.stream()
                 .map(Patient::getCodeBlood)
                 .distinct()
@@ -71,7 +72,7 @@ public class PatientService {
 
     public Patient updatePatient(PatientDTO patientDTO){
         Patient patientInDB = patientRepository.findByCode(patientDTO.getCode());
-
+        Preconditions.checkBusinessLogique(patientInDB!=null,"error patient not exist");
         patientDTO.setCode(patientInDB.getCode());
         patientDTO.setFirstNameEng(patientInDB.getFirstNameEng());
         patientDTO.setFirstNameAr(patientInDB.getFirstNameAr());

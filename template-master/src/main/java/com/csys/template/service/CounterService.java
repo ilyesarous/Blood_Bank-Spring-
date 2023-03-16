@@ -28,6 +28,7 @@ public class CounterService {
     @Transactional(readOnly = true)
     public CounterDTO findCounterByType(String type){
         Counter counter = counterRepository.findByType(type);
+        com.csys.template.util.Preconditions.checkBusinessLogique(counter!=null,"error type does not exist");
         return CounterFactory.counterToCounterDTO(counter);
     }
     public CounterDTO addCounter(CounterDTO counterDTO) {

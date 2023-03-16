@@ -7,8 +7,8 @@ import com.csys.template.dto.DonationDTO;
 import com.csys.template.factory.DonationFactory;
 
 import com.csys.template.repository.DonationRepository;
-import com.google.common.base.Preconditions;
 
+import com.csys.template.util.Preconditions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +39,7 @@ public class DonationService {
     @Transactional(readOnly = true)
     public DonationDTO findDonationByCode(String code) {
         Donation donation = donationRepository.findByCode(code);
+        Preconditions.checkBusinessLogique(donation != null,"error not find code");
         DonationDTO donationDTOS = DonationFactory.DonationToDonationDTO(donation);
 
         return donationDTOS;
@@ -59,6 +60,7 @@ public class DonationService {
 
     public DonationDTO updateDonation(DonationDTO donationDTO){
         Donation donation = donationRepository.findByCode(donationDTO.getCode());
+        Preconditions.checkBusinessLogique(donation!=null,"error donateur not exist");
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
