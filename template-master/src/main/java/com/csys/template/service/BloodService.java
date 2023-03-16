@@ -29,6 +29,7 @@ public class BloodService {
     @Transactional(readOnly = true)
     public List<BloodDTO> findAll(Specification<Blood> specification) {
         List<Blood> bloods = bloodRepository.findAll(specification);
+        Preconditions.checkBusinessLogique(bloods!=null,"blood not find");
         for (Blood b : bloods) {
             if (!Objects.equals(b.getGivenTo(), "-")) {
                 String[] given = b.getGivenTo().split(",");
@@ -78,10 +79,6 @@ public class BloodService {
         return null;
     }
 
-    /*@Transactional(readOnly = true)
-    public Blood findBloodByCode(Integer code) {
-        return bloodRepository.findByCodeBlood(code);
-    }*/
 
     @Transactional(readOnly = true)
     public String findTypeByBloodCode(Integer codeBlood) {
