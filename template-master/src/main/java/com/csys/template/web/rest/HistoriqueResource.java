@@ -30,7 +30,6 @@ public class HistoriqueResource {
     @GetMapping("/{code}")
     public List<DonationsHistoryDTO> getAllPatientsWithBloodCode(@PathVariable String code){
         List<DonationsHistoryDTO> patientHistoriqueDTOS = patientHistoriqueService.findHistory(code);
-        RestPreconditions.checkFound(patientHistoriqueDTOS,ENTITY_NAME + "Code not found!");
         return patientHistoriqueDTOS;
     }
 

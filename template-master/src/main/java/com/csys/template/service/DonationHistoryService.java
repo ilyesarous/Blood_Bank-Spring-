@@ -27,6 +27,7 @@ public class DonationHistoryService {
     public List<DonationsHistoryDTO> findHistory(String code){
         List<DonationsHistory> list = new ArrayList<>();
         for (DonationsHistory patientHistorique : patientHistoriqueRepository.findAll()){
+            com.csys.template.util.Preconditions.checkBusinessLogique(patientHistorique!=null,"history of this patient does not exist");
             if (patientHistorique.getCodePatient().equals(code)) {
                 list.add(patientHistorique);
             }
