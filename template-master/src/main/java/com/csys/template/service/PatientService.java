@@ -55,33 +55,7 @@ public class PatientService {
 
         return patientDTOS;
     }
-//    @Transactional(readOnly = true)
-//    public PatientDTO findPatientByCode(String code){
-//        Preconditions.checkBusinessLogique(code != null, "eroor");
-//        Patient patient = patientRepository.findByCode(code);
-//        return PatientFactory.patientToPatientDTO(patient);
-//    }
-//    @Transactional(readOnly = true)
-//
-//    public List<PatientDTO>findPatientByNumTel(String Numtel){
-//        Preconditions.checkBusinessLogique(Numtel != null, "eroor");
-//        List<PatientDTO> patientDTOS = new ArrayList<>();
-//        for (PatientDTO patientDTO : findAll()){
-//            if (patientDTO.getPhoneNumber().equals(Numtel))
-//                patientDTOS.add(patientDTO);
-//        }
-//        return patientDTOS;
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public List<PatientDTO>findPatientByLastNamear(String LastNamear){
-//        List<PatientDTO> patientDTOS = new ArrayList<>();
-//        for (PatientDTO patientDTO : findAll()){
-//            if (patientDTO.getLastNameAr().equals(LastNamear))
-//                patientDTOS.add(patientDTO);
-//        }
-//        return patientDTOS;
-//    }
+
     public PatientDTO addPatient(PatientDTO patientDTO) {
         CounterDTO counter = counterService.findCounterByType("patient");
         patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
@@ -116,14 +90,7 @@ public class PatientService {
         return patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
     }
 
-//    public List<PatientDTO>findPatientsWithBloodCode(Integer bloodCode){
-//        List<PatientDTO> patientDTOS = new ArrayList<>();
-//        for (PatientDTO patientDTO : findAll()){
-//            if (patientDTO.getBloodCode().equals(bloodCode))
-//                patientDTOS.add(patientDTO);
-//        }
-//        return patientDTOS;
-//    }
+
 
 
 }
