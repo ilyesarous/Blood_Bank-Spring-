@@ -27,7 +27,7 @@ public class PatientDTO {
     private String adress;
     private String email;
     private LocalDate creation_date;
-    // private String State;
+
     private String bloodCode;
 
     public String getCode() {

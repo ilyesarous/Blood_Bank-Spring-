@@ -4,6 +4,7 @@ import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.service.DonationService;
+import com.csys.template.util.RestPreconditions;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,12 @@ public class DonationResource {
     public List<DonationDTO> getAll(){
         return donationService.findAll();
     }
+    @GetMapping("/{code}")
+    public DonationDTO findOne(@PathVariable String code){
+        DonationDTO donationDTO = donationService.findDonationByCode(code);
+        RestPreconditions.checkFound(donationDTO,ENTITY_NAME + " Not found!");
+        return donationDTO;
+    }
 
     @PostMapping
     public ResponseEntity<DonationDTO> addDonation(@RequestBody  DonationDTO donationDTO, BindingResult bindingResult)
@@ -44,7 +51,7 @@ public class DonationResource {
         return ResponseEntity.created(new URI("/donation"+ d.getCode())).body(d);
     }
     @PutMapping("/{code}")
-    public ResponseEntity<DonationDTO> updateBlood(@RequestBody @Valid DonationDTO donationDTO, @Valid @PathVariable Integer code)
+    public ResponseEntity<DonationDTO> updateBlood(@RequestBody @Valid DonationDTO donationDTO, @Valid @PathVariable String code)
             throws URISyntaxException {
         DonationDTO c = donationService.updateDonation(donationDTO);
         return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);

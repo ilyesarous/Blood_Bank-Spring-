@@ -18,6 +18,7 @@ public class Donation implements Serializable {
     @Column(name = "code", nullable = false)
     @Id
     private String code;
+
     @Column(name = "date_Create", nullable = false)
     private LocalDate dateCreate;
     @Column(name = "fulln_Name", nullable = false)
