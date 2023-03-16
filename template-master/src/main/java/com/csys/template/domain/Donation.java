@@ -18,23 +18,23 @@ public class Donation implements Serializable {
     @Column(name = "code", nullable = false)
     @Id
     private String code;
-    @Column(name = "Date_Create", nullable = false)
+    @Column(name = "date_Create", nullable = false)
     private LocalDate dateCreate;
-    @Column(name = "Fulln_Name", nullable = false)
+    @Column(name = "fulln_Name", nullable = false)
     private String fullName;
     @Column(name = "age", nullable = false)
     private Integer age;
-    @Column(name = "Phone_Number", nullable = false)
+    @Column(name = "phone_Number", nullable = false)
     private String phoneNumber;
-    @Column(name = "Type_Identity", nullable = false)
+    @Column(name = "type_Identity", nullable = false)
     private String typeIdentity;
-    @Column(name = "Num_Identity", nullable = false)
+    @Column(name = "Num_Identity")
     private String numIdentity;
-    @Column(name = "Sexe", nullable = false)
+    @Column(name = "Sexe")
     private String sexe;
-    @Column(name = "Adress", nullable = false)
+    @Column(name = "adress", nullable = false)
     private String adress;
-    @Column(name = "Etat", nullable = false)
+    @Column(name = "etat", nullable = false)
     private String etat;
 
     public String getCode() {
@@ -89,16 +89,16 @@ public class Donation implements Serializable {
         return numIdentity;
     }
 
-    public void setNumIdentity(String numIdentity) {
-        numIdentity = numIdentity;
+    public void setNumIdentity(String NumIdentity) {
+        numIdentity = NumIdentity;
     }
 
     public String getSexe() {
         return sexe;
     }
 
-    public void setSexe(String sexe) {
-        sexe = sexe;
+    public void setSexe(String Sexe) {
+        sexe = Sexe;
     }
 
     public String getAdress() {

@@ -1,5 +1,6 @@
 package com.csys.template.web.rest;
 
+import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.service.DonationService;
@@ -41,6 +42,12 @@ public class DonationResource {
         }
         DonationDTO d = donationService.addDonation(donationDTO);
         return ResponseEntity.created(new URI("/donation"+ d.getCode())).body(d);
+    }
+    @PutMapping("/{code}")
+    public ResponseEntity<DonationDTO> updateBlood(@RequestBody @Valid DonationDTO donationDTO, @Valid @PathVariable Integer code)
+            throws URISyntaxException {
+        DonationDTO c = donationService.updateDonation(donationDTO);
+        return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
     }
 
 }

@@ -19,10 +19,12 @@ import java.util.List;
 public class DonationService {
 
     private final DonationRepository donationRepository;
+    private final PatientService patientService;
 
 
-    public DonationService(DonationRepository donationRepository) {
+    public DonationService(DonationRepository donationRepository, PatientService patientService) {
         this.donationRepository = donationRepository;
+        this.patientService = patientService;
     }
     @Transactional(readOnly = true)
     public List<DonationDTO> findAll() {
@@ -40,7 +42,7 @@ public class DonationService {
     }
 
 
-    public DonationDTO updateCounter(DonationDTO donationDTO){
+    public DonationDTO updateDonation(DonationDTO donationDTO){
         Donation donation = donationRepository.findByCode(donationDTO.getCode());
         Preconditions.checkArgument (donation != null, "Donation has been deleted");
         Donation donation1 = donationRepository.save(DonationFactory.DonationDTOToDonation(donationDTO));
