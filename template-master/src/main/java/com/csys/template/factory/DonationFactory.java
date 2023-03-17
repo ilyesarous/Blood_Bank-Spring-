@@ -1,13 +1,24 @@
 package com.csys.template.factory;
 
 
+import com.csys.template.domain.Blood;
 import com.csys.template.domain.Donation;
+import com.csys.template.domain.State;
 import com.csys.template.dto.DonationDTO;
+import com.csys.template.enumeration.StateEnum;
+import com.csys.template.service.StateService;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DonationFactory {
+    private final StateService stateService;
+
+    public DonationFactory(StateService stateService) {
+        this.stateService = stateService;
+    }
+
     public static DonationDTO DonationToDonationDTO(Donation donation){
         DonationDTO donationDTO = new DonationDTO();
 
@@ -21,7 +32,25 @@ public class DonationFactory {
         donationDTO.setNumIdentity(donation.getNumIdentity());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
         donationDTO.setDate_creation(donation.getDateCreate());
-        donationDTO.setEtat(donation.getEtat());
+        Integer x = donation.getEtat();
+        String result;
+
+        switch (x) {
+            case 1 :
+                result = "SOLVED" ;
+                break;
+            case 2:
+                result = "REJECTED";
+                break;
+            case 3 :
+                result = "PENDING";
+                break;
+            default:
+                result = "REJECTED";
+                break;
+        }
+        donationDTO.setEtat(result);
+
 
 
         return donationDTO;
@@ -41,7 +70,24 @@ public class DonationFactory {
         donation.setSexe(donationDTO.getSexe());
         donation.setPhoneNumber(donationDTO.getPhoneNumber());
         donation.setDateCreate(d);
-        donation.setEtat(donationDTO.getEtat());
+        String ch = donationDTO.getEtat();
+        Integer result;
+
+        switch (ch) {
+            case  "SOLVED":
+                result = 1 ;
+                break;
+            case "REJECTED":
+                result = 2;
+                break;
+            case "PENDING":
+                result = 3;
+                break;
+            default:
+                result = 2;
+                break;
+        }
+        donation.setEtat(result);
 
 
         return donation;

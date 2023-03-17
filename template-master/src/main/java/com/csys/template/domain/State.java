@@ -1,5 +1,6 @@
 package com.csys.template.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,6 +9,7 @@ import jakarta.persistence.*;
 public class State {
 
     @Column(name = "code", nullable = false)
+    @JsonManagedReference
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer code;

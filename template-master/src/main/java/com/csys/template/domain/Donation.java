@@ -36,7 +36,7 @@ public class Donation implements Serializable {
     @Column(name = "adress", nullable = false)
     private String adress;
     @Column(name = "etat", nullable = false)
-    private String etat;
+    private Integer etat;
 
     public String getCode() {
         return code;
@@ -110,11 +110,11 @@ public class Donation implements Serializable {
         this.adress = adress;
     }
 
-    public String getEtat() {
+    public Integer getEtat() {
         return etat;
     }
 
-    public void setEtat(String etat) {
+    public void setEtat(Integer etat) {
         this.etat = etat;
     }
 
