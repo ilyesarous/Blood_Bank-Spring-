@@ -1,7 +1,7 @@
 /** table historique **/
 
 CREATE TABLE [Blood_Bank].[donation_history](
-	[code] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[code] [varchar](255) IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[code_patient] [varchar](255) NOT NULL,
 	[state] [int] (255) Not Null,
 	[observation] [varchar](255) NULL,
@@ -13,10 +13,10 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 
-ALTER TABLE [Blood_Bank].[patient_historique]  WITH CHECK ADD  CONSTRAINT [FKgomsu2fgi8uqlhxppkj18tldt] FOREIGN KEY([code_patient])
+ALTER TABLE [Blood_Bank].[donation_history]  WITH CHECK ADD  CONSTRAINT [FKgomsu2fgi8uqlhxppkj18tldt] FOREIGN KEY([code_patient])
 REFERENCES [Blood_Bank].[Patient] ([code_patient])
 GO
-ALTER TABLE [Blood_Bank].[patient_historique]  WITH CHECK ADD  CONSTRAINT [FKgomsu2fgi8uqlhxppkj18tldt] FOREIGN KEY([state])
+ALTER TABLE [Blood_Bank].[donation_history]  WITH CHECK ADD  CONSTRAINT [FKgomsu2fgi8uqlhxppkj18tldt] FOREIGN KEY([state])
 REFERENCES [Blood_Bank].[state] ([code])
 GO
 

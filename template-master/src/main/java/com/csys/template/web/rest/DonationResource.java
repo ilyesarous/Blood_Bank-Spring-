@@ -1,12 +1,18 @@
 package com.csys.template.web.rest;
 
+import com.csys.template.domain.Donation;
+import com.csys.template.domain.Patient;
 import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
+import com.csys.template.dto.PatientDTO;
+import com.csys.template.search.DonationSearch;
+import com.csys.template.search.PatientSearch;
 import com.csys.template.service.DonationService;
 import com.csys.template.util.Preconditions;
 import com.csys.template.util.RestPreconditions;
 import jakarta.validation.Valid;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -39,6 +45,15 @@ public class DonationResource {
         DonationDTO donationDTO = donationService.findDonationByCode(code);
         return donationDTO;
     }
+//    @GetMapping
+//    public List<DonationDTO> getAll(@RequestParam(value = "typeIdentity", required = false) String typeIdentity,
+//                                   @RequestParam(value = "numIdentity", required = false) String numIdentity)
+//                                   {
+//        Specification<Donation> donation = DonationSearch.getSearch(typeIdentity,numIdentity);
+//
+//        return donationService.GetAll(donation);
+//
+//    }
 
     @PostMapping
     public ResponseEntity<DonationDTO> addDonation(@RequestBody  DonationDTO donationDTO, BindingResult bindingResult)

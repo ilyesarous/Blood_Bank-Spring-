@@ -1,9 +1,7 @@
 package com.csys.template.web.rest;
 
-import com.csys.template.domain.DonationsHistory;
 import com.csys.template.dto.DonationsHistoryDTO;
-import com.csys.template.service.PatientHistoriqueService;
-import com.csys.template.util.RestPreconditions;
+import com.csys.template.service.DonationHistoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -21,26 +19,33 @@ import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 @RestController
 @RequestMapping("/historique")
 public class HistoriqueResource {
-    private  final PatientHistoriqueService patientHistoriqueService;
 
-    public HistoriqueResource(PatientHistoriqueService patientHistoriqueService) {
-        this.patientHistoriqueService = patientHistoriqueService;
+    private final DonationHistoryService donationHistoryService;
+
+    public HistoriqueResource( DonationHistoryService donationHistoryService) {
+
+        this.donationHistoryService = donationHistoryService;
+    }
+    @GetMapping()
+    public List<DonationsHistoryDTO> getAll(){
+        List<DonationsHistoryDTO> patientHistoriqueDTOS = donationHistoryService.findAll();
+        return patientHistoriqueDTOS;
     }
 
     @GetMapping("/{code}")
     public List<DonationsHistoryDTO> getAllPatientsWithBloodCode(@PathVariable String code){
-        List<DonationsHistoryDTO> patientHistoriqueDTOS = patientHistoriqueService.findHistory(code);
+        List<DonationsHistoryDTO> patientHistoriqueDTOS = donationHistoryService.findHistory(code);
         return patientHistoriqueDTOS;
     }
 
     @PostMapping
     public ResponseEntity<DonationsHistoryDTO> addPatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
-        if(patientDTO.getCode()!= null){
+        if(patientDTO.getId()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", " You can not add patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        DonationsHistoryDTO p = patientHistoriqueService.addHistorique(patientDTO);
+        DonationsHistoryDTO p = donationHistoryService.addHistorique(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 
@@ -50,7 +55,7 @@ public class HistoriqueResource {
             bindingResult.addError(new FieldError(ENTITY_NAME, "code", "Put does not allow patient with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        DonationsHistoryDTO p = patientHistoriqueService.updateHistoriy(patientDTO);
+        DonationsHistoryDTO p = donationHistoryService.updateHistoriy(patientDTO);
         return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
     }
 }

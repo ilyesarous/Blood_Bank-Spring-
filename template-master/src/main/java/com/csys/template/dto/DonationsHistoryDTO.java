@@ -1,18 +1,30 @@
 package com.csys.template.dto;
 
+import java.time.LocalDate;
+
 public class DonationsHistoryDTO {
-    private Integer code;
+    private Integer id;
+    private String code;
     private String codePatient;
     private String state;
     private String observation;
     private String userCreate;
-    private Long dateCreate;
+    private LocalDate dateCreate;
 
-    public Integer getCode() {
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -48,11 +60,11 @@ public class DonationsHistoryDTO {
         this.userCreate = userCreate;
     }
 
-    public Long getDateCreate() {
+    public LocalDate getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Long dateCreate) {
+    public void setDateCreate(LocalDate dateCreate) {
         this.dateCreate = dateCreate;
     }
 }

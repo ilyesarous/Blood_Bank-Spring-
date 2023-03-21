@@ -11,6 +11,7 @@ public class DonationDTO {
 
     private Integer id;
     private String code;
+    private String codePatient;
     private String fullName;
     private Integer age;
     private String sexe;
@@ -38,6 +39,14 @@ public class DonationDTO {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getCodePatient() {
+        return codePatient;
+    }
+
+    public void setCodePatient(String codePatient) {
+        this.codePatient = codePatient;
     }
 
     public Integer getAge() {

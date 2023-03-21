@@ -5,6 +5,7 @@ import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.enumeration.StateEnum;
 import com.google.common.base.Preconditions;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,14 +17,14 @@ public class DonationsHistoryFactory {
         patientHistoriqueDTO.setCodePatient(patientHistorique.getCodePatient());
         patientHistoriqueDTO.setCode(patientHistorique.getCode());
         String i = switch (patientHistorique.getState()) {
-            case 3 -> "pending";
-            case 2 -> "rejected";
-            case 1 -> "solved";
+            case 3 -> "PENDING";
+            case 2 -> "REJECTED";
+            case 1 -> "SOLVED";
             default -> null;
         };
         patientHistoriqueDTO.setState(i);
         patientHistoriqueDTO.setObservation(patientHistorique.getObservation());
-        patientHistoriqueDTO.setDateCreate(patientHistorique.getDateCreate().getTime());
+        patientHistoriqueDTO.setDateCreate(patientHistorique.getDateCreate());
         patientHistoriqueDTO.setUserCreate(patientHistorique.getUserCreate());
 
         return patientHistoriqueDTO;
@@ -31,19 +32,21 @@ public class DonationsHistoryFactory {
 
     public static DonationsHistory patientHisoriqueDTOToPatientHistorique(DonationsHistoryDTO patientHistoriqueDTO){
         DonationsHistory patientHistorique = new DonationsHistory();
-
-        patientHistorique.setCodePatient(patientHistoriqueDTO.getCodePatient());
+        LocalDate d = LocalDate.now();
+        patientHistorique.setId(patientHistoriqueDTO.getId());
         patientHistorique.setCode(patientHistoriqueDTO.getCode());
+        patientHistorique.setCodePatient(patientHistoriqueDTO.getCodePatient());
+
         int i = switch (patientHistoriqueDTO.getState()) {
-            case "pending" -> StateEnum.PENDING.intValue();
-            case "rejected" -> StateEnum.REJECTED.intValue();
-            case "solved" -> StateEnum.SOLVED.intValue();
-            default -> 0;
+            case "PENDING" -> StateEnum.PENDING.intValue();
+            case "REJECTED" -> StateEnum.REJECTED.intValue();
+            case "SOLVED" -> StateEnum.SOLVED.intValue();
+            default -> StateEnum.REJECTED.intValue();
         };
-        Preconditions.checkArgument (i != 0, "verify the state of the patient");
+
         patientHistorique.setState(i);
         patientHistorique.setObservation(patientHistoriqueDTO.getObservation());
-        patientHistorique.setDateCreate(new Date(patientHistoriqueDTO.getDateCreate()));
+        patientHistorique.setDateCreate(d);
         patientHistorique.setUserCreate(patientHistoriqueDTO.getUserCreate());
 
         return patientHistorique;

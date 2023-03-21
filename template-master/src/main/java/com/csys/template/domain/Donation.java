@@ -18,7 +18,9 @@ public class Donation implements Serializable {
     @Column(name = "code", nullable = false)
     @Id
     private String code;
+    @Column(name = "code_Patient", nullable = false)
 
+    private String codepatient;
     @Column(name = "date_Create", nullable = false)
     private LocalDate dateCreate;
     @Column(name = "fulln_Name", nullable = false)
@@ -60,6 +62,14 @@ public class Donation implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getCodepatient() {
+        return codepatient;
+    }
+
+    public void setCodepatient(String codepatient) {
+        this.codepatient = codepatient;
     }
 
     public Integer getAge() {

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -11,10 +12,14 @@ import java.util.Date;
 @Audited
 @AuditTable("donation_history_AUD")
 public class DonationsHistory {
-    @Column(name = "code", nullable = false)
+
+    @Column(name = "id", nullable = false)
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer code;
+    private Integer id;
+    @Column(name = "code", nullable = false)
+    private String code;
     @Column(name = "code_patient", nullable = false)
     private String patientCode;
     @Column(name = "state", nullable = false)
@@ -24,13 +29,22 @@ public class DonationsHistory {
     @Column(name = "user_create", nullable = false)
     private String userCreate;
     @Column(name = "date_create", nullable = false)
-    private Date dateCreate;
+    private LocalDate dateCreate;
 
-    public Integer getCode() {
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -66,11 +80,11 @@ public class DonationsHistory {
         this.userCreate = userCreate;
     }
 
-    public Date getDateCreate() {
+    public LocalDate getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(LocalDate dateCreate) {
         this.dateCreate = dateCreate;
     }
 }

@@ -3,8 +3,10 @@ package com.csys.template.factory;
 
 import com.csys.template.domain.Blood;
 import com.csys.template.domain.Donation;
+import com.csys.template.domain.DonationsHistory;
 import com.csys.template.domain.State;
 import com.csys.template.dto.DonationDTO;
+import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.enumeration.StateEnum;
 import com.csys.template.service.StateService;
 
@@ -25,6 +27,7 @@ public class DonationFactory {
 
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
+        donationDTO.setCodePatient(donation.getCodepatient());
         donationDTO.setAge(donation.getAge());
         donationDTO.setAdress(donation.getAdress());
         donationDTO.setSexe(donation.getSexe());
@@ -63,6 +66,7 @@ public class DonationFactory {
 
         donation.setCode(donationDTO.getCode());
         donation.setFullName(donationDTO.getFullName());
+        donation.setCodepatient(donationDTO.getCodePatient());
         donation.setTypeIdentity(donationDTO.getTypeIdentity());
         donation.setNumIdentity(donationDTO.getNumIdentity());
         donation.setAge(donationDTO.getAge());
@@ -88,6 +92,19 @@ public class DonationFactory {
                 break;
         }
         donation.setEtat(result);
+
+
+        return donation;
+    }
+    public static DonationsHistoryDTO DonationDTOToDonationHistory(DonationDTO donationDTO){
+        DonationsHistoryDTO donation = new DonationsHistoryDTO();
+        donation.setCode(donationDTO.getCode());
+        donation.setCodePatient(donationDTO.getCodePatient());
+        donation.setState(donationDTO.getEtat());
+        donation.setObservation("aya");
+        donation.setUserCreate("csys");
+
+
 
 
         return donation;

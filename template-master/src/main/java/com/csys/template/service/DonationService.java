@@ -2,13 +2,18 @@ package com.csys.template.service;
 
 
 import com.csys.template.domain.Donation;
+import com.csys.template.domain.DonationsHistory;
+import com.csys.template.domain.Patient;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
+import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.factory.DonationFactory;
 
+import com.csys.template.factory.DonationsHistoryFactory;
 import com.csys.template.repository.DonationRepository;
 
 import com.csys.template.util.Preconditions;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +27,14 @@ public class DonationService {
     private final DonationRepository donationRepository;
     private final PatientService patientService;
     private final CounterService counterService;
+    private final DonationHistoryService donationHistoryService;
 
 
-    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService) {
+    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService, DonationHistoryService donationHistoryService) {
         this.donationRepository = donationRepository;
         this.patientService = patientService;
         this.counterService = counterService;
+        this.donationHistoryService = donationHistoryService;
     }
     @Transactional(readOnly = true)
     public List<DonationDTO> findAll() {
@@ -44,6 +51,13 @@ public class DonationService {
 
         return donationDTOS;
     }
+//    public List<DonationDTO> GetAll(Specification<Donation> donation) {
+//       List <Donation> donations = donationRepository.GetAll(donation);
+//
+//       List <DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(donations);
+//
+//        return donationDTOS;
+//    }
 
     public DonationDTO addDonation(DonationDTO donationDTO) {
         CounterDTO counter = counterService.findCounterByType("donation");
@@ -51,6 +65,8 @@ public class DonationService {
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
         Donation donation = DonationFactory.DonationDTOToDonation(donationDTO);
+        DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
+        DonationsHistoryDTO donationsHistory= donationHistoryService.addHistorique(donationsHistoryDTO);
         donation = donationRepository.save(donation);
 
 
@@ -63,6 +79,7 @@ public class DonationService {
         Preconditions.checkBusinessLogique(donation!=null,"error donateur not exist");
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
+        donationDTO.setCodePatient(donation.getCodepatient());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
         donationDTO.setAge(donation.getAge());
         donationDTO.setSexe(donation.getSexe());
