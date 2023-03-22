@@ -9,6 +9,7 @@ import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.enumeration.StateEnum;
 import com.csys.template.service.StateService;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +20,17 @@ public class DonationFactory {
 
     public DonationFactory(StateService stateService) {
         this.stateService = stateService;
+    }
+
+
+    public static String getUserAuthenticated() {
+        String user;
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            user = SecurityContextHolder.getContext().getAuthentication().getName();
+        } else {
+            user = "anonymousUser";
+        }
+        return user;
     }
 
     public static DonationDTO DonationToDonationDTO(Donation donation){
@@ -35,6 +47,7 @@ public class DonationFactory {
         donationDTO.setNumIdentity(donation.getNumIdentity());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
         donationDTO.setDate_creation(donation.getDateCreate());
+        donationDTO.setUserCreate(donation.getUserCreate());
         Integer x = donation.getEtat();
         String result;
 
@@ -74,6 +87,7 @@ public class DonationFactory {
         donation.setSexe(donationDTO.getSexe());
         donation.setPhoneNumber(donationDTO.getPhoneNumber());
         donation.setDateCreate(d);
+        donation.setUserCreate(getUserAuthenticated());
         String ch = donationDTO.getEtat();
         Integer result;
 
@@ -102,7 +116,7 @@ public class DonationFactory {
         donation.setCodePatient(donationDTO.getCodePatient());
         donation.setState(donationDTO.getEtat());
         donation.setObservation("aya");
-        donation.setUserCreate("csys");
+        donation.setUserCreate(getUserAuthenticated());
 
 
 

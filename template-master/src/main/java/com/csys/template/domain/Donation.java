@@ -37,6 +37,8 @@ public class Donation implements Serializable {
     private String sexe;
     @Column(name = "adress", nullable = false)
     private String adress;
+    @Column(name = "user_create", nullable = false)
+    private String userCreate;
     @Column(name = "etat", nullable = false)
     private Integer etat;
 
@@ -54,6 +56,14 @@ public class Donation implements Serializable {
 
     public void setDateCreate(LocalDate dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public String getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(String userCreate) {
+        this.userCreate = userCreate;
     }
 
     public String getFullName() {

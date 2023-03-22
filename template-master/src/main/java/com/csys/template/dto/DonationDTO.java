@@ -1,6 +1,7 @@
 package com.csys.template.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.Column;
 
 
 import java.time.LocalDate;
@@ -20,10 +21,19 @@ public class DonationDTO {
     private String phoneNumber;
     private String adress;
     private LocalDate date_creation;
+    private String userCreate;
     private String etat;
 
 
 
+
+    public String getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(String userCreate) {
+        this.userCreate = userCreate;
+    }
 
     public Integer getId() {
         return id;

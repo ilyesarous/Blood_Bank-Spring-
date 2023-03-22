@@ -84,7 +84,7 @@ public class DonationService {
         donationDTO.setAge(donation.getAge());
         donationDTO.setSexe(donation.getSexe());
         donationDTO.setAdress(donation.getAdress());
-        donationDTO.setDate_creation(donation.getDateCreate());
+
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
         Donation donation1 = donationRepository.save(DonationFactory.DonationDTOToDonation(donationDTO));
