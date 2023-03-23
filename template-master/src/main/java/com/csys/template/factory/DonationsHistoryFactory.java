@@ -14,6 +14,7 @@ public class DonationsHistoryFactory {
 
     public static DonationsHistoryDTO patientHisoriqueToPatientHistoriqueDTO(DonationsHistory patientHistorique){
         DonationsHistoryDTO patientHistoriqueDTO = new DonationsHistoryDTO();
+        patientHistoriqueDTO.setId(patientHistorique.getId());
         patientHistoriqueDTO.setCodePatient(patientHistorique.getCodePatient());
         patientHistoriqueDTO.setCode(patientHistorique.getCode());
         String i = switch (patientHistorique.getState()) {

@@ -18,7 +18,7 @@ public class DonationSearch {
                 predicates.add(criteriaBuilder.equal(root.get("typeIdentity"), typeIdentity));
             }
             if(numIdentity!=null && !(numIdentity.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("phoneNumber"), numIdentity));
+                predicates.add(criteriaBuilder.equal(root.get("numIdentity"), numIdentity));
             }
 
 

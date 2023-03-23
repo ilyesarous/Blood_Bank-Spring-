@@ -5,6 +5,7 @@ import com.csys.template.domain.Patient;
 import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.PatientDTO;
+import com.csys.template.factory.CounterFactory;
 import com.csys.template.factory.PatientFactory;
 import com.csys.template.repository.PatientRepository;
 import com.csys.template.util.Preconditions;

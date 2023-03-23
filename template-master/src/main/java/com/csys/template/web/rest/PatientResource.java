@@ -1,12 +1,10 @@
 package com.csys.template.web.rest;
 
 import com.csys.template.domain.Patient;
-import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.PatientDTO;
 import com.csys.template.search.PatientSearch;
 import com.csys.template.service.CounterService;
 import com.csys.template.service.PatientService;
-import com.csys.template.util.RestPreconditions;
 import jakarta.validation.Valid;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;

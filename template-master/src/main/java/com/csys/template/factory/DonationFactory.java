@@ -1,13 +1,10 @@
 package com.csys.template.factory;
 
 
-import com.csys.template.domain.Blood;
+
 import com.csys.template.domain.Donation;
-import com.csys.template.domain.DonationsHistory;
-import com.csys.template.domain.State;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.DonationsHistoryDTO;
-import com.csys.template.enumeration.StateEnum;
 import com.csys.template.service.StateService;
 import org.springframework.security.core.context.SecurityContextHolder;
 

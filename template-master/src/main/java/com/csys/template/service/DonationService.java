@@ -8,8 +8,6 @@ import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.factory.DonationFactory;
-
-import com.csys.template.factory.DonationsHistoryFactory;
 import com.csys.template.repository.DonationRepository;
 
 import com.csys.template.util.Preconditions;
@@ -36,13 +34,13 @@ public class DonationService {
         this.counterService = counterService;
         this.donationHistoryService = donationHistoryService;
     }
-    @Transactional(readOnly = true)
-    public List<DonationDTO> findAll() {
-        List<Donation> Donations = donationRepository.findAll();
-        List<DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(Donations);
-
-        return donationDTOS;
-    }
+//    @Transactional(readOnly = true)
+//    public List<DonationDTO> findAll() {
+//        List<Donation> Donations = donationRepository.findAll();
+//        List<DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(Donations);
+//
+//        return donationDTOS;
+//    }
     @Transactional(readOnly = true)
     public DonationDTO findDonationByCode(String code) {
         Donation donation = donationRepository.findByCode(code);
@@ -51,13 +49,15 @@ public class DonationService {
 
         return donationDTOS;
     }
-//    public List<DonationDTO> GetAll(Specification<Donation> donation) {
-//       List <Donation> donations = donationRepository.GetAll(donation);
-//
-//       List <DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(donations);
-//
-//        return donationDTOS;
-//    }
+    @Transactional(readOnly = true)
+
+    public List<DonationDTO> GetAll(Specification<Donation> donation) {
+       List <Donation> donations = donationRepository.findAll(donation);
+
+       List <DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(donations);
+
+        return donationDTOS;
+    }
 
     public DonationDTO addDonation(DonationDTO donationDTO) {
         CounterDTO counter = counterService.findCounterByType("donation");
@@ -87,6 +87,8 @@ public class DonationService {
 
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
+        DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
+        DonationsHistoryDTO donationsHistory= donationHistoryService.updateHistoriy(donationsHistoryDTO);
         Donation donation1 = donationRepository.save(DonationFactory.DonationDTOToDonation(donationDTO));
         return DonationFactory.DonationToDonationDTO(donation1);
     }

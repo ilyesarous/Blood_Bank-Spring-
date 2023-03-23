@@ -36,24 +36,24 @@ public class DonationResource {
     }
 
 
-    @GetMapping
-    public List<DonationDTO> getAll(){
-        return donationService.findAll();
-    }
+//    @GetMapping
+//    public List<DonationDTO> getAll(){
+//        return donationService.findAll();
+//    }
     @GetMapping("/{code}")
     public DonationDTO findOne(@PathVariable String code){
         DonationDTO donationDTO = donationService.findDonationByCode(code);
         return donationDTO;
     }
-//    @GetMapping
-//    public List<DonationDTO> getAll(@RequestParam(value = "typeIdentity", required = false) String typeIdentity,
-//                                   @RequestParam(value = "numIdentity", required = false) String numIdentity)
-//                                   {
-//        Specification<Donation> donation = DonationSearch.getSearch(typeIdentity,numIdentity);
-//
-//        return donationService.GetAll(donation);
-//
-//    }
+    @GetMapping
+    public List<DonationDTO> findAll(@RequestParam(value = "typeIdentity", required = false) String typeIdentity,
+                                   @RequestParam(value = "numIdentity", required = false) String numIdentity)
+                                   {
+        Specification<Donation> donation = DonationSearch.getSearch(typeIdentity,numIdentity);
+
+        return donationService.GetAll(donation);
+
+    }
 
     @PostMapping
     public ResponseEntity<DonationDTO> addDonation(@RequestBody  DonationDTO donationDTO, BindingResult bindingResult)

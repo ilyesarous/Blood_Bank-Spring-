@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface DonationRepository extends JpaRepository<Donation,Integer> {
     Donation findByCode(String code);
-//    List<Donation> GetAll(Specification<Donation> donation);
+    List<Donation> findAll(Specification<Donation> donation);
 }

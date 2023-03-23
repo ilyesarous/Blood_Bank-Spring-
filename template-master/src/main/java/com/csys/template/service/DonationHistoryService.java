@@ -13,6 +13,7 @@ import com.google.common.base.Preconditions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,13 @@ public class DonationHistoryService {
 
         return donationDTOS;
     }
+//    @Transactional(readOnly = true)
+//    public List<DonationsHistoryDTO> findById(Integer id) {
+//        List<DonationsHistory> donation = patientHistoriqueRepository.findById(id);
+//        List<DonationsHistoryDTO> donationDTO = DonationsHistoryFactory.patientHistoriquesToPatientHistoriqueDTOS(donation);
+//
+//        return donationDTO;
+//    }
     @Transactional(readOnly = true)
     public List<DonationsHistoryDTO> findHistory(String code){
         List<DonationsHistory> list = new ArrayList<>();
@@ -56,7 +64,8 @@ public class DonationHistoryService {
     }
 
     public DonationsHistoryDTO updateHistoriy(DonationsHistoryDTO historyDTO){
-        DonationsHistory historyInDB = patientHistoriqueRepository.findByPatientCode(historyDTO.getCodePatient());
+
+        DonationsHistory historyInDB = patientHistoriqueRepository.findByCode(historyDTO.getCode());
         Preconditions.checkArgument (historyInDB != null, "Patient has been updated");
         DonationsHistory p = new DonationsHistory();
         p= patientHistoriqueRepository.save(DonationsHistoryFactory.patientHisoriqueDTOToPatientHistorique(historyDTO));

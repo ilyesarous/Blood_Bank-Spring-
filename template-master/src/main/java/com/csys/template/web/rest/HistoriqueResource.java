@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
@@ -37,6 +38,11 @@ public class HistoriqueResource {
         List<DonationsHistoryDTO> patientHistoriqueDTOS = donationHistoryService.findHistory(code);
         return patientHistoriqueDTOS;
     }
+//    @GetMapping("/{id}")
+//    public DonationsHistoryDTO findByid(@PathVariable Integer id){
+//        DonationsHistoryDTO patientHistoriqueDTOS = donationHistoryService.findById(id);
+//        return patientHistoriqueDTOS;
+//    }
 
     @PostMapping
     public ResponseEntity<DonationsHistoryDTO> addPatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult)
