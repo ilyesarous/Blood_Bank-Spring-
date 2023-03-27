@@ -88,7 +88,7 @@ public class DonationService {
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
         DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
-         donationHistoryService.addHistorique(donationsHistoryDTO);
+        donationHistoryService.addHistorique(donationsHistoryDTO);
         Donation donation1 = donationRepository.save(DonationFactory.DonationDTOToDonation(donationDTO));
         return DonationFactory.DonationToDonationDTO(donation1);
     }

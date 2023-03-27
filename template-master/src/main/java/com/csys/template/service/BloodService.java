@@ -5,7 +5,6 @@ import com.csys.template.dto.BloodDTO;
 import com.csys.template.factory.BloodFactory;
 import com.csys.template.repository.BloodRepository;
 import com.csys.template.util.Preconditions;
-import com.csys.template.util.WhereClauseBuilder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.csys.template.TemplateApplication.log;
 
 @Service
 @Transactional
@@ -29,7 +26,6 @@ public class BloodService {
     @Transactional(readOnly = true)
     public List<BloodDTO> findAll(Specification<Blood> specification) {
         List<Blood> bloods = bloodRepository.findAll(specification);
-        Preconditions.checkBusinessLogique(bloods!=null,"blood not find");
         for (Blood b : bloods) {
             if (!Objects.equals(b.getGivenTo(), "-")) {
                 String[] given = b.getGivenTo().split(",");
@@ -79,6 +75,10 @@ public class BloodService {
         return null;
     }
 
+    @Transactional(readOnly = true)
+    public Blood findBloodByCode(Integer code) {
+        return bloodRepository.findByCodeBlood(code);
+    }
 
     @Transactional(readOnly = true)
     public String findTypeByBloodCode(Integer codeBlood) {
