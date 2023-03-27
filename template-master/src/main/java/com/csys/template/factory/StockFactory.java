@@ -1,6 +1,5 @@
 package com.csys.template.factory;
 import com.csys.template.domain.Stock;
-import com.csys.template.dto.StateDTO;
 import com.csys.template.dto.StockDTO;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -58,6 +57,7 @@ public class StockFactory {
         List<Stock> stocks = new ArrayList<Stock>();
         for(StockDTO stockDTO : stockDTOS){
             stocks.add(stockDTOToStock(stockDTO));
+
         }
         return stocks;
     }
