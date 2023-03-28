@@ -24,6 +24,7 @@ public class StockFactory {
         stockDTO.setId(stock.getId());
         stockDTO.setBlood(stock.getBlood());
         stockDTO.setCode(stock.getCode());
+        stockDTO.setCodedonateur(stock.getCodedonateur());
         stockDTO.setUserCreate(stock.getUserCreate());
         LocalDate d= stock.getDateCreate();
         String x=d.toString();
@@ -55,6 +56,7 @@ public class StockFactory {
         stock.setId(stockDTO.getId());
         stock.setBlood(stockDTO.getBlood());
         stock.setCode(stockDTO.getCode());
+        stock.setCodedonateur(stockDTO.getCodedonateur());
         stock.setUserCreate(getUserAuthenticated());
         stock.setDateCreate(d);
         stock.setX(v);

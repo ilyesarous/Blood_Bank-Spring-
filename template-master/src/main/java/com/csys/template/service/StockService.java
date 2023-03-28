@@ -1,5 +1,6 @@
 package com.csys.template.service;
 import com.csys.template.domain.Stock;
+import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.StockDTO;
 import com.csys.template.factory.StockFactory;
 import com.csys.template.repository.StockRepository;
@@ -13,9 +14,11 @@ import java.util.List;
 @Transactional
 public class StockService {
     private final StockRepository stockRepository;
+    private final CounterService counterService;
 
-    public StockService(StockRepository stockRepository) {
+    public StockService(StockRepository stockRepository, CounterService counterService) {
         this.stockRepository = stockRepository;
+        this.counterService = counterService;
     }
 
     @Transactional(readOnly = true)
@@ -35,8 +38,12 @@ public class StockService {
     }
     @Transactional
     public StockDTO addStock(StockDTO stockDTO){
-        Preconditions.checkArgument (stockDTO != null, "Patient added!");
-        Stock stock = new Stock();
+        Preconditions.checkArgument (stockDTO != null, "Stock added!");
+        CounterDTO counter = counterService.findCounterByType("stock");
+        stockDTO.setCode(counter.getPrefix()+counter.getSuffix());
+        counter.setSuffix(counter.getSuffix()+1);
+        counterService.updateCounter(counter);
+//        Stock stock = new Stock();
         Stock d =stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
         return StockFactory.stockToStockDTO(d);
     }

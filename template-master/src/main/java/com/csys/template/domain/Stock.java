@@ -21,6 +21,8 @@ public class Stock {
     private String blood;
     @Column(name = "code", nullable = false)
     private String code;
+    @Column(name = "code_donateur", nullable = false)
+    private String codedonateur;
     @Column(name = "user_create", nullable = false)
     private String userCreate;
     @Column(name = "date_create", nullable = false)
@@ -62,6 +64,14 @@ public class Stock {
 
     public void setCode(String patientCode) {
         this.code = patientCode;
+    }
+
+    public String getCodedonateur() {
+        return codedonateur;
+    }
+
+    public void setCodedonateur(String codedonateur) {
+        this.codedonateur = codedonateur;
     }
 
     public String getUserCreate() {

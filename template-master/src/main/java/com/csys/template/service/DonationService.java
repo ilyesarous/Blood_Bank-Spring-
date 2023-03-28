@@ -2,8 +2,6 @@ package com.csys.template.service;
 
 
 import com.csys.template.domain.Donation;
-import com.csys.template.domain.DonationsHistory;
-import com.csys.template.domain.Patient;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.DonationsHistoryDTO;
@@ -23,16 +21,16 @@ import java.util.List;
 public class DonationService {
 
     private final DonationRepository donationRepository;
-    private final PatientService patientService;
     private final CounterService counterService;
     private final DonationHistoryService donationHistoryService;
+    private final StockService stockService;
 
 
-    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService, DonationHistoryService donationHistoryService) {
+    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService, DonationHistoryService donationHistoryService, StockService stockService) {
         this.donationRepository = donationRepository;
-        this.patientService = patientService;
         this.counterService = counterService;
         this.donationHistoryService = donationHistoryService;
+        this.stockService = stockService;
     }
 //    @Transactional(readOnly = true)
 //    public List<DonationDTO> findAll() {
@@ -87,6 +85,11 @@ public class DonationService {
 
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
+
+        if (donationDTO.getEtat().compareTo("SOLVED")==0)
+        {
+
+        }
         DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
         donationHistoryService.addHistorique(donationsHistoryDTO);
         Donation donation1 = donationRepository.save(DonationFactory.DonationDTOToDonation(donationDTO));

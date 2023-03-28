@@ -6,6 +6,7 @@ public class StockDTO {
     private String blood;
 
     private String code;
+    private String codedonateur;
 
     private String userCreate;
 
@@ -44,6 +45,14 @@ public class StockDTO {
 
     public void setCode(String patientCode) {
         this.code = patientCode;
+    }
+
+    public String getCodedonateur() {
+        return codedonateur;
+    }
+
+    public void setCodedonateur(String codedonateur) {
+        this.codedonateur = codedonateur;
     }
 
     public String getUserCreate() {
