@@ -5,6 +5,7 @@ package com.csys.template.factory;
 import com.csys.template.domain.Donation;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.DonationsHistoryDTO;
+import com.csys.template.dto.StockDTO;
 import com.csys.template.service.StateService;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -45,6 +46,7 @@ public class DonationFactory {
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
         donationDTO.setDate_creation(donation.getDateCreate());
         donationDTO.setUserCreate(donation.getUserCreate());
+        donationDTO.setBlood(donation.getBlood());
         Integer x = donation.getEtat();
         String result;
 
@@ -85,7 +87,9 @@ public class DonationFactory {
         donation.setPhoneNumber(donationDTO.getPhoneNumber());
         donation.setDateCreate(d);
         donation.setUserCreate(getUserAuthenticated());
+        donation.setBlood(donationDTO.getBlood());
         String ch = donationDTO.getEtat();
+
         Integer result;
 
         switch (ch) {
@@ -119,6 +123,16 @@ public class DonationFactory {
 
 
         return donation;
+    }
+    public static StockDTO DonationDTOToStockDTO(DonationDTO donationDTO){
+        StockDTO stockDTO = new StockDTO();
+     stockDTO.setCodedonateur(donationDTO.getCode());
+     stockDTO.setBlood(donationDTO.getBlood());
+
+
+
+
+        return stockDTO;
     }
 
     public static List<DonationDTO> DonationsToDonationDTO(List<Donation> donations){

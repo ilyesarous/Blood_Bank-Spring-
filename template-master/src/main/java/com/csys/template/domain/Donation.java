@@ -41,7 +41,8 @@ public class Donation implements Serializable {
     private String userCreate;
     @Column(name = "etat", nullable = false)
     private Integer etat;
-
+    @Column(name = "Blood", nullable = false)
+    private String Blood;
     public String getCode() {
         return code;
     }
@@ -138,6 +139,11 @@ public class Donation implements Serializable {
         this.etat = etat;
     }
 
+    public String getBlood() {
+        return Blood;
+    }
 
-
+    public void setBlood(String blood) {
+        Blood = blood;
+    }
 }

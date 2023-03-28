@@ -5,6 +5,7 @@ import com.csys.template.domain.Donation;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.DonationsHistoryDTO;
+import com.csys.template.dto.StockDTO;
 import com.csys.template.factory.DonationFactory;
 import com.csys.template.repository.DonationRepository;
 
@@ -74,7 +75,7 @@ public class DonationService {
 
     public DonationDTO updateDonation(DonationDTO donationDTO){
         Donation donation = donationRepository.findByCode(donationDTO.getCode());
-        Preconditions.checkBusinessLogique(donation!=null,"error donateur not exist");
+        Preconditions.checkBusinessLogique(donation!=null,"........");
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
         donationDTO.setCodePatient(donation.getCodepatient());
@@ -86,9 +87,10 @@ public class DonationService {
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
 
-        if (donationDTO.getEtat().compareTo("SOLVED")==0)
+        if (donationDTO.getEtat().equals("SOLVED"))
         {
-
+            StockDTO stockDTO= DonationFactory.DonationDTOToStockDTO(donationDTO);
+            stockService.addStock(stockDTO);
         }
         DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
         donationHistoryService.addHistorique(donationsHistoryDTO);

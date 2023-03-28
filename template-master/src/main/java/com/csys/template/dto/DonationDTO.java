@@ -23,7 +23,7 @@ public class DonationDTO {
     private LocalDate date_creation;
     private String userCreate;
     private String etat;
-
+    private String Blood;
 
 
 
@@ -130,5 +130,13 @@ public class DonationDTO {
 
     public void setEtat(String etat) {
         this.etat = etat;
+    }
+
+    public String getBlood() {
+        return Blood;
+    }
+
+    public void setBlood(String blood) {
+        Blood = blood;
     }
 }
