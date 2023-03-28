@@ -12,7 +12,17 @@ public class StockDTO {
     private String userCreate;
 
     private LocalDate dateCreate;
+    private LocalDate dateperime;
+    private String x;
 
+
+    public String getX() {
+        return x;
+    }
+
+    public void setX(String x) {
+        this.x = x;
+    }
 
     public Integer getId() {
         return id;
@@ -52,5 +62,13 @@ public class StockDTO {
 
     public void setDateCreate(LocalDate dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public LocalDate getDateperime() {
+        return dateperime;
+    }
+
+    public void setDateperime(LocalDate dateperime) {
+        this.dateperime = dateperime;
     }
 }
