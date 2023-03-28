@@ -29,7 +29,7 @@ public class StockFactory {
         LocalDate d= stock.getDateCreate();
         String x=d.toString();
         stockDTO.setDateCreate(x);
-        stockDTO.setX(stock.getX());
+        stockDTO.setDateperime(stock.getDateperime());
 
 
         return stockDTO;
@@ -59,7 +59,7 @@ public class StockFactory {
         stock.setCodedonateur(stockDTO.getCodedonateur());
         stock.setUserCreate(getUserAuthenticated());
         stock.setDateCreate(d);
-        stock.setX(v);
+        stock.setDateperime(v);
 
 
         return stock ;

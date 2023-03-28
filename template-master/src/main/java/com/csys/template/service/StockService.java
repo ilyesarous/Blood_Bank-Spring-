@@ -31,7 +31,7 @@ public class StockService {
     @Transactional(readOnly = true)
     public StockDTO findStockByCode(String code) {
         Stock stock = stockRepository.findBycode(code);
-        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"donor does  Not found!");
+        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
         StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
 
         return stockDTO;

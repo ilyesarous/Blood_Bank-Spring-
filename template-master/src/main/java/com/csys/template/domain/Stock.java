@@ -32,15 +32,21 @@ public class Stock {
     private String dateperime;
 
 
-
-
-    public String getX() {
+    public String getDateperime() {
         return dateperime;
     }
 
-    public void setX(String x) {
-        this.dateperime = x;
+    public void setDateperime(String dateperime) {
+        this.dateperime = dateperime;
     }
+
+//    public String getX() {
+//        return dateperime;
+//    }
+//
+//    public void setX(String x) {
+//        this.dateperime = x;
+//    }
 
     public Integer getId() {
         return id;

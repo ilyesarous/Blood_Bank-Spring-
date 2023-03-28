@@ -75,7 +75,7 @@ public class DonationService {
 
     public DonationDTO updateDonation(DonationDTO donationDTO){
         Donation donation = donationRepository.findByCode(donationDTO.getCode());
-        Preconditions.checkBusinessLogique(donation!=null,"........");
+        Preconditions.checkBusinessLogique(donation!=null,"donor does  Not found!");
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
         donationDTO.setCodePatient(donation.getCodepatient());

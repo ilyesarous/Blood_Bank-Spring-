@@ -39,11 +39,11 @@ public class StockResource {
     public ResponseEntity<StockDTO> addStock(@RequestBody StockDTO stockDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
         if(stockDTO.getId()!= null){
-            bindingResult.addError(new FieldError(ENTITY_NAME, "code", " You can not add patient with code"));
+            bindingResult.addError(new FieldError(ENTITY_NAME, "code", " You can not add stock with code"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
         StockDTO p = stockService.addStock(stockDTO);
-        return ResponseEntity.created(new URI("/historique"+ p.getCode())).body(p);
+        return ResponseEntity.created(new URI("/stock"+ p.getCode())).body(p);
     }
 
     @DeleteMapping("/{code}")
