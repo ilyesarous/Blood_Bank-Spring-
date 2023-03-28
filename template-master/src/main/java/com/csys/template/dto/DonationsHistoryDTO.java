@@ -9,7 +9,7 @@ public class DonationsHistoryDTO {
     private String state;
     private String observation;
     private String userCreate;
-    private LocalDate dateCreate;
+    private String dateCreate;
 
 
     public Integer getId() {
@@ -60,11 +60,11 @@ public class DonationsHistoryDTO {
         this.userCreate = userCreate;
     }
 
-    public LocalDate getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(LocalDate dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
 }

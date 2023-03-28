@@ -14,6 +14,8 @@ public class DonationsHistoryFactory {
 
     public static DonationsHistoryDTO patientHisoriqueToPatientHistoriqueDTO(DonationsHistory patientHistorique){
         DonationsHistoryDTO patientHistoriqueDTO = new DonationsHistoryDTO();
+        LocalDate d=patientHistorique.getDateCreate();
+        String x=d.toString();
         patientHistoriqueDTO.setId(patientHistorique.getId());
         patientHistoriqueDTO.setCodePatient(patientHistorique.getCodePatient());
         patientHistoriqueDTO.setCode(patientHistorique.getCode());
@@ -25,7 +27,7 @@ public class DonationsHistoryFactory {
         };
         patientHistoriqueDTO.setState(i);
         patientHistoriqueDTO.setObservation(patientHistorique.getObservation());
-        patientHistoriqueDTO.setDateCreate(patientHistorique.getDateCreate());
+        patientHistoriqueDTO.setDateCreate(x);
         patientHistoriqueDTO.setUserCreate(patientHistorique.getUserCreate());
 
         return patientHistoriqueDTO;

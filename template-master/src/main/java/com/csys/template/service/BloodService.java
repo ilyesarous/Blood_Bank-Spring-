@@ -137,7 +137,7 @@ public class BloodService {
     public BloodDTO updateBlood(BloodDTO bloodDTO) {
         Blood bloodInDB = bloodRepository.findByCodeBlood(bloodDTO.getCodeBlood());
         bloodDTO.setCodeBlood(bloodInDB.getCodeBlood());
-        bloodDTO.setCreationDate(bloodInDB.getCreationDate());
+//        bloodDTO.setCreationDate(bloodInDB.getCreationDate());
         bloodDTO.setUserCreate(bloodInDB.getUserCreate());
 
         if (!Objects.equals(bloodDTO.getGivenTo(), "-")) {

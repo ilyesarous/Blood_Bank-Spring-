@@ -20,7 +20,7 @@ public class DonationDTO {
     private String numIdentity;
     private String phoneNumber;
     private String adress;
-    private LocalDate date_creation;
+    private String date_creation;
     private String userCreate;
     private String etat;
     private String Blood;
@@ -116,11 +116,11 @@ public class DonationDTO {
     }
 
 
-    public LocalDate getDate_creation() {
+    public String getDate_creation() {
         return date_creation;
     }
 
-    public void setDate_creation(LocalDate date_creation) {
+    public void setDate_creation(String date_creation) {
         this.date_creation = date_creation;
     }
 

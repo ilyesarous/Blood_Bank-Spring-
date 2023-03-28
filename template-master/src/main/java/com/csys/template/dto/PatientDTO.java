@@ -26,7 +26,7 @@ public class PatientDTO {
     private String phoneNumber;
     private String adress;
     private String email;
-    private LocalDate creation_date;
+    private String creation_date;
 
     private String bloodCode;
 
@@ -174,11 +174,11 @@ public class PatientDTO {
         this.id = id;
     }
 
-    public LocalDate getCreation_date() {
+    public String getCreation_date() {
         return creation_date;
     }
 
-    public void setCreation_date(LocalDate creation_date) {
+    public void setCreation_date(String creation_date) {
         this.creation_date = creation_date;
     }
 

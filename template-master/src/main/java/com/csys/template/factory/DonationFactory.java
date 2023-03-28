@@ -33,7 +33,8 @@ public class DonationFactory {
 
     public static DonationDTO DonationToDonationDTO(Donation donation){
         DonationDTO donationDTO = new DonationDTO();
-
+        LocalDate d=donation.getDateCreate();
+        String b=d.toString();
 
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
@@ -44,7 +45,7 @@ public class DonationFactory {
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
-        donationDTO.setDate_creation(donation.getDateCreate());
+        donationDTO.setDate_creation(b);
         donationDTO.setUserCreate(donation.getUserCreate());
         donationDTO.setBlood(donation.getBlood());
         Integer x = donation.getEtat();

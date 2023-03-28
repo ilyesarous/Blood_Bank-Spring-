@@ -15,7 +15,7 @@ public class BloodDTO {
     private String rhesus;
     private String givenTo;
     private String receivedFrom;
-    private LocalDate creationDate;
+    private String creationDate;
     private String userCreate;
     private Integer active;
 
@@ -49,10 +49,10 @@ public class BloodDTO {
     public void setReceivedFrom(String receivedFrom) {
         this.receivedFrom = receivedFrom;
     }
-    public LocalDate getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
     public String getUserCreate() {

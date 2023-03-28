@@ -20,7 +20,8 @@ public class PatientFactory {
 
     public static PatientDTO patientToPatientDTO(Patient patient){
         PatientDTO patientDTO = new PatientDTO();
-
+        LocalDate d=patient.getCreation_date();
+        String x=d.toString();
         patientDTO.setCode(patient.getCode());
         patientDTO.setFirstNameAr(patient.getFirstNameAr());
         patientDTO.setFatherNameAr(patient.getFatherNameAr());
@@ -39,8 +40,7 @@ public class PatientFactory {
         patientDTO.setBirthDate(patient.getBirthDate());
         patientDTO.setGender(patient.getGender());
         patientDTO.setPhoneNumber(patient.getPhoneNumber());
-        patientDTO.setCreation_date(patient.getCreation_date());
-        //patientDTO.setState(patient.getState());
+        patientDTO.setCreation_date(x);
         patientDTO.setBloodCode(patient.getBloodCode().getCodeBlood().toString());
 
         return patientDTO;

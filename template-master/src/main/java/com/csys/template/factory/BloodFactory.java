@@ -36,7 +36,8 @@ public class BloodFactory {
 
     public static BloodDTO bloodToBloodDTO(Blood blood){
         BloodDTO bloodDTO = new BloodDTO();
-
+        LocalDate d=blood.getCreationDate();
+        String x=d.toString();
         bloodDTO.setCodeBlood(blood.getCodeBlood());
         bloodDTO.setBloodGrp(blood.getBloodGrp());
         bloodDTO.setRhesus(blood.getRhesus());
@@ -50,13 +51,14 @@ public class BloodFactory {
 
     public static BloodDTO lazyBloodToBloodDTO(Blood blood){
         BloodDTO bloodDTO = new BloodDTO();
-
+        LocalDate d=blood.getCreationDate();
+        String x=d.toString();
         bloodDTO.setCodeBlood(blood.getCodeBlood());
         bloodDTO.setBloodGrp(blood.getBloodGrp());
         bloodDTO.setRhesus(blood.getRhesus());
         bloodDTO.setGivenTo(blood.getGivenTo());
         bloodDTO.setReceivedFrom(blood.getReceivedFrom());
-        bloodDTO.setCreationDate(blood.getCreationDate());
+        bloodDTO.setCreationDate(x);
         bloodDTO.setUserCreate(blood.getUserCreate());
         bloodDTO.setActive(blood.getActive());
        // bloodDTO.setChampIlyes(blood.getCodeBlood() + blood.getRhesus());
