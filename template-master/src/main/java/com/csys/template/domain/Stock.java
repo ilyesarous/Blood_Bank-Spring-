@@ -25,20 +25,19 @@ public class Stock {
     private String userCreate;
     @Column(name = "date_create", nullable = false)
     private LocalDate dateCreate;
-    @Column(name = "date_périmé")
-    private LocalDate dateperime;
-    @Column(name = "x", nullable = false)
-    private String x;
+
+    @Column(name = "date_périmé", nullable = false)
+    private String dateperime;
 
 
 
 
     public String getX() {
-        return x;
+        return dateperime;
     }
 
     public void setX(String x) {
-        this.x = x;
+        this.dateperime = x;
     }
 
     public Integer getId() {
@@ -81,11 +80,4 @@ public class Stock {
         this.dateCreate = dateCreate;
     }
 
-    public LocalDate getDateperime() {
-        return dateperime;
-    }
-
-    public void setDateperime(LocalDate dateperime) {
-        this.dateperime = dateperime;
-    }
 }

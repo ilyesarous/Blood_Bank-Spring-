@@ -25,7 +25,9 @@ public class StockFactory {
         stockDTO.setBlood(stock.getBlood());
         stockDTO.setCode(stock.getCode());
         stockDTO.setUserCreate(stock.getUserCreate());
-        stockDTO.setDateCreate(stock.getDateCreate());
+        LocalDate d= stock.getDateCreate();
+        String x=d.toString();
+        stockDTO.setDateCreate(x);
         stockDTO.setX(stock.getX());
 
 
@@ -36,14 +38,26 @@ public class StockFactory {
     public static Stock stockDTOToStock(StockDTO stockDTO){
         Stock stock = new Stock();
         LocalDate d = LocalDate.now();
-        String x=d.toString();
+        String  x =d.toString();
+        String [] tab = x.split("-");
+        Integer y= Integer.parseInt(tab[1]);
+        Integer z=Integer.parseInt(tab[0]);
+        y=y+3;
+        if (y>12)
+        {
+            y=y-12;
+            z=z+1;
+        }
+        tab[0]=z.toString();
+        tab[1]=y.toString();
+        String v= tab[0]+"-"+tab[1]+"-"+tab[2];
+
         stock.setId(stockDTO.getId());
         stock.setBlood(stockDTO.getBlood());
         stock.setCode(stockDTO.getCode());
         stock.setUserCreate(getUserAuthenticated());
         stock.setDateCreate(d);
-        stock.setDateperime(d);
-        stock.setX(x);
+        stock.setX(v);
 
 
         return stock ;
