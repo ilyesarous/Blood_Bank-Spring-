@@ -22,7 +22,6 @@ public class PatientDTO {
     private String grandFatherNameEng;
     private String fullNameEng;
     private LocalDate birthDate;
-
     private String birthDay;
     private String gender;
     private String phoneNumber;
