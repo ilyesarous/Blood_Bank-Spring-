@@ -43,6 +43,19 @@ public class Donation implements Serializable {
     private Integer etat;
     @Column(name = "Blood", nullable = false)
     private String Blood;
+    @Column(name = "observation", nullable = false)
+
+    private String observation;
+
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
     public String getCode() {
         return code;
     }

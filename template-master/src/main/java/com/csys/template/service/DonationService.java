@@ -33,13 +33,6 @@ public class DonationService {
         this.donationHistoryService = donationHistoryService;
         this.stockService = stockService;
     }
-//    @Transactional(readOnly = true)
-//    public List<DonationDTO> findAll() {
-//        List<Donation> Donations = donationRepository.findAll();
-//        List<DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(Donations);
-//
-//        return donationDTOS;
-//    }
     @Transactional(readOnly = true)
     public DonationDTO findDonationByCode(String code) {
         Donation donation = donationRepository.findByCode(code);
@@ -63,6 +56,7 @@ public class DonationService {
         donationDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
+        donationDTO.setObservation("---");
         Donation donation = DonationFactory.DonationDTOToDonation(donationDTO);
         DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
         DonationsHistoryDTO donationsHistory= donationHistoryService.addHistorique(donationsHistoryDTO);

@@ -24,8 +24,16 @@ public class DonationDTO {
     private String userCreate;
     private String etat;
     private String Blood;
+    private String observation;
 
 
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
 
     public String getUserCreate() {
         return userCreate;

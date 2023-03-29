@@ -1,7 +1,13 @@
 package com.csys.template.web.rest;
+import com.csys.template.domain.Patient;
+import com.csys.template.domain.Stock;
+import com.csys.template.dto.PatientDTO;
 import com.csys.template.dto.StockDTO;
+import com.csys.template.search.PatientSearch;
+import com.csys.template.search.StockSearch;
 import com.csys.template.service.StockService;
 import jakarta.validation.Valid;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -24,14 +30,33 @@ public class StockResource {
         this.stockService = stockService;
     }
 
-    @GetMapping()
-    public List<StockDTO> getAll(){
-        List<StockDTO> stockDTOS = stockService.findAll();
-        return stockDTOS;
-    }
+//    @GetMapping()
+//    public List<StockDTO> getAll(){
+//        List<StockDTO> stockDTOS = stockService.findAll();
+//        return stockDTOS;
+//    }
+@GetMapping
+public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) String blood,
+                               @RequestParam(value = "dateperime", required = false) String dateperime
+                               ){
+    Specification<Stock> stock = StockSearch.getSearch(blood,dateperime);
+
+    return stockService.findAll(stock);
+
+}
     @GetMapping("/{code}")
     public StockDTO getByCode( @PathVariable @Valid String code){
         StockDTO stockDTOS = stockService.findStockByCode(code);
+        return stockDTOS;
+    }
+    @GetMapping("/date/{dateperime}")
+    public StockDTO getBydateperime( @PathVariable @Valid String dateperime){
+        StockDTO stockDTOS = stockService.findStockBydateperimé(dateperime);
+        return stockDTOS;
+    }
+    @GetMapping("/blood/{blood}")
+    public StockDTO getByblood( @PathVariable @Valid String blood){
+        StockDTO stockDTOS = stockService.findStockByblood(blood);
         return stockDTOS;
     }
 

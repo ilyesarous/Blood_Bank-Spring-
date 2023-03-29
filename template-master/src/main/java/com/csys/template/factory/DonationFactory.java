@@ -48,6 +48,7 @@ public class DonationFactory {
         donationDTO.setDate_creation(b);
         donationDTO.setUserCreate(donation.getUserCreate());
         donationDTO.setBlood(donation.getBlood());
+        donationDTO.setObservation(donation.getObservation());
         Integer x = donation.getEtat();
         String result;
 
@@ -89,6 +90,7 @@ public class DonationFactory {
         donation.setDateCreate(d);
         donation.setUserCreate(getUserAuthenticated());
         donation.setBlood(donationDTO.getBlood());
+        donation.setObservation(donationDTO.getObservation());
         String ch = donationDTO.getEtat();
 
         Integer result;
@@ -117,7 +119,7 @@ public class DonationFactory {
         donation.setCode(donationDTO.getCode());
         donation.setCodePatient(donationDTO.getCodePatient());
         donation.setState(donationDTO.getEtat());
-        donation.setObservation("aya");
+        donation.setObservation(donationDTO.getObservation());
         donation.setUserCreate(getUserAuthenticated());
 
 

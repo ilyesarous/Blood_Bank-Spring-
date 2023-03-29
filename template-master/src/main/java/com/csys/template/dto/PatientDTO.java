@@ -22,6 +22,8 @@ public class PatientDTO {
     private String grandFatherNameEng;
     private String fullNameEng;
     private LocalDate birthDate;
+
+    private String birthDay;
     private String gender;
     private String phoneNumber;
     private String adress;
@@ -29,6 +31,15 @@ public class PatientDTO {
     private String creation_date;
 
     private String bloodCode;
+
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
 
     public String getCode() {
         return code;
