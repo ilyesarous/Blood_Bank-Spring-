@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StockRepository extends JpaRepository<Stock, String> {
     Stock findBycode(String code);
-    Stock findBydateperime(String dateperime);
+//    Stock findBydateperime(String dateperime);
     Stock findByblood(String blood);
-    List<Stock> findAll(Specification<Stock> stock);
+//    List<Stock> findAll(Specification<Stock> stock);
 }

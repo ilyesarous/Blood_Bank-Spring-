@@ -30,30 +30,30 @@ public class StockResource {
         this.stockService = stockService;
     }
 
-//    @GetMapping()
-//    public List<StockDTO> getAll(){
-//        List<StockDTO> stockDTOS = stockService.findAll();
-//        return stockDTOS;
-//    }
-@GetMapping
-public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) String blood,
-                               @RequestParam(value = "dateperime", required = false) String dateperime
-                               ){
-    Specification<Stock> stock = StockSearch.getSearch(blood,dateperime);
-
-    return stockService.findAll(stock);
-
-}
+    @GetMapping()
+    public List<StockDTO> getAll(){
+        List<StockDTO> stockDTOS = stockService.findAll();
+        return stockDTOS;
+    }
+//@GetMapping
+//public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) String blood,
+//                               @RequestParam(value = "dateperime", required = false) String dateperime
+//                               ){
+//    Specification<Stock> stock = StockSearch.getSearch(blood,dateperime);
+//
+//    return stockService.findAll(stock);
+//
+//}
     @GetMapping("/{code}")
     public StockDTO getByCode( @PathVariable @Valid String code){
         StockDTO stockDTOS = stockService.findStockByCode(code);
         return stockDTOS;
     }
-    @GetMapping("/date/{dateperime}")
-    public StockDTO getBydateperime( @PathVariable @Valid String dateperime){
-        StockDTO stockDTOS = stockService.findStockBydateperimé(dateperime);
-        return stockDTOS;
-    }
+//    @GetMapping("/date/{dateperime}")
+//    public StockDTO getBydateperime( @PathVariable @Valid String dateperime){
+//        StockDTO stockDTOS = stockService.findStockBydateperimé(dateperime);
+//        return stockDTOS;
+//    }
     @GetMapping("/blood/{blood}")
     public StockDTO getByblood( @PathVariable @Valid String blood){
         StockDTO stockDTOS = stockService.findStockByblood(blood);

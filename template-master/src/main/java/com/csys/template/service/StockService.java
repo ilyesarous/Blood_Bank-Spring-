@@ -3,6 +3,7 @@ import com.csys.template.domain.Patient;
 import com.csys.template.domain.Stock;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.StockDTO;
+import com.csys.template.factory.CounterFactory;
 import com.csys.template.factory.StockFactory;
 import com.csys.template.repository.StockRepository;
 import com.google.common.base.Preconditions;
@@ -24,12 +25,17 @@ public class StockService {
     }
 
     @Transactional(readOnly = true)
-    public List<StockDTO> findAll(Specification<Stock> stockSpecification) {
-        List<Stock> stocks = stockRepository.findAll(stockSpecification);
-        List<StockDTO> stockDTOS = StockFactory.stocksToStocksDTO(stocks);
-
-        return stockDTOS;
+    public List<StockDTO> findAll(){
+        List<Stock> stocks = stockRepository.findAll();
+        return StockFactory.stocksToStocksDTO(stocks);
     }
+//    @Transactional(readOnly = true)
+//    public List<StockDTO> findAll(Specification<Stock> stockSpecification) {
+//        List<Stock> stocks = stockRepository.findAll(stockSpecification);
+//        List<StockDTO> stockDTOS = StockFactory.stocksToStocksDTO(stocks);
+//
+//        return stockDTOS;
+//    }
     @Transactional(readOnly = true)
     public StockDTO findStockByCode(String code) {
         Stock stock = stockRepository.findBycode(code);
@@ -39,14 +45,14 @@ public class StockService {
         return stockDTO;
     }
 
-    @Transactional(readOnly = true)
-    public StockDTO findStockBydateperimé(String dateperime) {
-        Stock stock = stockRepository.findBydateperime(dateperime);
-        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
-        StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
-
-        return stockDTO;
-    }
+//    @Transactional(readOnly = true)
+//    public StockDTO findStockBydateperimé(String dateperime) {
+//        Stock stock = stockRepository.findBydateperime(dateperime);
+//        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
+//        StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
+//
+//        return stockDTO;
+//    }
 
     @Transactional(readOnly = true)
     public StockDTO findStockByblood(String blood) {
