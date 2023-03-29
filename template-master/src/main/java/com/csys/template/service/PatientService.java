@@ -85,7 +85,9 @@ public class PatientService {
         patientDTO.setGrandFatherNameAr(patientInDB.getGrandFatherNameAr());
         patientDTO.setGender(patientInDB.getGender());
         patientDTO.setBirthDate(patientInDB.getBirthDate());
-
+        LocalDate d=patientInDB.getBirthDate();
+        String y=d.toString();
+        patientDTO.setBirthDay(y);
         String ch =patientDTO.getBloodCode();
         String x=bloodService.findBloodCodeByType(ch).toString();
         patientDTO.setBloodCode(x);
