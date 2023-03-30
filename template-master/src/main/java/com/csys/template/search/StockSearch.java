@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StockSearch {
-    public static Specification<Stock> getSearch(String blood,String dateperime){
+    public static Specification<Stock> getSearch(String blood,String code){
         return ((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if(blood!=null && !(blood.isEmpty())){
                 predicates.add(criteriaBuilder.equal(root.get("blood"), blood));
             }
-            if(dateperime!=null && !(dateperime.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("dateperime"), dateperime));
+            if(code!=null && !(code.isEmpty())){
+                predicates.add(criteriaBuilder.equal(root.get("code"), code));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

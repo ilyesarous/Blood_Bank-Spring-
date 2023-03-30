@@ -22,11 +22,11 @@ public class StockService {
         this.counterService = counterService;
     }
 
-    @Transactional(readOnly = true)
-    public List<StockDTO> findAll(){
-        List<Stock> stocks = stockRepository.findAll();
-        return StockFactory.stocksToStocksDTO(stocks);
-    }
+//    @Transactional(readOnly = true)
+//    public List<StockDTO> findAll(){
+//        List<Stock> stocks = stockRepository.findAll();
+//        return StockFactory.stocksToStocksDTO(stocks);
+//    }
 
 //    @Transactional(readOnly = true)
 //    public StockDTO findStockByCode(String code) {
@@ -37,13 +37,13 @@ public class StockService {
 //        return stockDTO;
 //    }
 
-//    @Transactional(readOnly = true)
-//    public List<StockDTO> findAll(Specification<Stock> stockSpecification) {
-//        List<Stock> stocks = stockRepository.findAll(stockSpecification);
-//        List<StockDTO> stockDTOS = StockFactory.stocksToStocksDTO(stocks);
-//
-//        return stockDTOS;
-//    }
+    @Transactional(readOnly = true)
+    public List<StockDTO> findAll(Specification<Stock> stockSpecification) {
+        List<Stock> stocks = stockRepository.findAll(stockSpecification);
+        List<StockDTO> stockDTOS = StockFactory.stocksToStocksDTO(stocks);
+
+        return stockDTOS;
+    }
 
 //    @Transactional(readOnly = true)
 //    public StockDTO findStockBydateperimé(String dateperime) {

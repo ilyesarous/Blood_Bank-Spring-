@@ -1,4 +1,5 @@
 package com.csys.template.web.rest;
+import com.csys.template.domain.Stock;
 import com.csys.template.dto.StockDTO;
 import com.csys.template.search.StockSearch;
 import com.csys.template.service.StockService;
@@ -26,35 +27,36 @@ public class StockResource {
         this.stockService = stockService;
     }
 
-    @GetMapping()
-    public List<StockDTO> getAll(){
-        List<StockDTO> stockDTOS = stockService.findAll();
-        return stockDTOS;
-    }
+//    @GetMapping()
+//    public List<StockDTO> getAll(){
+//        List<StockDTO> stockDTOS = stockService.findAll();
+//        return stockDTOS;
+//    }
 //    @GetMapping("/{code}")
 //    public StockDTO getByCode( @PathVariable @Valid String code){
 //        StockDTO stockDTOS = stockService.findStockByCode(code);
 //        return stockDTOS;
 //    }
     //@GetMapping
-//public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) String blood,
-//                               @RequestParam(value = "dateperime", required = false) String dateperime
-//                               ){
-//    Specification<Stock> stock = StockSearch.getSearch(blood,dateperime);
-//
-//    return stockService.findAll(stock);
-//
-//}
+@GetMapping
+public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) String blood,
+                               @RequestParam(value = "code", required = false) String code
+                               ){
+    Specification<Stock> stock = StockSearch.getSearch(blood,code);
+
+    return stockService.findAll(stock);
+
+}
 //    @GetMapping("/date/{dateperime}")
 //    public StockDTO getBydateperime( @PathVariable @Valid String dateperime){
 //        StockDTO stockDTOS = stockService.findStockBydateperimé(dateperime);
 //        return stockDTOS;
 //    }
-    @GetMapping("/{blood}")
-    public StockDTO getByblood( @PathVariable @Valid String blood){
-        StockDTO stockDTOS = stockService.findStockByblood(blood);
-        return stockDTOS;
-    }
+//    @GetMapping("/blood/{blood}")
+//    public StockDTO getByblood( @PathVariable @Valid String blood){
+//        StockDTO stockDTOS = stockService.findStockByblood(blood);
+//        return stockDTOS;
+//    }
 
     @PostMapping
     public ResponseEntity<StockDTO> addStock(@RequestBody StockDTO stockDTO, BindingResult bindingResult)
