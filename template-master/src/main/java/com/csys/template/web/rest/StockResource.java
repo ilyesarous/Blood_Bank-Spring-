@@ -42,6 +42,7 @@ public class StockResource {
 public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) String blood,
                                @RequestParam(value = "code", required = false) String code
                                ){
+        
     Specification<Stock> stock = StockSearch.getSearch(blood,code);
 
     return stockService.findAll(stock);

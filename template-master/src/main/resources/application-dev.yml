@@ -79,8 +79,10 @@ server:
 profiles:
     include: no-liquibase
 
-paramService :
-    base-uri : http://integration.clinisys.local/parametrage-core
-    cabinet : /api/cabinets
-    medecin : /api/medecins
+paramService:
+    base-uri: http://integration.clinisys.local/parametrage-core
+    cabinet: /api/cabinets
+    medecin: /api/medecins
     service: /api/services
+
+
