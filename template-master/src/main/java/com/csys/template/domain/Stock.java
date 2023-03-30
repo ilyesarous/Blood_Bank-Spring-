@@ -41,7 +41,6 @@ public class Stock {
     }
 
 
-
     public Integer getId() {
         return id;
     }

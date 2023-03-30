@@ -38,8 +38,18 @@ public class StockService {
 //    }
 
     @Transactional(readOnly = true)
+    public StockDTO findStockByCode(String code) {
+        Stock stock = stockRepository.findBycode(code);
+        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
+        StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
+
+        return stockDTO;
+    }
+
+    @Transactional(readOnly = true)
     public List<StockDTO> findAll(Specification<Stock> stockSpecification) {
         List<Stock> stocks = stockRepository.findAll(stockSpecification);
+        com.csys.template.util.Preconditions.checkBusinessLogique(stocks != null, "error.couldn't-find-stock");
         List<StockDTO> stockDTOS = StockFactory.stocksToStocksDTO(stocks);
 
         return stockDTOS;

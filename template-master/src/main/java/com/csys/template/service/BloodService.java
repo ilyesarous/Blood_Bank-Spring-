@@ -26,6 +26,7 @@ public class BloodService {
     @Transactional(readOnly = true)
     public List<BloodDTO> findAll(Specification<Blood> specification) {
         List<Blood> bloods = bloodRepository.findAll(specification);
+        Preconditions.checkBusinessLogique(bloods != null, "error.couldn't-find-bloods");
         for (Blood b : bloods) {
             if (!Objects.equals(b.getGivenTo(), "-")) {
                 String[] given = b.getGivenTo().split(",");
@@ -65,10 +66,10 @@ public class BloodService {
     @Transactional(readOnly = true)
     public Integer findBloodCodeByType(String ch) {
         String rhesus;
-        rhesus = ch.substring(ch.length()-1);
-        String group = ch.substring(0, ch.length()-1);
-        System.out.println("rhesus: "+rhesus);
-        System.out.println("group: "+group);
+        rhesus = ch.substring(ch.length() - 1);
+        String group = ch.substring(0, ch.length() - 1);
+        System.out.println("rhesus: " + rhesus);
+        System.out.println("group: " + group);
         if (findByGroupAndRhesus(group, rhesus) != null) {
             return findByGroupAndRhesus(group, rhesus).getCodeBlood();
         }
@@ -166,14 +167,15 @@ public class BloodService {
     }
 
     @Transactional(readOnly = true)
-    public List<BloodDTO> getListBloodByCode(List<Integer> codes){
+    public List<BloodDTO> getListBloodByCode(List<Integer> codes) {
         Preconditions.checkBusinessLogique(codes != null, "eroor");
         List<BloodDTO> bloodDTOList = new ArrayList<>();
-        for (Integer x : codes){
+        for (Integer x : codes) {
             bloodDTOList.add(BloodFactory.bloodToBloodDTO(bloodRepository.findByCodeBlood(x)));
         }
         return bloodDTOList;
     }
+
     public BloodDTO updateStatusBlood(Integer code) {
         Blood bloodInDB = bloodRepository.findByCodeBlood(code);
         BloodFactory.statusChangeHandler(bloodInDB);

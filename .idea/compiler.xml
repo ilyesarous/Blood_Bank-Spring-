@@ -10,7 +10,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="blood-bank" target="17" />
       <module name="template" target="17" />
     </bytecodeTargetLevel>
   </component>
