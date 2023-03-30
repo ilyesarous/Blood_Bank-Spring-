@@ -1,6 +1,5 @@
 package com.csys.template.service;
 
-import com.csys.template.domain.Blood;
 import com.csys.template.domain.Patient;
 import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
@@ -12,7 +11,6 @@ import com.csys.template.util.Preconditions;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

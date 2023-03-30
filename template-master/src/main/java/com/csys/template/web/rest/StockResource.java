@@ -31,11 +31,11 @@ public class StockResource {
         List<StockDTO> stockDTOS = stockService.findAll();
         return stockDTOS;
     }
-    @GetMapping("/{code}")
-    public StockDTO getByCode( @PathVariable @Valid String code){
-        StockDTO stockDTOS = stockService.findStockByCode(code);
-        return stockDTOS;
-    }
+//    @GetMapping("/{code}")
+//    public StockDTO getByCode( @PathVariable @Valid String code){
+//        StockDTO stockDTOS = stockService.findStockByCode(code);
+//        return stockDTOS;
+//    }
     //@GetMapping
 //public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) String blood,
 //                               @RequestParam(value = "dateperime", required = false) String dateperime
@@ -50,7 +50,7 @@ public class StockResource {
 //        StockDTO stockDTOS = stockService.findStockBydateperimé(dateperime);
 //        return stockDTOS;
 //    }
-    @GetMapping("/blood/{blood}")
+    @GetMapping("/{blood}")
     public StockDTO getByblood( @PathVariable @Valid String blood){
         StockDTO stockDTOS = stockService.findStockByblood(blood);
         return stockDTOS;
@@ -70,7 +70,6 @@ public class StockResource {
     @DeleteMapping("/{code}")
     public ResponseEntity<StockDTO> DeletStock(@PathVariable @RequestBody String code)
             throws  URISyntaxException {
-
         StockDTO p = stockService.remove(code);
         return ResponseEntity.created(new URI("/stock"+ p.getCode())).body(p);
     }

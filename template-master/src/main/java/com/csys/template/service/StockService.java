@@ -28,14 +28,14 @@ public class StockService {
         return StockFactory.stocksToStocksDTO(stocks);
     }
 
-    @Transactional(readOnly = true)
-    public StockDTO findStockByCode(String code) {
-        Stock stock = stockRepository.findBycode(code);
-        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
-        StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
-
-        return stockDTO;
-    }
+//    @Transactional(readOnly = true)
+//    public StockDTO findStockByCode(String code) {
+//        Stock stock = stockRepository.findBycode(code);
+//        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
+//        StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
+//
+//        return stockDTO;
+//    }
 
 //    @Transactional(readOnly = true)
 //    public List<StockDTO> findAll(Specification<Stock> stockSpecification) {
@@ -77,10 +77,10 @@ public class StockService {
         Stock stock = stockRepository.findBycode(code);
         StockDTO stockDTO =StockFactory.stockToStockDTO(stock);
         stockRepository.deleteById(stock.getId().toString());
-        CounterDTO counter = counterService.findCounterByType("stock");
-        Preconditions.checkArgument (counter != null, "type does not found!");
-        counter.setSuffix(counter.getSuffix()-1);
-        counterService.updateCounter(counter);
+//        CounterDTO counter = counterService.findCounterByType("stock");
+//        Preconditions.checkArgument (counter != null, "type does not found!");
+//        counter.setSuffix(counter.getSuffix()-1);
+//        counterService.updateCounter(counter);
         return stockDTO;
     }
 
