@@ -86,3 +86,5 @@ paramService:
     service: /api/services
 
 
+hystrix:
+    command.default.execution.isolation.strategy: THREAD
