@@ -1,9 +1,7 @@
 package com.csys.template.factory;
 
 import com.csys.template.domain.Demande;
-import com.csys.template.domain.Stock;
 import com.csys.template.dto.DemandeDTO;
-import com.csys.template.dto.StockDTO;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
@@ -21,7 +19,7 @@ public class DemandeFactory {
         return user;
     }
 
-    public static DemandeDTO stockToStockDTO(Demande demande){
+    public static DemandeDTO demandeToDemandeDTO(Demande demande){
         DemandeDTO demandeDTO = new DemandeDTO();
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
@@ -29,45 +27,82 @@ public class DemandeFactory {
         demandeDTO.setQuantiter(demande.getQuantiter());
         demandeDTO.setState(demande.getState());
         demandeDTO.setBlood(demande.getBlood());
-        demandeDTO.setCreateDate(demande.getCreateDate());
+        LocalDate d = demande.getCreateDate();
+        String date= d.toString();
+        demandeDTO.setCreateDate(date);
         demandeDTO.setUsercreate(demande.getUsercreate());
+        Integer x = demande.getStatus();
+        String result;
 
-
+        switch (x) {
+            case 1 :
+                result = "SOLVED" ;
+                break;
+            case 2:
+                result = "REJECTED";
+                break;
+            case 3 :
+                result = "PENDING";
+                break;
+            default:
+                result = "REJECTED";
+                break;
+        }
+        demandeDTO.setStatus(result);
 
         return demandeDTO;
 
     }
 
-    public static Demande stockDTOToStock(DemandeDTO demandeDTO){
+    public static Demande demandeDTOToDemande(DemandeDTO demandeDTO){
 
         Demande demande= new Demande();
-
+        LocalDate d = LocalDate.now();
         demande.setCode(demandeDTO.getCode());
         demande.setCodeMedecin(demandeDTO.getCodeMedecin());
         demande.setCodeService(demandeDTO.getCodeService());
         demande.setQuantiter(demandeDTO.getQuantiter());
         demande.setState(demandeDTO.getState());
         demande.setBlood(demandeDTO.getBlood());
-        demande.setCreateDate(demandeDTO.getCreateDate());
+        demande.setCreateDate(d);
         demande.setUsercreate(getUserAuthenticated());
+        String ch = demandeDTO.getStatus();
+
+        Integer result;
+
+        switch (ch) {
+            case  "SOLVED":
+                result = 1 ;
+                break;
+            case "REJECTED":
+                result = 2;
+                break;
+            case "PENDING":
+                result = 3;
+                break;
+            default:
+                result = 2;
+                break;
+        }
+        demande.setStatus(result);
 
         return demande ;
     }
 
-//    public static List<StockDTO> stocksToStocksDTO(List<Stock> stocks){
-//        List<StockDTO> stockDTOS = new ArrayList<StockDTO>();
-//        for(Stock patient : stocks){
-//            stockDTOS.add(stockToStockDTO(patient));
-//        }
-//        return stockDTOS;
-//    }
-//
-//    public static List<Stock> stocksDTOToStocks(List<StockDTO> stockDTOS){
-//        List<Stock> stocks = new ArrayList<Stock>();
-//        for(StockDTO stockDTO : stockDTOS){
-//            stocks.add(stockDTOToStock(stockDTO));
-//
-//        }
-//        return stocks;
-//    }
+    public static List<DemandeDTO> stocksToStocksDTO(List<Demande> demandes){
+        List<DemandeDTO> demandeDTOS = new ArrayList<DemandeDTO>();
+        for(Demande demande : demandes){
+            demandeDTOS.add(demandeToDemandeDTO(demande));
+        }
+        return demandeDTOS;
+    }
+
+    public static List<Demande> stocksDTOToStocks(List<DemandeDTO> demandeDTOS){
+        List<Demande> demandes = new ArrayList<Demande>();
+        for(DemandeDTO demandeDTO : demandeDTOS){
+            demandes.add(demandeDTOToDemande(demandeDTO));
+
+        }
+        return demandes;
+    }
 }

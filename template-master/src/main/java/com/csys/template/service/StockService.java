@@ -2,6 +2,7 @@ package com.csys.template.service;
 import com.csys.template.domain.Stock;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.StockDTO;
+import com.csys.template.dto.StockHistoryDTO;
 import com.csys.template.factory.StockFactory;
 import com.csys.template.repository.StockRepository;
 import com.google.common.base.Preconditions;
@@ -16,10 +17,12 @@ import java.util.List;
 public class StockService {
     private final StockRepository stockRepository;
     private final CounterService counterService;
+    private final StockHistoryService stockHistoryService;
 
-    public StockService(StockRepository stockRepository, CounterService counterService) {
+    public StockService(StockRepository stockRepository, CounterService counterService, StockHistoryService stockHistoryService) {
         this.stockRepository = stockRepository;
         this.counterService = counterService;
+        this.stockHistoryService = stockHistoryService;
     }
 
 //    @Transactional(readOnly = true)
@@ -79,6 +82,7 @@ public class StockService {
         stockDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
+//        StockHistoryDTO stockHistoryDTO= StockFactory;
         Stock d =stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
         return StockFactory.stockToStockDTO(d);
     }

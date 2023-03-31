@@ -3,6 +3,8 @@ package com.csys.template.dto;
 import jakarta.persistence.Column;
 
 public class DemandeDTO {
+
+    private Integer Id;
     private String code;
     private String codeMedecin;
     private String blood;
@@ -11,7 +13,26 @@ public class DemandeDTO {
     private String codeService;
     private String CreateDate;
     private String usercreate;
+    private String status;
 
+
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
 
     public String getUsercreate() {
         return usercreate;

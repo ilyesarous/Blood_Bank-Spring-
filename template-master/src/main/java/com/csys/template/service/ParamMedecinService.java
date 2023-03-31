@@ -32,21 +32,12 @@ public class ParamMedecinService {
     public ParamMedecinService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-
     @HystrixCommand(fallbackMethod = "serviceFindOneFallback", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
     })
-    public String serviceFindOneByCode(Integer code) {
+    public MedecinDTO serviceFindOne(Integer code) {
         log.debug("Sending request to service to findOne");
         ResponseEntity<MedecinDTO> medecine = restTemplate.getForEntity(baseUri + uriMedecin + "/" + code, MedecinDTO.class);
-        return medecine.getBody().getNomInterv();
-    }
-    @HystrixCommand(fallbackMethod = "serviceFindOneFallback", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
-    })
-    public MedecinDTO serviceFindOne(String name) {
-        log.debug("Sending request to service to findOne");
-        ResponseEntity<MedecinDTO> medecine = restTemplate.getForEntity(baseUri + uriMedecin + "/" + name, MedecinDTO.class);
         return medecine.getBody();
     }
 

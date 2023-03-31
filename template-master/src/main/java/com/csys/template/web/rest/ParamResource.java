@@ -24,8 +24,8 @@ public class ParamResource {
         this.paramMedecinService = paramMedecinService;
     }
 
-    @GetMapping("/{nom}")
-    public MedecinDTO getOne(@PathVariable String nom){
-        return paramMedecinService.serviceFindOne(nom);
+    @GetMapping("/{code}")
+    public MedecinDTO getOne(@PathVariable Integer code){
+        return paramMedecinService.serviceFindOne(code);
     }
 }

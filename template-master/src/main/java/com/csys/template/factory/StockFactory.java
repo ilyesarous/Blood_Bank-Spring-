@@ -36,6 +36,23 @@ public class StockFactory {
 
     }
 
+    public static StockDTO stockToStockHistoryDTO(Stock stock){
+        StockDTO stockDTO = new StockDTO();
+        stockDTO.setId(stock.getId());
+        stockDTO.setBlood(stock.getBlood());
+        stockDTO.setCode(stock.getCode());
+        stockDTO.setCodedonateur(stock.getCodedonateur());
+        stockDTO.setUserCreate(stock.getUserCreate());
+        LocalDate d= stock.getDateCreate();
+        String x=d.toString();
+        stockDTO.setDateCreate(x);
+        stockDTO.setDateperime(stock.getDateperime());
+
+
+        return stockDTO;
+
+    }
+
     public static Stock stockDTOToStock(StockDTO stockDTO){
         Stock stock = new Stock();
         LocalDate d = LocalDate.now();

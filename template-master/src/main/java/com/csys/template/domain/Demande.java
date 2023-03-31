@@ -7,6 +7,8 @@ import jakarta.persistence.Table;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "demande")
 @Audited
@@ -26,10 +28,20 @@ public class Demande {
     @Column(name = "code_service", nullable = false)
     private String codeService;
     @Column(name = "Date_create", nullable = false)
-    private String CreateDate;
+    private LocalDate CreateDate;
     @Column(name = "User_Create", nullable = false)
     private String usercreate;
+    @Column(name = "Status", nullable = false)
+    private Integer status;
 
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getUsercreate() {
         return usercreate;
@@ -39,11 +51,11 @@ public class Demande {
         this.usercreate = usercreate;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return CreateDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(LocalDate createDate) {
         CreateDate = createDate;
     }
 
