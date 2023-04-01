@@ -45,7 +45,7 @@ public class DemandeFactory {
                 result = "PENDING";
                 break;
             default:
-                result = "REJECTED";
+                result = "PENDING";
                 break;
         }
         demandeDTO.setStatus(result);
@@ -81,7 +81,7 @@ public class DemandeFactory {
                 result = 3;
                 break;
             default:
-                result = 2;
+                result = 3;
                 break;
         }
         demande.setStatus(result);

@@ -82,7 +82,8 @@ public class StockService {
         stockDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
-//        StockHistoryDTO stockHistoryDTO= StockFactory;
+        StockHistoryDTO stockHistoryDTO= StockFactory.stockToStockHistoryDTO(stockDTO);
+        stockHistoryService.addStockHistory(stockHistoryDTO);
         Stock d =stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
         return StockFactory.stockToStockDTO(d);
     }
@@ -90,11 +91,10 @@ public class StockService {
     public StockDTO remove(String code){
         Stock stock = stockRepository.findBycode(code);
         StockDTO stockDTO =StockFactory.stockToStockDTO(stock);
+        StockHistoryDTO stockHistoryDTO= StockFactory.DELstockToStockHistoryDTO(stockDTO);
+        stockHistoryService.addStockHistory(stockHistoryDTO);
         stockRepository.deleteById(stock.getId().toString());
-//        CounterDTO counter = counterService.findCounterByType("stock");
-//        Preconditions.checkArgument (counter != null, "type does not found!");
-//        counter.setSuffix(counter.getSuffix()-1);
-//        counterService.updateCounter(counter);
+
         return stockDTO;
     }
 

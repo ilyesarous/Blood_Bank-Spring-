@@ -1,6 +1,8 @@
 package com.csys.template.factory;
 import com.csys.template.domain.Stock;
+import com.csys.template.domain.StockHistory;
 import com.csys.template.dto.StockDTO;
+import com.csys.template.dto.StockHistoryDTO;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
@@ -36,17 +38,29 @@ public class StockFactory {
 
     }
 
-    public static StockDTO stockToStockHistoryDTO(Stock stock){
-        StockDTO stockDTO = new StockDTO();
-        stockDTO.setId(stock.getId());
-        stockDTO.setBlood(stock.getBlood());
+    public static StockHistoryDTO stockToStockHistoryDTO(StockDTO stock){
+        StockHistoryDTO stockDTO = new StockHistoryDTO();
         stockDTO.setCode(stock.getCode());
+        stockDTO.setBlood(stock.getBlood());
         stockDTO.setCodedonateur(stock.getCodedonateur());
         stockDTO.setUserCreate(stock.getUserCreate());
-        LocalDate d= stock.getDateCreate();
-        String x=d.toString();
-        stockDTO.setDateCreate(x);
+        stockDTO.setDateCreate(stock.getDateCreate());
         stockDTO.setDateperime(stock.getDateperime());
+        stockDTO.setService("Add");
+
+
+        return stockDTO;
+
+    }
+    public static StockHistoryDTO DELstockToStockHistoryDTO(StockDTO stock){
+        StockHistoryDTO stockDTO = new StockHistoryDTO();
+        stockDTO.setCode(stock.getCode());
+        stockDTO.setBlood(stock.getBlood());
+        stockDTO.setCodedonateur(stock.getCodedonateur());
+        stockDTO.setUserCreate(stock.getUserCreate());
+        stockDTO.setDateCreate(stock.getDateCreate());
+        stockDTO.setDateperime(stock.getDateperime());
+        stockDTO.setService("Remove");
 
 
         return stockDTO;
