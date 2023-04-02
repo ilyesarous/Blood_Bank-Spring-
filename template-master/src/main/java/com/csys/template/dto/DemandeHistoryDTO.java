@@ -17,9 +17,9 @@ public class DemandeHistoryDTO {
     private String quantiter;
     private String state;
     private String codeService;
-    private LocalDate CreateDate;
+    private String CreateDate;
     private String usercreate;
-    private Integer status;
+    private String status;
 
 
     public Integer getId() {
@@ -78,11 +78,11 @@ public class DemandeHistoryDTO {
         this.codeService = codeService;
     }
 
-    public LocalDate getCreateDate() {
+    public String getCreateDate() {
         return CreateDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(String createDate) {
         CreateDate = createDate;
     }
 
@@ -94,11 +94,11 @@ public class DemandeHistoryDTO {
         this.usercreate = usercreate;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

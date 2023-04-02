@@ -3,6 +3,7 @@ package com.csys.template.service;
 import com.csys.template.domain.Demande;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DemandeDTO;
+import com.csys.template.dto.DemandeHistoryDTO;
 import com.csys.template.factory.DemandeFactory;
 import com.csys.template.repository.DemandeRepository;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,14 @@ public class DemandeService {
     private final ParamServiceClient paramServiceClient;
     private final ParamMedecinService paramMedecinService;
     private final CounterService counterService;
+    private final DemandeHistoryService demandeHistoryService;
 
-    public DemandeService(DemandeRepository demandeRepository, ParamServiceClient paramServiceClient, ParamMedecinService paramMedecinService, CounterService counterService) {
+    public DemandeService(DemandeRepository demandeRepository, ParamServiceClient paramServiceClient, ParamMedecinService paramMedecinService, CounterService counterService, DemandeHistoryService demandeHistoryService) {
         this.demandeRepository = demandeRepository;
         this.paramServiceClient = paramServiceClient;
         this.paramMedecinService = paramMedecinService;
         this.counterService = counterService;
+        this.demandeHistoryService = demandeHistoryService;
     }
 
     @Transactional(readOnly = true)
@@ -50,6 +53,8 @@ public class DemandeService {
 //        ServiceDTO serviceDTO= paramServiceClient.serviceFindOne(code);
 
         Demande d = demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
+        DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(d);
+        demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
         return DemandeFactory.demandeToDemandeDTO(d);
 
     }
@@ -64,7 +69,18 @@ public class DemandeService {
         demandeDTO.setBlood(demande.getBlood());
         demandeDTO.setUsercreate(demande.getUsercreate());
 
-        return demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
+        Demande demande1=DemandeFactory.demandeDTOToDemande(demandeDTO);
+        if (demandeDTO.getStatus().equals("SOLVED") || demandeDTO.getStatus().equals("REJECTED")  )
+        {
+
+            DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demande1);
+            demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
+            DemandeDTO demandeDTO1= remove(demandeDTO.getCode());
+        }
+        else {
+            demandeRepository.save(demande1);
+        }
+        return demande1;
     }
     @Transactional
     public DemandeDTO remove(String code){

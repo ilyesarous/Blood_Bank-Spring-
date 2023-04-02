@@ -1,6 +1,8 @@
 package com.csys.template.web.rest;
 
+import com.csys.template.domain.Demande;
 import com.csys.template.dto.DemandeDTO;
+import com.csys.template.dto.DonationDTO;
 import com.csys.template.service.DemandeService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +45,12 @@ public class DemandeResource {
         }
         DemandeDTO c = demandeService.addDemande(demandeDTO);
         return ResponseEntity.created(new URI("/demande"+ c.getCode())).body(c);
+    }
+
+    @PutMapping("/{code}")
+    public ResponseEntity<Demande> updateDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String code)
+            throws URISyntaxException {
+        Demande c = demandeService.updateDemande(donationDTO);
+        return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
     }
 }
