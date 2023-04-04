@@ -30,9 +30,10 @@ public class DemandeHistoryFactory {
         demandeDTO.setQuantiter(demandeHistory.getQuantiter());
         demandeDTO.setState(demandeHistory.getState());
         demandeDTO.setBlood(demandeHistory.getBlood());
-        LocalDate d = demandeHistory.getCreateDate();
+        LocalDate d = demandeHistory.getUpdateDate();
         String date= d.toString();
-        demandeDTO.setCreateDate(date);
+        demandeDTO.setUpdateDate(date);
+        demandeDTO.setCreateDate(demandeHistory.getCreateDate());
         demandeDTO.setUsercreate(demandeHistory.getUsercreate());
         Integer x = demandeHistory.getStatus();
         String result;
@@ -67,7 +68,8 @@ public class DemandeHistoryFactory {
         demande.setQuantiter(demandeDTO.getQuantiter());
         demande.setState(demandeDTO.getState());
         demande.setBlood(demandeDTO.getBlood());
-        demande.setCreateDate(d);
+        demande.setUpdateDate(d);
+        demande.setCreateDate(demandeDTO.getCreateDate());
         demande.setUsercreate(getUserAuthenticated());
         String ch = demandeDTO.getStatus();
 

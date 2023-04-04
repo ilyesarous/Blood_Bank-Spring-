@@ -31,7 +31,9 @@ public class DemandeHistory {
     @Column(name = "code_service", nullable = false)
     private String codeService;
     @Column(name = "Date_create", nullable = false)
-    private LocalDate CreateDate;
+    private String CreateDate;
+    @Column(name = "Date_update", nullable = false)
+    private LocalDate updateDate;
     @Column(name = "User_Create", nullable = false)
     private String usercreate;
     @Column(name = "Status", nullable = false)
@@ -95,11 +97,11 @@ public class DemandeHistory {
         this.codeService = codeService;
     }
 
-    public LocalDate getCreateDate() {
+    public String getCreateDate() {
         return CreateDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(String createDate) {
         CreateDate = createDate;
     }
 
@@ -117,5 +119,13 @@ public class DemandeHistory {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public LocalDate getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDate updateDate) {
+        this.updateDate = updateDate;
     }
 }

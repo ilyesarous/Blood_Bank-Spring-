@@ -1,7 +1,6 @@
 package com.csys.template.factory;
 
 import com.csys.template.domain.Demande;
-import com.csys.template.domain.DemandeHistory;
 import com.csys.template.dto.DemandeDTO;
 import com.csys.template.dto.DemandeHistoryDTO;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -92,7 +91,8 @@ public class DemandeFactory {
     }
 
 
-    public static DemandeHistoryDTO demandeToDemandeHistoryDTO(Demande demande){
+
+    public static DemandeHistoryDTO demandeToDemandeHistoryDTO(DemandeDTO demande){
         DemandeHistoryDTO demandeDTO = new DemandeHistoryDTO();
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
@@ -100,28 +100,28 @@ public class DemandeFactory {
         demandeDTO.setQuantiter(demande.getQuantiter());
         demandeDTO.setState(demande.getState());
         demandeDTO.setBlood(demande.getBlood());
-        LocalDate d = demande.getCreateDate();
-        String date= d.toString();
-        demandeDTO.setCreateDate(date);
+//        LocalDate d = demande.getCreateDate();
+//        String date= d.toString();
+        demandeDTO.setCreateDate(demande.getCreateDate());
         demandeDTO.setUsercreate(demande.getUsercreate());
-        Integer x = demande.getStatus();
-        String result;
-
-        switch (x) {
-            case 1 :
-                result = "SOLVED" ;
-                break;
-            case 2:
-                result = "REJECTED";
-                break;
-            case 3 :
-                result = "PENDING";
-                break;
-            default:
-                result = "PENDING";
-                break;
-        }
-        demandeDTO.setStatus(result);
+//        Integer x = demande.getStatus();
+//        String result;
+//
+//        switch (x) {
+//            case 1 :
+//                result = "SOLVED" ;
+//                break;
+//            case 2:
+//                result = "REJECTED";
+//                break;
+//            case 3 :
+//                result = "PENDING";
+//                break;
+//            default:
+//                result = "PENDING";
+//                break;
+//        }
+        demandeDTO.setStatus(demande.getStatus());
 
         return demandeDTO;
 

@@ -20,7 +20,16 @@ public class DemandeHistoryDTO {
     private String CreateDate;
     private String usercreate;
     private String status;
+    private String updateDate;
 
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
 
     public Integer getId() {
         return id;

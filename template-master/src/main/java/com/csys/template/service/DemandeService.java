@@ -1,9 +1,7 @@
 package com.csys.template.service;
 
 import com.csys.template.domain.Demande;
-import com.csys.template.dto.CounterDTO;
-import com.csys.template.dto.DemandeDTO;
-import com.csys.template.dto.DemandeHistoryDTO;
+import com.csys.template.dto.*;
 import com.csys.template.factory.DemandeFactory;
 import com.csys.template.repository.DemandeRepository;
 import org.springframework.stereotype.Service;
@@ -48,12 +46,12 @@ public class DemandeService {
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
         Integer codeMed=(Integer.parseInt(demandeDTO.getCodeMedecin()));
-//        MedecinDTO medecinDTO=paramMedecinService.serviceFindOne(codeMed);
+        MedecinDTO medecinDTO=paramMedecinService.serviceFindOne(codeMed);
         Integer code= (Integer.parseInt(demandeDTO.getCodeService()));
-//        ServiceDTO serviceDTO= paramServiceClient.serviceFindOne(code);
+        ServiceDTO serviceDTO= paramServiceClient.serviceFindOne(code);
 
         Demande d = demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
-        DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(d);
+        DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
         demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
         return DemandeFactory.demandeToDemandeDTO(d);
 
@@ -73,7 +71,7 @@ public class DemandeService {
         if (demandeDTO.getStatus().equals("SOLVED") || demandeDTO.getStatus().equals("REJECTED")  )
         {
 
-            DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demande1);
+            DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
             demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
             DemandeDTO demandeDTO1= remove(demandeDTO.getCode());
         }
