@@ -33,22 +33,13 @@ public class DemandeFactory {
         demandeDTO.setCreateDate(date);
         demandeDTO.setUsercreate(demande.getUsercreate());
         Integer x = demande.getStatus();
-        String result;
+        String result = switch (x) {
+            case 1 -> "SOLVED";
+            case 2 -> "REJECTED";
+            case 3 -> "PENDING";
+            default -> "PENDING";
+        };
 
-        switch (x) {
-            case 1 :
-                result = "SOLVED" ;
-                break;
-            case 2:
-                result = "REJECTED";
-                break;
-            case 3 :
-                result = "PENDING";
-                break;
-            default:
-                result = "PENDING";
-                break;
-        }
         demandeDTO.setStatus(result);
 
         return demandeDTO;
@@ -69,22 +60,13 @@ public class DemandeFactory {
         demande.setUsercreate(getUserAuthenticated());
         String ch = demandeDTO.getStatus();
 
-        Integer result;
+        Integer result = switch (ch) {
+            case "SOLVED" -> 1;
+            case "REJECTED" -> 2;
+            case "PENDING" -> 3;
+            default -> 3;
+        };
 
-        switch (ch) {
-            case  "SOLVED":
-                result = 1 ;
-                break;
-            case "REJECTED":
-                result = 2;
-                break;
-            case "PENDING":
-                result = 3;
-                break;
-            default:
-                result = 3;
-                break;
-        }
         demande.setStatus(result);
 
         return demande ;

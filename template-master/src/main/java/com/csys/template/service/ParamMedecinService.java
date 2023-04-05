@@ -32,6 +32,7 @@ public class ParamMedecinService {
     public ParamMedecinService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+
     @HystrixCommand(fallbackMethod = "serviceFindOneFallback", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
     })

@@ -7,6 +7,7 @@ import com.csys.template.repository.DemandeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -28,9 +29,10 @@ public class DemandeService {
     }
 
     @Transactional(readOnly = true)
-    public List<DemandeDTO> findAll(){
+    public List<DemandeDTO> findAll() {
         return DemandeFactory.stocksToStocksDTO(demandeRepository.findAll());
     }
+
     @Transactional(readOnly = true)
     public DemandeDTO findStockByCode(String code) {
         Demande demande = demandeRepository.findByCode(code);
@@ -39,25 +41,28 @@ public class DemandeService {
 
         return demandeDTO;
     }
-    @Transactional
-    public DemandeDTO addDemande(DemandeDTO demandeDTO){
-        CounterDTO counter = counterService.findCounterByType("demande");
-        demandeDTO.setCode(counter.getPrefix()+counter.getSuffix());
-        counter.setSuffix(counter.getSuffix()+1);
-        counterService.updateCounter(counter);
-        Integer codeMed=(Integer.parseInt(demandeDTO.getCodeMedecin()));
-        MedecinDTO medecinDTO=paramMedecinService.serviceFindOne(codeMed);
-        Integer code= (Integer.parseInt(demandeDTO.getCodeService()));
-        ServiceDTO serviceDTO= paramServiceClient.serviceFindOne(code);
 
+    @Transactional
+    public DemandeDTO addDemande(DemandeDTO demandeDTO) {
+        CounterDTO counter = counterService.findCounterByType("demande");
+        demandeDTO.setCode(counter.getPrefix() + counter.getSuffix());
+        counter.setSuffix(counter.getSuffix() + 1);
+        counterService.updateCounter(counter);
+        Integer codeMed = (Integer.parseInt(demandeDTO.getCodeMedecin()));
+        MedecinDTO medecinDTO = paramMedecinService.serviceFindOne(codeMed);
+        Integer code = (Integer.parseInt(demandeDTO.getCodeService()));
+        ServiceDTO serviceDTO = paramServiceClient.serviceFindOne(code);
+        demandeDTO.setCreateDate(LocalDate.now().toString());
         Demande d = demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
         DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
+        demandeHistoryDTO.setCreateDate(demandeDTO.getCreateDate());
         demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
         return DemandeFactory.demandeToDemandeDTO(d);
 
     }
+
     @Transactional
-    public Demande updateDemande(DemandeDTO demandeDTO){
+    public Demande updateDemande(DemandeDTO demandeDTO) {
         Demande demande = demandeRepository.findByCode(demandeDTO.getCode());
 
 
@@ -67,23 +72,22 @@ public class DemandeService {
         demandeDTO.setBlood(demande.getBlood());
         demandeDTO.setUsercreate(demande.getUsercreate());
 
-        Demande demande1=DemandeFactory.demandeDTOToDemande(demandeDTO);
-        if (demandeDTO.getStatus().equals("SOLVED") || demandeDTO.getStatus().equals("REJECTED")  )
-        {
+        Demande demande1 = DemandeFactory.demandeDTOToDemande(demandeDTO);
+        if (demandeDTO.getStatus().equals("SOLVED") || demandeDTO.getStatus().equals("REJECTED")) {
 
             DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
             demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
-            DemandeDTO demandeDTO1= remove(demandeDTO.getCode());
-        }
-        else {
+            DemandeDTO demandeDTO1 = remove(demandeDTO.getCode());
+        } else {
             demandeRepository.save(demande1);
         }
         return demande1;
     }
+
     @Transactional
-    public DemandeDTO remove(String code){
+    public DemandeDTO remove(String code) {
         Demande demande = demandeRepository.findByCode(code);
-        DemandeDTO demandeDTO =DemandeFactory.demandeToDemandeDTO(demande);
+        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
         demandeRepository.deleteById(demande.getCode());
         return demandeDTO;
     }
