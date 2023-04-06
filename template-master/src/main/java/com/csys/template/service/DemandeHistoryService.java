@@ -8,6 +8,7 @@ import com.csys.template.dto.DemandeHistoryDTO;
 import com.csys.template.factory.DemandeFactory;
 import com.csys.template.factory.DemandeHistoryFactory;
 import com.csys.template.repository.DemandeHistoryRepository;
+import com.google.common.base.Preconditions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,15 +29,16 @@ public class DemandeHistoryService {
     }
     @Transactional(readOnly = true)
     public DemandeHistoryDTO findStockByCode(String code) {
-        DemandeHistory demande = demandeHistoryRepository.findByCode(code);
 
+        DemandeHistory demande = demandeHistoryRepository.findByCode(code);
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande");
         DemandeHistoryDTO demandeDTO = DemandeHistoryFactory.demandeHistoryToDemandeHistoryDTO(demande);
 
         return demandeDTO;
     }
     @Transactional
     public DemandeHistoryDTO addDemandeHistory(DemandeHistoryDTO demandeDTO){
-
+        Preconditions.checkArgument (demandeDTO != null, "Demande added!");
         DemandeHistory d = demandeHistoryRepository.save(DemandeHistoryFactory.demandeHistoryDTOToDemandeHistory(demandeDTO));
         return DemandeHistoryFactory.demandeHistoryToDemandeHistoryDTO(d);
 

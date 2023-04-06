@@ -82,8 +82,6 @@ public class DemandeFactory {
         demandeDTO.setQuantiter(demande.getQuantiter());
         demandeDTO.setState(demande.getState());
         demandeDTO.setBlood(demande.getBlood());
-//        LocalDate d = demande.getCreateDate();
-//        String date= d.toString();
         demandeDTO.setCreateDate(demande.getCreateDate());
         demandeDTO.setUsercreate(demande.getUsercreate());
 //        Integer x = demande.getStatus();
