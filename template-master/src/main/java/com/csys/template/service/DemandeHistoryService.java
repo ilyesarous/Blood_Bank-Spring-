@@ -1,11 +1,6 @@
 package com.csys.template.service;
-
-import com.csys.template.domain.Demande;
 import com.csys.template.domain.DemandeHistory;
-import com.csys.template.dto.CounterDTO;
-import com.csys.template.dto.DemandeDTO;
 import com.csys.template.dto.DemandeHistoryDTO;
-import com.csys.template.factory.DemandeFactory;
 import com.csys.template.factory.DemandeHistoryFactory;
 import com.csys.template.repository.DemandeHistoryRepository;
 import com.google.common.base.Preconditions;

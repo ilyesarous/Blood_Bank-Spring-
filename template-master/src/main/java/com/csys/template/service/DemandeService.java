@@ -1,15 +1,21 @@
 package com.csys.template.service;
 
+import com.csys.template.domain.Blood;
 import com.csys.template.domain.Demande;
+import com.csys.template.domain.Patient;
 import com.csys.template.dto.*;
 import com.csys.template.factory.DemandeFactory;
+import com.csys.template.factory.PatientFactory;
 import com.csys.template.repository.DemandeRepository;
 import com.google.common.base.Preconditions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -20,18 +26,40 @@ public class DemandeService {
     private final ParamMedecinService paramMedecinService;
     private final CounterService counterService;
     private final DemandeHistoryService demandeHistoryService;
+    private final BloodService bloodService;
 
-    public DemandeService(DemandeRepository demandeRepository, ParamServiceClient paramServiceClient, ParamMedecinService paramMedecinService, CounterService counterService, DemandeHistoryService demandeHistoryService) {
+    public DemandeService(DemandeRepository demandeRepository, ParamServiceClient paramServiceClient, ParamMedecinService paramMedecinService, CounterService counterService, DemandeHistoryService demandeHistoryService, BloodService bloodService) {
         this.demandeRepository = demandeRepository;
         this.paramServiceClient = paramServiceClient;
         this.paramMedecinService = paramMedecinService;
         this.counterService = counterService;
         this.demandeHistoryService = demandeHistoryService;
+        this.bloodService = bloodService;
     }
 
     @Transactional(readOnly = true)
     public List<DemandeDTO> findAll(){
-        return DemandeFactory.stocksToStocksDTO(demandeRepository.findAll());
+
+
+      List <Demande> demande= demandeRepository.findAll();
+        List<Integer> bloodCodes = demande.stream()
+                .map(Demande::getBlood)
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println(bloodCodes);
+        List<BloodDTO> bloodDTOs = bloodService.getListBloodByCode(bloodCodes);
+        List<DemandeDTO> demandeDTOS = new ArrayList<>();
+        demande.forEach(p -> {
+            DemandeDTO demandeDTO1 = DemandeFactory.demandeToDemandeDTO(p);
+            Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
+                    .filter(b -> b.getCodeBlood().compareTo(p.getBlood()) == 0)
+                    .findFirst();
+            if (bloodDTOOptional.isPresent()) {
+                demandeDTO1.setBlood(bloodDTOOptional.get().getBloodGrp()+bloodDTOOptional.get().getRhesus());
+            }
+            demandeDTOS.add(demandeDTO1);
+        });
+        return demandeDTOS;
     }
 
     @Transactional(readOnly = true)
@@ -56,6 +84,9 @@ public class DemandeService {
         Integer code = (Integer.parseInt(demandeDTO.getCodeService()));
         ServiceDTO serviceDTO = paramServiceClient.serviceFindOne(code);
         demandeDTO.setCreateDate(LocalDate.now().toString());
+        String ch =demandeDTO.getBlood();
+        String x=bloodService.findBloodCodeByType(ch).toString();
+        demandeDTO.setBlood(x);
 
         Demande d = demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
         DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
@@ -72,7 +103,8 @@ public class DemandeService {
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
         demandeDTO.setCodeService(demande.getCodeService());
-        demandeDTO.setBlood(demande.getBlood());
+        String blood=bloodService.findTypeByBloodCode(demande.getBlood());
+        demandeDTO.setBlood(blood);
         demandeDTO.setUsercreate(demande.getUsercreate());
 
         Demande demande1 = DemandeFactory.demandeDTOToDemande(demandeDTO);

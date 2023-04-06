@@ -1,5 +1,6 @@
 package com.csys.template.factory;
 
+import com.csys.template.domain.Blood;
 import com.csys.template.domain.Demande;
 import com.csys.template.dto.DemandeDTO;
 import com.csys.template.dto.DemandeHistoryDTO;
@@ -27,7 +28,7 @@ public class DemandeFactory {
         demandeDTO.setCodeService(demande.getCodeService());
         demandeDTO.setQuantiter(demande.getQuantiter());
         demandeDTO.setState(demande.getState());
-        demandeDTO.setBlood(demande.getBlood());
+        demandeDTO.setBlood(demande.getBlood().toString());
         LocalDate d = demande.getCreateDate();
         String date= d.toString();
         demandeDTO.setCreateDate(date);
@@ -55,7 +56,9 @@ public class DemandeFactory {
         demande.setCodeService(demandeDTO.getCodeService());
         demande.setQuantiter(demandeDTO.getQuantiter());
         demande.setState(demandeDTO.getState());
-        demande.setBlood(demandeDTO.getBlood());
+//        Blood codeBlood = new Blood();
+//        codeBlood.setCodeBlood(Integer.parseInt(demandeDTO.getBlood()));
+        demande.setBlood(Integer.parseInt(demandeDTO.getBlood()));
         demande.setCreateDate(d);
         demande.setUsercreate(getUserAuthenticated());
         String ch = demandeDTO.getStatus();

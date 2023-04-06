@@ -17,7 +17,7 @@ public class Demande {
     @Column(name = "code_medecin", nullable = false)
     private String codeMedecin;
     @Column(name = "blood", nullable = false)
-    private String blood;
+    private Integer blood;
     @Column(name = "quantiter", nullable = false)
     private String quantiter;
     @Column(name = "state", nullable = false)
@@ -72,11 +72,11 @@ public class Demande {
         this.codeMedecin = codeMedecin;
     }
 
-    public String getBlood() {
+    public Integer getBlood() {
         return blood;
     }
 
-    public void setBlood(String blood) {
+    public void setBlood(Integer blood) {
         this.blood = blood;
     }
 
