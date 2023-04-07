@@ -113,7 +113,8 @@ public class DemandeService {
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
         demandeDTO.setCodeService(demande.getCodeService());
-        String blood=bloodService.findTypeByBloodCode(demande.getBlood());
+//        String blood=bloodService.findTypeByBloodCode(demande.getBlood())
+        String blood= demande.getBlood().toString();
         demandeDTO.setBlood(blood);
         demandeDTO.setUsercreate(demande.getUsercreate());
 
