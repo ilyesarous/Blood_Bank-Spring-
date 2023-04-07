@@ -16,6 +16,8 @@ public class Demande {
     private String code;
     @Column(name = "code_medecin", nullable = false)
     private String codeMedecin;
+    @Column(name = "name_Medecin", nullable = false)
+    private String nameMedecin;
     @Column(name = "blood", nullable = false)
     private Integer blood;
     @Column(name = "quantiter", nullable = false)
@@ -31,6 +33,16 @@ public class Demande {
     @Column(name = "Status", nullable = false)
     private Integer status;
 
+
+
+
+    public String getNameMedecin() {
+        return nameMedecin;
+    }
+
+    public void setNameMedecin(String nameMedecin) {
+        this.nameMedecin = nameMedecin;
+    }
 
     public Integer getStatus() {
         return status;

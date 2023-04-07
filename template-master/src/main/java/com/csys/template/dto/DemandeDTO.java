@@ -14,9 +14,17 @@ public class DemandeDTO {
     private String CreateDate;
     private String usercreate;
     private String status;
+    private String nameMedecin;
 
 
 
+    public String getNameMedecin() {
+        return nameMedecin;
+    }
+
+    public void setNameMedecin(String nameMedecin) {
+        this.nameMedecin = nameMedecin;
+    }
 
     public String getStatus() {
         return status;

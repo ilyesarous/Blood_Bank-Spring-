@@ -25,6 +25,7 @@ public class DemandeFactory {
         DemandeDTO demandeDTO = new DemandeDTO();
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
+        demandeDTO.setNameMedecin(demande.getNameMedecin());
         demandeDTO.setCodeService(demande.getCodeService());
         demandeDTO.setQuantiter(demande.getQuantiter());
         demandeDTO.setState(demande.getState());
@@ -53,6 +54,7 @@ public class DemandeFactory {
         LocalDate d = LocalDate.now();
         demande.setCode(demandeDTO.getCode());
         demande.setCodeMedecin(demandeDTO.getCodeMedecin());
+        demande.setNameMedecin(demandeDTO.getNameMedecin());
         demande.setCodeService(demandeDTO.getCodeService());
         demande.setQuantiter(demandeDTO.getQuantiter());
         demande.setState(demandeDTO.getState());

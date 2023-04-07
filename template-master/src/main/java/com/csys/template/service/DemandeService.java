@@ -70,6 +70,14 @@ public class DemandeService {
 
         return demandeDTO;
     }
+    @Transactional(readOnly = true)
+    public DemandeDTO findDemandeByCodeMed(String code) {
+        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
+
+        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
+
+        return demandeDTO;
+    }
     @Transactional
     public DemandeDTO addDemande(DemandeDTO demandeDTO){
         Preconditions.checkArgument (demandeDTO != null, "Demande added!");
@@ -87,6 +95,8 @@ public class DemandeService {
         String ch =demandeDTO.getBlood();
         String x=bloodService.findBloodCodeByType(ch).toString();
         demandeDTO.setBlood(x);
+        String name = paramMedecinService.serviceFindNameByCode(Integer.parseInt(demandeDTO.getCodeMedecin()));
+        demandeDTO.setNameMedecin(name);
 
         Demande d = demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
         DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
@@ -122,6 +132,14 @@ public class DemandeService {
     public DemandeDTO remove(String code){
         Demande demande = demandeRepository.findByCode(code);
         Preconditions.checkArgument (demande != null, "Demande remove!");
+        DemandeDTO demandeDTO =DemandeFactory.demandeToDemandeDTO(demande);
+        demandeRepository.deleteById(demande.getCode());
+        return demandeDTO;
+    }
+    @Transactional
+    public DemandeDTO removeByCodeMed(String code){
+        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
+        Preconditions.checkArgument (demande != null, "Demande medecin remove!");
         DemandeDTO demandeDTO =DemandeFactory.demandeToDemandeDTO(demande);
         demandeRepository.deleteById(demande.getCode());
         return demandeDTO;

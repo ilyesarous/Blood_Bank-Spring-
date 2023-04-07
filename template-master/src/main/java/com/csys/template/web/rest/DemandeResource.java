@@ -3,6 +3,7 @@ package com.csys.template.web.rest;
 import com.csys.template.domain.Demande;
 import com.csys.template.dto.DemandeDTO;
 import com.csys.template.dto.DonationDTO;
+import com.csys.template.dto.DonationsHistoryDTO;
 import com.csys.template.service.DemandeService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +30,11 @@ public class DemandeResource {
     public List<DemandeDTO> getAll(){
         return demandeService.findAll();
     }
-
-//    @GetMapping("/{type}")
-//    public DemandeDTO findOne(@PathVariable String type){
-//        DemandeDTO demandeDTO = ;
-//        Preconditions.checkBusinessLogique(counterDTO != null, ENTITY_NAME + " Counter does Not found!");
-//        return counterDTO;
-//    }
+    @GetMapping("codeMed/{code}")
+    public DemandeDTO getWithCodeMed(@PathVariable String code){
+        DemandeDTO demandeDTO = demandeService.findDemandeByCodeMed(code);
+        return demandeDTO;
+    }
     @PostMapping
     public ResponseEntity<DemandeDTO> addCounter(@RequestBody @Valid DemandeDTO demandeDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
