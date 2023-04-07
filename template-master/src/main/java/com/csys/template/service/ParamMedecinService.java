@@ -9,9 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @RefreshScope
 @Service("ParamServiceMedecin")
@@ -40,6 +45,11 @@ public class ParamMedecinService {
         log.debug("Sending request to service to findOne");
         ResponseEntity<MedecinDTO> medecine = restTemplate.getForEntity(baseUri + uriMedecin + "/" + code, MedecinDTO.class);
         return medecine.getBody();
+    }
+
+    public String serviceFindNameByCode(Integer code){
+        ResponseEntity<MedecinDTO> medecins = restTemplate.getForEntity(baseUri+ uriMedecin + "/" + code,MedecinDTO.class);
+        return Objects.requireNonNull(medecins.getBody()).getNomInterv();
     }
 
     private MedecinDTO serviceFindOneFallback(String name) {
