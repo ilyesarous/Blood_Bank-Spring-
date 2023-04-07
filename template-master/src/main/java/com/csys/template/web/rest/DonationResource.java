@@ -35,11 +35,6 @@ public class DonationResource {
         this.donationService = donationService;
     }
 
-
-//    @GetMapping
-//    public List<DonationDTO> getAll(){
-//        return donationService.findAll();
-//    }
     @GetMapping("/{code}")
     public DonationDTO findOne(@PathVariable String code){
         DonationDTO donationDTO = donationService.findDonationByCode(code);

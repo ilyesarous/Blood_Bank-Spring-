@@ -38,11 +38,6 @@ public class HistoriqueResource {
         List<DonationsHistoryDTO> patientHistoriqueDTOS = donationHistoryService.findHistory(code);
         return patientHistoriqueDTOS;
     }
-//    @GetMapping("/{id}")
-//    public DonationsHistoryDTO findByid(@PathVariable Integer id){
-//        DonationsHistoryDTO patientHistoriqueDTOS = donationHistoryService.findById(id);
-//        return patientHistoriqueDTOS;
-//    }
 
     @PostMapping
     public ResponseEntity<DonationsHistoryDTO> addPatient(@RequestBody DonationsHistoryDTO patientDTO, BindingResult bindingResult)

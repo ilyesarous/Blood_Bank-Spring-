@@ -58,8 +58,7 @@ public class DemandeFactory {
         demande.setCodeService(demandeDTO.getCodeService());
         demande.setQuantiter(demandeDTO.getQuantiter());
         demande.setState(demandeDTO.getState());
-//        Blood codeBlood = new Blood();
-//        codeBlood.setCodeBlood(Integer.parseInt(demandeDTO.getBlood()));
+
         demande.setBlood(Integer.parseInt(demandeDTO.getBlood()));
         demande.setCreateDate(d);
         demande.setUsercreate(getUserAuthenticated());
@@ -89,23 +88,6 @@ public class DemandeFactory {
         demandeDTO.setBlood(demande.getBlood());
         demandeDTO.setCreateDate(demande.getCreateDate());
         demandeDTO.setUsercreate(demande.getUsercreate());
-//        Integer x = demande.getStatus();
-//        String result;
-//
-//        switch (x) {
-//            case 1 :
-//                result = "SOLVED" ;
-//                break;
-//            case 2:
-//                result = "REJECTED";
-//                break;
-//            case 3 :
-//                result = "PENDING";
-//                break;
-//            default:
-//                result = "PENDING";
-//                break;
-//        }
         demandeDTO.setStatus(demande.getStatus());
 
         return demandeDTO;

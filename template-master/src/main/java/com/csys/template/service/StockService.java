@@ -58,15 +58,6 @@ public class StockService {
         return stockDTOS;
     }
 
-//    @Transactional(readOnly = true)
-//    public StockDTO findStockBydateperimé(String dateperime) {
-//        Stock stock = stockRepository.findBydateperime(dateperime);
-//        com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
-//        StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
-//
-//        return stockDTO;
-//    }
-
     @Transactional(readOnly = true)
     public StockDTO findStockByblood(String blood) {
         Stock stock = stockRepository.findByblood(blood);
