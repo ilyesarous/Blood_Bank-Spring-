@@ -26,6 +26,7 @@ public class DemandeFactory {
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
         demandeDTO.setNameMedecin(demande.getNameMedecin());
+        demandeDTO.setNameService(demande.getNameService());
         demandeDTO.setCodeService(demande.getCodeService());
         demandeDTO.setQuantiter(demande.getQuantiter());
         demandeDTO.setState(demande.getState());
@@ -55,6 +56,7 @@ public class DemandeFactory {
         demande.setCode(demandeDTO.getCode());
         demande.setCodeMedecin(demandeDTO.getCodeMedecin());
         demande.setNameMedecin(demandeDTO.getNameMedecin());
+        demande.setNameService(demandeDTO.getNameService());
         demande.setCodeService(demandeDTO.getCodeService());
         demande.setQuantiter(demandeDTO.getQuantiter());
         demande.setState(demandeDTO.getState());

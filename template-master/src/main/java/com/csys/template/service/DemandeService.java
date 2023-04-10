@@ -97,6 +97,7 @@ public class DemandeService {
         demandeDTO.setBlood(x);
         String name = paramMedecinService.serviceFindNameByCode(Integer.parseInt(demandeDTO.getCodeMedecin()));
         demandeDTO.setNameMedecin(name);
+        demandeDTO.setNameService(paramServiceClient.serviceFindNameByCode(Integer.parseInt(demandeDTO.getCodeService())));
 
         Demande d = demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
         DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);

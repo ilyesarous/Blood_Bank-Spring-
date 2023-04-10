@@ -1,5 +1,6 @@
 package com.csys.template.service;
 
+import com.csys.template.dto.MedecinDTO;
 import com.csys.template.dto.ServiceDTO;
 import com.csys.template.web.rest.errors.IllegalBusinessLogiqueException;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Farouk
@@ -52,6 +54,11 @@ public class ParamServiceClient {
         log.debug("Sending request to service to findOne");
         ResponseEntity<ServiceDTO> service = restTemplate.getForEntity(baseUri + uriService + "/" + id, ServiceDTO.class);
         return service.getBody();
+    }
+
+    public String serviceFindNameByCode(Integer code){
+        ResponseEntity<ServiceDTO> service = restTemplate.getForEntity(baseUri+ uriService + "/" + code,ServiceDTO.class);
+        return Objects.requireNonNull(service.getBody()).getDesignation();
     }
 
     private ServiceDTO serviceFindOneFallback(Integer id) {

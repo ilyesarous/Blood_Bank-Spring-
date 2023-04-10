@@ -15,8 +15,15 @@ public class DemandeDTO {
     private String usercreate;
     private String status;
     private String nameMedecin;
+    private String nameService;
 
+    public String getNameService() {
+        return nameService;
+    }
 
+    public void setNameService(String nameService) {
+        this.nameService = nameService;
+    }
 
     public String getNameMedecin() {
         return nameMedecin;
