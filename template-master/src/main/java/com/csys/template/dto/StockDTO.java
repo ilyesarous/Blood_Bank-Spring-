@@ -13,6 +13,33 @@ public class StockDTO {
     private String dateCreate;
 
     private String dateperime;
+    private Integer quantite;
+    private  Integer quantiteTotal;
+    private Integer version;
+
+    public Integer getQuantiteTotal() {
+        return quantiteTotal;
+    }
+
+    public void setQuantiteTotal(Integer quantiteTotal) {
+        this.quantiteTotal = quantiteTotal;
+    }
+
+    public Integer getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public String getDateperime() {
         return dateperime;

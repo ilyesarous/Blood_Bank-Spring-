@@ -13,8 +13,15 @@ public class StockHistoryDTO {
     private String dateCreate;
     private String dateperime;
     private String service;
+    private Integer quantite;
 
+    public Integer getQuantite() {
+        return quantite;
+    }
 
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
 
     public String getService() {
         return service;

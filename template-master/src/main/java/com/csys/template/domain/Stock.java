@@ -27,10 +27,38 @@ public class Stock {
     private String userCreate;
     @Column(name = "date_create", nullable = false)
     private LocalDate dateCreate;
-
-    @Column(name = "date_périmé", nullable = false)
+    @Column(name = "date_perime", nullable = false)
     private String dateperime;
+    @Column(name = "qantiter", nullable = false)
+    private Integer quantite;
+    @Column(name = "qantiter_totale")
+    private Integer quantiteTotal;
+    @Column(name = "version", nullable = false)
+    private Integer version;
 
+    public Integer getQuantiteTotal() {
+        return quantiteTotal;
+    }
+
+    public void setQuantiteTotal(Integer quantiteTotal) {
+        this.quantiteTotal = quantiteTotal;
+    }
+
+    public Integer getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public String getDateperime() {
         return dateperime;

@@ -28,6 +28,9 @@ public class StockFactory {
         stockDTO.setCode(stock.getCode());
         stockDTO.setCodedonateur(stock.getCodedonateur());
         stockDTO.setUserCreate(stock.getUserCreate());
+        stockDTO.setQuantite(stock.getQuantite());
+        stockDTO.setQuantiteTotal(stock.getQuantiteTotal());
+        stockDTO.setVersion(stock.getVersion());
         LocalDate d= stock.getDateCreate();
         String x=d.toString();
         stockDTO.setDateCreate(x);
@@ -46,6 +49,7 @@ public class StockFactory {
         stockDTO.setUserCreate(stock.getUserCreate());
         stockDTO.setDateCreate(stock.getDateCreate());
         stockDTO.setDateperime(stock.getDateperime());
+        stockDTO.setQuantite(stock.getQuantite());
         stockDTO.setService("Add");
 
 
@@ -60,6 +64,7 @@ public class StockFactory {
         stockDTO.setUserCreate(stock.getUserCreate());
         stockDTO.setDateCreate(stock.getDateCreate());
         stockDTO.setDateperime(stock.getDateperime());
+        stockDTO.setQuantite(stock.getQuantite());
         stockDTO.setService("Remove");
 
 
@@ -72,16 +77,16 @@ public class StockFactory {
         LocalDate d = LocalDate.now();
         String  x =d.toString();
         String [] tab = x.split("-");
-        Integer y= Integer.parseInt(tab[1]);
-        Integer z=Integer.parseInt(tab[0]);
+        int y= Integer.parseInt(tab[1]);
+        int z=Integer.parseInt(tab[0]);
         y=y+3;
         if (y>12)
         {
             y=y-12;
             z=z+1;
         }
-        tab[0]=z.toString();
-        tab[1]=y.toString();
+        tab[0]= Integer.toString(z);
+        tab[1]= Integer.toString(y);
         String v= tab[0]+"-"+tab[1]+"-"+tab[2];
 
         stock.setId(stockDTO.getId());
@@ -89,6 +94,9 @@ public class StockFactory {
         stock.setCode(stockDTO.getCode());
         stock.setCodedonateur(stockDTO.getCodedonateur());
         stock.setUserCreate(getUserAuthenticated());
+        stock.setQuantite(1);
+        stock.setVersion(0);
+        stock.setQuantiteTotal(stockDTO.getQuantiteTotal());
         stock.setDateCreate(d);
         stock.setDateperime(v);
 

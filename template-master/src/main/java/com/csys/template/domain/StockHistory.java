@@ -29,7 +29,17 @@ public class StockHistory {
     private LocalDate dateCreate;
     @Column(name = "Service", nullable = false)
     private String service;
+    @Column(name = "quantiter", nullable = false)
+    private Integer quantite;
 
+
+    public Integer getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
 
     public String getService() {
         return service;

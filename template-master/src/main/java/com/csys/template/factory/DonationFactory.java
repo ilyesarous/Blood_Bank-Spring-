@@ -1,7 +1,6 @@
 package com.csys.template.factory;
 
 
-
 import com.csys.template.domain.Donation;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.DonationsHistoryDTO;
@@ -31,10 +30,10 @@ public class DonationFactory {
         return user;
     }
 
-    public static DonationDTO DonationToDonationDTO(Donation donation){
+    public static DonationDTO DonationToDonationDTO(Donation donation) {
         DonationDTO donationDTO = new DonationDTO();
-        LocalDate d=donation.getDateCreate();
-        String b=d.toString();
+        LocalDate d = donation.getDateCreate();
+        String b = d.toString();
 
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
@@ -60,11 +59,10 @@ public class DonationFactory {
         donationDTO.setEtat(result);
 
 
-
         return donationDTO;
     }
 
-    public static Donation DonationDTOToDonation(DonationDTO donationDTO){
+    public static Donation DonationDTOToDonation(DonationDTO donationDTO) {
         Donation donation = new Donation();
         LocalDate d = LocalDate.now();
 
@@ -96,7 +94,8 @@ public class DonationFactory {
 
         return donation;
     }
-    public static DonationsHistoryDTO DonationDTOToDonationHistory(DonationDTO donationDTO){
+
+    public static DonationsHistoryDTO DonationDTOToDonationHistory(DonationDTO donationDTO) {
         DonationsHistoryDTO donation = new DonationsHistoryDTO();
         donation.setCode(donationDTO.getCode());
         donation.setCodePatient(donationDTO.getCodePatient());
@@ -105,32 +104,30 @@ public class DonationFactory {
         donation.setUserCreate(getUserAuthenticated());
 
 
-
-
         return donation;
     }
-    public static StockDTO DonationDTOToStockDTO(DonationDTO donationDTO){
+
+    public static StockDTO DonationDTOToStockDTO(DonationDTO donationDTO) {
         StockDTO stockDTO = new StockDTO();
-     stockDTO.setCodedonateur(donationDTO.getCode());
-     stockDTO.setBlood(donationDTO.getBlood());
-
-
+        stockDTO.setCodedonateur(donationDTO.getCode());
+        stockDTO.setBlood(donationDTO.getBlood());
+        stockDTO.setQuantite(1);
 
 
         return stockDTO;
     }
 
-    public static List<DonationDTO> DonationsToDonationDTO(List<Donation> donations){
+    public static List<DonationDTO> DonationsToDonationDTO(List<Donation> donations) {
         List<DonationDTO> donationDTOS = new ArrayList<DonationDTO>();
-        for(Donation donation : donations){
+        for (Donation donation : donations) {
             donationDTOS.add(DonationToDonationDTO(donation));
         }
         return donationDTOS;
     }
 
-    public static List<Donation> patientsDTOToPatients(List<DonationDTO> donationDTOS){
+    public static List<Donation> patientsDTOToPatients(List<DonationDTO> donationDTOS) {
         List<Donation> donations = new ArrayList<Donation>();
-        for(DonationDTO patient : donationDTOS){
+        for (DonationDTO patient : donationDTOS) {
             donations.add(DonationDTOToDonation(patient));
         }
         return donations;
