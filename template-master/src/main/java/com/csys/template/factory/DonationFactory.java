@@ -50,22 +50,13 @@ public class DonationFactory {
         donationDTO.setBlood(donation.getBlood());
         donationDTO.setObservation(donation.getObservation());
         Integer x = donation.getEtat();
-        String result;
+        String result = switch (x) {
+            case 1 -> "SOLVED";
+            case 2 -> "REJECTED";
+            case 3 -> "PENDING";
+            default -> "PENDING";
+        };
 
-        switch (x) {
-            case 1 :
-                result = "SOLVED" ;
-                break;
-            case 2:
-                result = "REJECTED";
-                break;
-            case 3 :
-                result = "PENDING";
-                break;
-            default:
-                result = "REJECTED";
-                break;
-        }
         donationDTO.setEtat(result);
 
 
@@ -93,22 +84,13 @@ public class DonationFactory {
         donation.setObservation(donationDTO.getObservation());
         String ch = donationDTO.getEtat();
 
-        Integer result;
+        Integer result = switch (ch) {
+            case "SOLVED" -> 1;
+            case "REJECTED" -> 2;
+            case "PENDING" -> 3;
+            default -> 3;
+        };
 
-        switch (ch) {
-            case  "SOLVED":
-                result = 1 ;
-                break;
-            case "REJECTED":
-                result = 2;
-                break;
-            case "PENDING":
-                result = 3;
-                break;
-            default:
-                result = 2;
-                break;
-        }
         donation.setEtat(result);
 
 
