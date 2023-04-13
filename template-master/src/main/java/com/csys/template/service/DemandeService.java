@@ -70,14 +70,14 @@ public class DemandeService {
         return demandeDTO;
     }
 
-//    @Transactional(readOnly = true)
-//    public DemandeDTO findDemandeByCodeMed(String code) {
-//        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
-//        Preconditions.checkArgument(demande != null, "Demande doctor not found !");
-//        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
-//
-//        return demandeDTO;
-//    }
+    @Transactional(readOnly = true)
+    public DemandeDTO findDemandeByCodeMed(String code) {
+        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
+        Preconditions.checkArgument(demande != null, "Demande doctor not found !");
+        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
+
+        return demandeDTO;
+    }
 
     @Transactional
     public DemandeDTO addDemande(DemandeDTO demandeDTO) {
@@ -176,12 +176,12 @@ public class DemandeService {
         return demandeDTO;
     }
 
-//    @Transactional
-//    public DemandeDTO removeByCodeMed(String code) {
-//        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
-//        Preconditions.checkArgument(demande != null, "Demande medecin remove!");
-//        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
-//        demandeRepository.deleteById(demande.getCode());
-//        return demandeDTO;
-//    }
+    @Transactional
+    public DemandeDTO removeByCodeMed(String code) {
+        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
+        Preconditions.checkArgument(demande != null, "Demande medecin remove!"+code);
+        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
+        demandeRepository.deleteById(demande.getCode());
+        return demandeDTO;
+    }
 }

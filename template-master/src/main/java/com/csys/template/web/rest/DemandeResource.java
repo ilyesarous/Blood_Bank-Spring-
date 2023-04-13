@@ -28,11 +28,11 @@ public class DemandeResource {
     public List<DemandeDTO> getAll(){
         return demandeService.findAll();
     }
-//    @GetMapping("codeMed/{code}")
-//    public DemandeDTO getWithCodeMed(@PathVariable String code){
-//        DemandeDTO demandeDTO = demandeService.findDemandeByCodeMed(code);
-//        return demandeDTO;
-//    }
+    @GetMapping("codeMed/{code}")
+    public DemandeDTO getWithCodeMed(@PathVariable String code){
+        DemandeDTO demandeDTO = demandeService.findDemandeByCodeMed(code);
+        return demandeDTO;
+    }
     @PostMapping
     public ResponseEntity<DemandeDTO> addCounter(@RequestBody @Valid DemandeDTO demandeDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
@@ -51,10 +51,10 @@ public class DemandeResource {
         return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
     }
 
-    @DeleteMapping("/{codeMed}")
+    @DeleteMapping("/medecin/{codeMed}")
     public DemandeDTO  DeleteDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String codeMed)
             throws URISyntaxException {
-        DemandeDTO c = demandeService.remove(codeMed);
+        DemandeDTO c = demandeService.removeByCodeMed(codeMed);
         return  c;
     }
 }
