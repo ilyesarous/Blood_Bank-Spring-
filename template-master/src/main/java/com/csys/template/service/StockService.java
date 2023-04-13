@@ -58,14 +58,14 @@ public class StockService {
         return stockDTOS;
     }
 
-    /*stockRepository.findByblood(blood);@Transactional(readOnly = true)
-    public StockDTO findStockByblood(String blood) {
-        Stock stock = stockRepository.findByblood(blood);
+    @Transactional(readOnly = true)
+    public List<StockDTO> findStockByblood(String blood) {
+       List <Stock> stock = stockRepository.findByblood(blood);
         com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
-        StockDTO stockDTO = StockFactory.stockToStockDTO(stock);
+        List<StockDTO> stockDTO = StockFactory.stocksToStocksDTO(stock);
 
         return stockDTO;
-    }*/
+    }
     @Transactional
     public StockDTO addStock(StockDTO stockDTO){
         Preconditions.checkArgument (stockDTO != null, "Stock added!");
@@ -94,7 +94,7 @@ public class StockService {
 
     public Integer getQantiteTotal(String blood){
         List<Stock> stocks = stockRepository.findByblood(blood);
-        return stocks.size();
+        return stocks.toArray().length;
     }
 
 }

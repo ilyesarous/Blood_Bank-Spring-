@@ -1,6 +1,5 @@
 package com.csys.template.factory;
 
-import com.csys.template.domain.Blood;
 import com.csys.template.domain.Demande;
 import com.csys.template.dto.DemandeDTO;
 import com.csys.template.dto.DemandeHistoryDTO;

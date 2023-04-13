@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DemandeRepository extends JpaRepository<Demande,String> {
     Demande findByCode(String code);
-    Demande findDemandeByCodeMedecin(String code);
+//    Demande findDemandeByCodeMedecin(String code);
 }
