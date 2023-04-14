@@ -132,15 +132,16 @@ public class DemandeService {
         Preconditions.checkArgument(stockDTOS != null, "Blood .............!" );
 
 
-        if (qt > QD) {
+        if (qt >= QD) {
             for (Integer i = 0; i < QD; i++) {
 
                 stockService.remove(stockDTOS.get(i).getCode());
             }
             demandeDTO.setStatus("SOLVED");
             demandeDTO.setQuantiter("0");
-            DemandeDTO demandeDTO1 = remove(demandeDTO.getCode());
             demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
+            DemandeDTO demandeDTO1 = remove(demandeDTO.getCode());
+
 
 
         }
