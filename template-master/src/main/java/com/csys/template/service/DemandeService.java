@@ -177,12 +177,12 @@ public class DemandeService {
         return demandeDTO;
     }
 
-    @Transactional
-    public DemandeDTO removeByCodeMed(String code) {
-        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
-        Preconditions.checkArgument(demande != null, "Demande medecin remove!"+code);
-        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
-        demandeRepository.deleteById(demande.getCode());
-        return demandeDTO;
-    }
+//    @Transactional
+//    public DemandeDTO removeByCodeMed(String code) {
+//        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
+//        Preconditions.checkArgument(demande != null, "Demande medecin remove!"+code);
+//        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
+//        demandeRepository.deleteById(demande.getCode());
+//        return demandeDTO;
+//    }
 }

@@ -51,10 +51,10 @@ public class DemandeResource {
         return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
     }
 
-    @DeleteMapping("/medecin/{codeMed}")
+    @DeleteMapping("/{codeMed}")
     public DemandeDTO  DeleteDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String codeMed)
             throws URISyntaxException {
-        DemandeDTO c = demandeService.removeByCodeMed(codeMed);
+        DemandeDTO c = demandeService.remove(codeMed);
         return  c;
     }
 }
