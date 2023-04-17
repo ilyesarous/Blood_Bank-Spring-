@@ -25,7 +25,7 @@ public class Demande {
     @Column(name = "quantiter", nullable = false)
     private String quantiter;
     @Column(name = "state", nullable = false)
-    private String state;
+    private Integer state;
     @Column(name = "code_service", nullable = false)
     private String codeService;
     @Column(name = "Date_create", nullable = false)
@@ -108,11 +108,11 @@ public class Demande {
         this.quantiter = quantiter;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 

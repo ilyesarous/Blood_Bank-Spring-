@@ -28,12 +28,19 @@ public class DemandeFactory {
         demandeDTO.setNameService(demande.getNameService());
         demandeDTO.setCodeService(demande.getCodeService());
         demandeDTO.setQuantiter(demande.getQuantiter());
-        demandeDTO.setState(demande.getState());
+
         demandeDTO.setBlood(demande.getBlood().toString());
         LocalDate d = demande.getCreateDate();
         String date= d.toString();
         demandeDTO.setCreateDate(date);
         demandeDTO.setUsercreate(demande.getUsercreate());
+        Integer state=demande.getState();
+        String states = switch (state) {
+            case 1 -> "Urgent";
+            case 2 -> "Minor";
+            default -> "Urgent";
+        };
+        demandeDTO.setState(states);
         Integer x = demande.getStatus();
         String result = switch (x) {
             case 1 -> "SOLVED";
@@ -58,11 +65,20 @@ public class DemandeFactory {
         demande.setNameService(demandeDTO.getNameService());
         demande.setCodeService(demandeDTO.getCodeService());
         demande.setQuantiter(demandeDTO.getQuantiter());
-        demande.setState(demandeDTO.getState());
+
 
         demande.setBlood(Integer.parseInt(demandeDTO.getBlood()));
         demande.setCreateDate(d);
         demande.setUsercreate(getUserAuthenticated());
+        String states = demandeDTO.getState();
+
+        Integer state = switch (states) {
+            case "Urgent" -> 1;
+            case "Minor" -> 2;
+            default -> 3;
+        };
+        demande.setState(state);
+
         String ch = demandeDTO.getStatus();
 
         Integer result = switch (ch) {
