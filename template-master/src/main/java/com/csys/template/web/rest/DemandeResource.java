@@ -51,6 +51,13 @@ public class DemandeResource {
         return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
     }
 
+    @PutMapping("/rej/{code}")
+    public ResponseEntity<DemandeDTO> updateDemandeRejected(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String code)
+            throws URISyntaxException {
+        DemandeDTO c = demandeService.updateDemandeToRejected(donationDTO);
+        return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
+    }
+
     @DeleteMapping("/{codeMed}")
     public DemandeDTO  DeleteDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String codeMed)
             throws URISyntaxException {

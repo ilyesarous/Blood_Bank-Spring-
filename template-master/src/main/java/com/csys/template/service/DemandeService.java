@@ -5,6 +5,7 @@ import com.csys.template.dto.*;
 import com.csys.template.factory.DemandeFactory;
 import com.csys.template.repository.DemandeRepository;
 import com.google.common.base.Preconditions;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -168,6 +169,26 @@ public class DemandeService {
 
 
         return demande1;
+    }
+
+    @Transactional
+    public DemandeDTO updateDemandeToRejected(DemandeDTO demandeDTO) {
+        Demande demande = demandeRepository.findByCode(demandeDTO.getCode());
+
+        String a=demande.getBlood().toString();
+        Preconditions.checkArgument(demande != null, "demande does not exist!"+a);
+        // demandeHistoryDTO = new DemandeHistoryDTO();
+        demandeDTO.setCode(demande.getCode());
+        demandeDTO.setCodeMedecin(demande.getCodeMedecin());
+        demandeDTO.setCodeService(demande.getCodeService());
+        demandeDTO.setBlood(a);
+        demandeDTO.setUsercreate(demande.getUsercreate());
+        demandeDTO.setStatus("REJECTED");
+        DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
+        demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
+        DemandeDTO demandeDTO2 = remove(demandeDTO.getCode());
+        return demandeDTO;
+
     }
 
     @Transactional
