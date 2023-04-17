@@ -136,7 +136,7 @@ public class DemandeService {
 
 
         if (qt >= QD) {
-            for (Integer i = 0; i < QD; i++) {
+            for (int i = 0; i < QD; i++) {
 
                 stockService.remove(stockDTOS.get(i).getCode());
             }
@@ -149,15 +149,15 @@ public class DemandeService {
 
         }
         else {
-            for (Integer i = 0; i < qt; i++) {
+            for (int i = 0; i < qt; i++) {
                 Preconditions.checkArgument(stockDTOS.get(i).getCode() != null, "Blood .............!"+stockDTOS.get(i).getCode() );
                 stockService.remove(stockDTOS.get(i).getCode());
 
 
             }
 
-            Integer quntite = QD - qt;
-            String ch = quntite.toString();
+            int quntite = QD - qt;
+            String ch = Integer.toString(quntite);
             demandeDTO.setQuantiter(ch);
             demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
             demandeDTO.setBlood(blood.toString());

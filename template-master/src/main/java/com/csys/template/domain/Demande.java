@@ -16,9 +16,9 @@ public class Demande {
     private String code;
     @Column(name = "code_medecin", nullable = false)
     private String codeMedecin;
-    @Column(name = "name_Medecin", nullable = false)
+    @Column(name = "name_Medecin")
     private String nameMedecin;
-    @Column(name = "name_service", nullable = false)
+    @Column(name = "name_service")
     private String nameService;
     @Column(name = "blood", nullable = false)
     private Integer blood;
