@@ -53,11 +53,11 @@ public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) St
 //        StockDTO stockDTOS = stockService.findStockBydateperimé(dateperime);
 //        return stockDTOS;
 //    }
-    @GetMapping("/blood/{blood}")
-    public List<StockDTO> getByblood( @PathVariable @Valid String blood){
-        List<StockDTO> stockDTOS = stockService.findStockByblood(blood);
-        return stockDTOS;
-    }
+//    @GetMapping("/blood/{blood}")
+//    public List<StockDTO> getByblood( @PathVariable @Valid String blood){
+//        List<StockDTO> stockDTOS = stockService.findByblood(blood);
+//        return stockDTOS;
+//    }
 
     @PostMapping
     public ResponseEntity<StockDTO> addStock(@RequestBody StockDTO stockDTO, BindingResult bindingResult)

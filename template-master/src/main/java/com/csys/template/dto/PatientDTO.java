@@ -10,7 +10,7 @@ import java.util.Date;
 public class PatientDTO {
     private Integer id;
     private String code;
-    @NotNull
+//    @NotNull
     private String firstNameAr;
     private String lastNameAr;
     private String fatherNameAr;
@@ -27,10 +27,18 @@ public class PatientDTO {
     private String phoneNumber;
     private String adress;
     private String email;
-    private String creation_date;
-
+    private String creationdateSt;
+    private LocalDate creationdateLd;
     private String bloodCode;
 
+
+    public LocalDate getCreationdateLd() {
+        return creationdateLd;
+    }
+
+    public void setCreationdateLd(LocalDate creationdateLd) {
+        this.creationdateLd = creationdateLd;
+    }
 
     public String getBirthDay() {
         return birthDay;
@@ -185,11 +193,11 @@ public class PatientDTO {
     }
 
     public String getCreation_date() {
-        return creation_date;
+        return creationdateSt;
     }
 
     public void setCreation_date(String creation_date) {
-        this.creation_date = creation_date;
+        this.creationdateSt = creation_date;
     }
 
 }

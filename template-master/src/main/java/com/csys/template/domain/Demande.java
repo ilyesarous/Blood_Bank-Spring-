@@ -14,22 +14,22 @@ public class Demande {
     @Column(name = "code", nullable = false)
     @Id
     private String code;
-    @Column(name = "code_medecin", nullable = false)
+    @Column(name = "doctor_code", nullable = false)
     private String codeMedecin;
-    @Column(name = "name_Medecin")
+    @Column(name = "doctor_name")
     private String nameMedecin;
-    @Column(name = "name_service")
+    @Column(name = "service_name")
     private String nameService;
     @Column(name = "blood", nullable = false)
     private Integer blood;
-    @Column(name = "quantiter", nullable = false)
-    private String quantiter;
+    @Column(name = "quantity", nullable = false)
+    private String quantity;
     @Column(name = "state", nullable = false)
     private Integer state;
-    @Column(name = "code_service", nullable = false)
-    private String codeService;
-    @Column(name = "Date_create", nullable = false)
-    private LocalDate CreateDate;
+    @Column(name = "service_code", nullable = false)
+    private String serviceCode;
+    @Column(name = "create_Date", nullable = false)
+    private LocalDate createDate;
     @Column(name = "User_Create", nullable = false)
     private String usercreate;
     @Column(name = "Status", nullable = false)
@@ -69,11 +69,11 @@ public class Demande {
     }
 
     public LocalDate getCreateDate() {
-        return CreateDate;
+        return createDate;
     }
 
     public void setCreateDate(LocalDate createDate) {
-        CreateDate = createDate;
+        this.createDate = createDate;
     }
 
     public String getCode() {
@@ -101,11 +101,11 @@ public class Demande {
     }
 
     public String getQuantiter() {
-        return quantiter;
+        return quantity;
     }
 
     public void setQuantiter(String quantiter) {
-        this.quantiter = quantiter;
+        this.quantity = quantiter;
     }
 
     public Integer getState() {
@@ -117,10 +117,10 @@ public class Demande {
     }
 
     public String getCodeService() {
-        return codeService;
+        return serviceCode;
     }
 
     public void setCodeService(String codeService) {
-        this.codeService = codeService;
+        this.serviceCode = codeService;
     }
 }

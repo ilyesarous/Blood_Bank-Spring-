@@ -41,11 +41,12 @@ public class PatientFactory {
 
         patientDTO.setAdress(patient.getAdress());
         patientDTO.setEmail(patient.getEmail());
-//        patientDTO.setBirthDate(patient.getBirthDate());
         patientDTO.setGender(patient.getGender());
         patientDTO.setPhoneNumber(patient.getPhoneNumber());
+
         patientDTO.setCreation_date(x);
         patientDTO.setBirthDay(b);
+        patientDTO.setCreationdateLd(patient.getCreation_date());
         patientDTO.setBloodCode(patient.getBloodCode().getCodeBlood().toString());
 
         return patientDTO;
@@ -78,16 +79,13 @@ public class PatientFactory {
         String result="";
         switch (gender) {
             case "10":
-                result = "Men";
+                result = "male";
                 break;
             case "20":
-                result = "Women";
-                break;
-            case "30":
-                result = "lehou lehou";
+                result = "female";
                 break;
             default:
-                result = "Men";
+                result = "male";
                 break;
         }
         patient.setGender(result);

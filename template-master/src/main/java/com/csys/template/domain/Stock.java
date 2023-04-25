@@ -17,8 +17,8 @@ public class Stock {
     @Id
     private Integer id;
 
-    @Column(name = "blood")
-    private String blood;
+    @Column(name = "blood_code")
+    private Integer bloodCode;
     @Column(name = "code", nullable = false)
     private String code;
     @Column(name = "code_donateur", nullable = false)
@@ -27,29 +27,30 @@ public class Stock {
     private String userCreate;
     @Column(name = "date_create", nullable = false)
     private LocalDate dateCreate;
-    @Column(name = "date_perime", nullable = false)
+    @Column(name = "date_per", nullable = false)
     private String dateperime;
-    @Column(name = "qantiter", nullable = false)
-    private Integer quantite;
-    @Column(name = "qantiter_totale")
-    private Integer quantiteTotal;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+    @Column(name = "quantityTotal")
+    private Integer quantityTotal;
+    @Version
     @Column(name = "version", nullable = false)
     private Integer version;
 
     public Integer getQuantiteTotal() {
-        return quantiteTotal;
+        return quantityTotal;
     }
 
     public void setQuantiteTotal(Integer quantiteTotal) {
-        this.quantiteTotal = quantiteTotal;
+        this.quantityTotal = quantiteTotal;
     }
 
     public Integer getQuantite() {
-        return quantite;
+        return quantity;
     }
 
     public void setQuantite(Integer quantite) {
-        this.quantite = quantite;
+        this.quantity = quantite;
     }
 
     public Integer getVersion() {
@@ -77,12 +78,12 @@ public class Stock {
         this.id = id;
     }
 
-    public String getBlood() {
-        return blood;
+    public Integer getBlood() {
+        return bloodCode;
     }
 
-    public void setBlood(String blood) {
-        this.blood = blood;
+    public void setBlood(Integer blood) {
+        this.bloodCode = blood;
     }
 
     public String getCode() {

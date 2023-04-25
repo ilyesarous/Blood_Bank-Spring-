@@ -2,6 +2,8 @@ package com.csys.template.dto;
 
 import jakarta.persistence.Column;
 
+import java.time.LocalDate;
+
 public class DemandeDTO {
 
     private Integer Id;
@@ -11,11 +13,24 @@ public class DemandeDTO {
     private String quantiter;
     private String state;
     private String codeService;
-    private String CreateDate;
+    private String createDateSt;
+
+    private LocalDate createDateLd;
     private String usercreate;
     private String status;
     private String nameMedecin;
     private String nameService;
+
+
+
+
+    public LocalDate getCreateDateLd() {
+        return createDateLd;
+    }
+
+    public void setCreateDateLd(LocalDate createDateLd) {
+        this.createDateLd = createDateLd;
+    }
 
     public String getNameService() {
         return nameService;
@@ -58,11 +73,11 @@ public class DemandeDTO {
     }
 
     public String getCreateDate() {
-        return CreateDate;
+        return createDateSt;
     }
 
     public void setCreateDate(String createDate) {
-        CreateDate = createDate;
+        this.createDateSt = createDate;
     }
 
     public String getCode() {

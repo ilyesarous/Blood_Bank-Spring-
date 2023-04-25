@@ -28,10 +28,11 @@ public class DemandeFactory {
         demandeDTO.setNameService(demande.getNameService());
         demandeDTO.setCodeService(demande.getCodeService());
         demandeDTO.setQuantiter(demande.getQuantiter());
-
         demandeDTO.setBlood(demande.getBlood().toString());
         LocalDate d = demande.getCreateDate();
         String date= d.toString();
+
+        demandeDTO.setCreateDateLd(demande.getCreateDate());
         demandeDTO.setCreateDate(date);
         demandeDTO.setUsercreate(demande.getUsercreate());
         Integer state=demande.getState();
@@ -59,14 +60,13 @@ public class DemandeFactory {
 
         Demande demande= new Demande();
         LocalDate d = LocalDate.now();
+
         demande.setCode(demandeDTO.getCode());
         demande.setCodeMedecin(demandeDTO.getCodeMedecin());
         demande.setNameMedecin(demandeDTO.getNameMedecin());
         demande.setNameService(demandeDTO.getNameService());
         demande.setCodeService(demandeDTO.getCodeService());
         demande.setQuantiter(demandeDTO.getQuantiter());
-
-
         demande.setBlood(Integer.parseInt(demandeDTO.getBlood()));
         demande.setCreateDate(d);
         demande.setUsercreate(getUserAuthenticated());

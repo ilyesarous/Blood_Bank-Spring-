@@ -43,14 +43,14 @@ public class Patient implements Serializable {
     private String gender;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
-    @Column(name = "adress", nullable = false)
-    private String adress;
+    @Column(name = "address", nullable = false)
+    private String address;
     @Column(name = "email", nullable = false)
     private String email;
     @Column(name = "creation_date", nullable = false)
     private LocalDate creation_date;
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code_blood")
     private Blood bloodCode;
     //insertable=false, updatable =false
@@ -170,11 +170,11 @@ public class Patient implements Serializable {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     public void setAdress(String adress) {
-        this.adress = adress;
+        this.address = adress;
     }
 
     public String getEmail() {

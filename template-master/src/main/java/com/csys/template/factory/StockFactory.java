@@ -24,16 +24,18 @@ public class StockFactory {
     public static StockDTO stockToStockDTO(Stock stock){
         StockDTO stockDTO = new StockDTO();
         stockDTO.setId(stock.getId());
-        stockDTO.setBlood(stock.getBlood());
+        stockDTO.setBlood(stock.getBlood().toString());
         stockDTO.setCode(stock.getCode());
         stockDTO.setCodedonateur(stock.getCodedonateur());
         stockDTO.setUserCreate(stock.getUserCreate());
         stockDTO.setQuantite(stock.getQuantite());
         stockDTO.setQuantiteTotal(stock.getQuantiteTotal());
         stockDTO.setVersion(stock.getVersion());
+
         LocalDate d= stock.getDateCreate();
         String x=d.toString();
         stockDTO.setDateCreate(x);
+        stockDTO.setDateCreateLd(stock.getDateCreate());
         stockDTO.setDateperime(stock.getDateperime());
 
 
@@ -90,7 +92,8 @@ public class StockFactory {
         String v= tab[0]+"-"+tab[1]+"-"+tab[2];
 
         stock.setId(stockDTO.getId());
-        stock.setBlood(stockDTO.getBlood());
+        Integer bloodcode=Integer.parseInt(stockDTO.getBlood());
+        stock.setBlood(bloodcode);
         stock.setCode(stockDTO.getCode());
         stock.setCodedonateur(stockDTO.getCodedonateur());
         stock.setUserCreate(getUserAuthenticated());

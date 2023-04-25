@@ -21,30 +21,29 @@ public class Donation implements Serializable {
     @Column(name = "code_Patient", nullable = false)
 
     private String codepatient;
-    @Column(name = "date_Create", nullable = false)
+    @Column(name = "date_create", nullable = false)
     private LocalDate dateCreate;
-    @Column(name = "fulln_Name", nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String fullName;
     @Column(name = "age", nullable = false)
     private Integer age;
-    @Column(name = "phone_Number", nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
-    @Column(name = "type_Identity", nullable = false)
+    @Column(name = "type_identity", nullable = false)
     private String typeIdentity;
-    @Column(name = "Num_Identity")
+    @Column(name = "num_identity")
     private String numIdentity;
-    @Column(name = "Sexe")
+    @Column(name = "sexe")
     private String sexe;
-    @Column(name = "adress", nullable = false)
-    private String adress;
+    @Column(name = "address", nullable = false)
+    private String address;
     @Column(name = "user_create", nullable = false)
     private String userCreate;
     @Column(name = "etat", nullable = false)
     private Integer etat;
-    @Column(name = "Blood", nullable = false)
+    @Column(name = "blood", nullable = false)
     private String Blood;
     @Column(name = "observation", nullable = false)
-
     private String observation;
 
 
@@ -137,11 +136,11 @@ public class Donation implements Serializable {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     public void setAdress(String adress) {
-        this.adress = adress;
+        this.address = adress;
     }
 
     public Integer getEtat() {

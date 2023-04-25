@@ -44,7 +44,10 @@ public class DonationFactory {
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
+
         donationDTO.setDate_creation(b);
+        donationDTO.setDatecreationLd(donation.getDateCreate());
+
         donationDTO.setUserCreate(donation.getUserCreate());
         donationDTO.setBlood(donation.getBlood());
         donationDTO.setObservation(donation.getObservation());

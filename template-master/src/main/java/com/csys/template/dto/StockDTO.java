@@ -1,5 +1,7 @@
 package com.csys.template.dto;
 
+import java.time.LocalDate;
+
 public class StockDTO {
     private Integer id;
 
@@ -10,12 +12,23 @@ public class StockDTO {
 
     private String userCreate;
 
-    private String dateCreate;
+    private String dateCreateSt;
+
+    private LocalDate dateCreateLd;
 
     private String dateperime;
     private Integer quantite;
     private  Integer quantiteTotal;
     private Integer version;
+
+
+    public LocalDate getDateCreateLd() {
+        return dateCreateLd;
+    }
+
+    public void setDateCreateLd(LocalDate dateCreateLd) {
+        this.dateCreateLd = dateCreateLd;
+    }
 
     public Integer getQuantiteTotal() {
         return quantiteTotal;
@@ -98,11 +111,11 @@ public class StockDTO {
     }
 
     public String getDateCreate() {
-        return dateCreate;
+        return dateCreateSt;
     }
 
     public void setDateCreate(String dateCreate) {
-        this.dateCreate = dateCreate;
+        this.dateCreateSt = dateCreate;
     }
 
 

@@ -20,12 +20,22 @@ public class DonationDTO {
     private String numIdentity;
     private String phoneNumber;
     private String adress;
-    private String date_creation;
+    private String datecreationSt;
+    private LocalDate datecreationLd;
     private String userCreate;
     private String etat;
     private String Blood;
     private String observation;
 
+
+
+    public LocalDate getDatecreationLd() {
+        return datecreationLd;
+    }
+
+    public void setDatecreationLd(LocalDate datecreationLd) {
+        this.datecreationLd = datecreationLd;
+    }
 
     public String getObservation() {
         return observation;
@@ -125,11 +135,11 @@ public class DonationDTO {
 
 
     public String getDate_creation() {
-        return date_creation;
+        return datecreationSt;
     }
 
     public void setDate_creation(String date_creation) {
-        this.date_creation = date_creation;
+        this.datecreationSt = date_creation;
     }
 
     public String getEtat() {
