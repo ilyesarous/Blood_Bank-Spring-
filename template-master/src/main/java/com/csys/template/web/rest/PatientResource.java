@@ -34,10 +34,10 @@ public class PatientResource {
     }
 
 @GetMapping
-public List<PatientDTO> getAll(@RequestParam(value = "lastNameAr", required = false) String name,
+public List<PatientDTO> getAll(@RequestParam(value = "fullNameAr", required = false) String fullNameAr,
                              @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
                              @RequestParam(value = "codepatient", required = false) String codepatient ){
-    Specification<Patient> patient = PatientSearch.getSearch(name,phoneNumber,codepatient);
+    Specification<Patient> patient = PatientSearch.getSearch(fullNameAr,phoneNumber,codepatient);
 
     return patientService.findAll(patient);
 

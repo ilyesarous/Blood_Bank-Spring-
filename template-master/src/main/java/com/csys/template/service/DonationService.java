@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.csys.template.TemplateApplication.log;
+
 
 @Service
 @Transactional
@@ -34,7 +36,8 @@ public class DonationService {
         this.stockService = stockService;
     }
     @Transactional(readOnly = true)
-    public DonationDTO findDonationByCode(String code) {
+    public DonationDTO findByCode(String code) {
+        log.debug("***find Donation By Code ***");
         Donation donation = donationRepository.findByCode(code);
         Preconditions.checkBusinessLogique(donation != null,"donor does  Not found!");
         DonationDTO donationDTOS = DonationFactory.DonationToDonationDTO(donation);
@@ -44,6 +47,7 @@ public class DonationService {
     @Transactional(readOnly = true)
 
     public List<DonationDTO> GetAll(Specification<Donation> donation) {
+        log.debug("*** Get All donation ***");
        List <Donation> donations = donationRepository.findAll(donation);
 
        List <DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(donations);
@@ -52,6 +56,7 @@ public class DonationService {
     }
 
     public DonationDTO addDonation(DonationDTO donationDTO) {
+        log.debug("*** add Donation ***");
         CounterDTO counter = counterService.findCounterByType("donation");
         donationDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
@@ -68,6 +73,8 @@ public class DonationService {
 
 
     public DonationDTO updateDonation(DonationDTO donationDTO){
+        log.debug("*** update Donation ***");
+        Preconditions.checkBusinessLogique(donationDTO.getObservation()!=null,"error.couldn't-find-observation");
         Donation donation = donationRepository.findByCode(donationDTO.getCode());
         Preconditions.checkBusinessLogique(donation!=null,"donor does  Not found!");
         donationDTO.setCode(donation.getCode());
@@ -77,7 +84,6 @@ public class DonationService {
         donationDTO.setAge(donation.getAge());
         donationDTO.setSexe(donation.getSexe());
         donationDTO.setAdress(donation.getAdress());
-
         donationDTO.setTypeIdentity(donation.getTypeIdentity());
         donationDTO.setNumIdentity(donation.getNumIdentity());
 

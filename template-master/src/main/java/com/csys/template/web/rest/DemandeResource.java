@@ -30,7 +30,7 @@ public class DemandeResource {
     }
     @GetMapping("codeMed/{code}")
     public DemandeDTO getWithCodeMed(@PathVariable String code){
-        DemandeDTO demandeDTO = demandeService.findDemandeByCodeMed(code);
+        DemandeDTO demandeDTO = demandeService.findByCodeMed(code);
         return demandeDTO;
     }
     @PostMapping

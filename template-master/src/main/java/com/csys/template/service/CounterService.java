@@ -4,7 +4,7 @@ import com.csys.template.domain.Counter;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.factory.CounterFactory;
 import com.csys.template.repository.CounterRepository;
-import com.google.common.base.Preconditions;
+import com.csys.template.util.Preconditions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +38,7 @@ public class CounterService {
     }
     public CounterDTO updateCounter(CounterDTO counterDTO){
         Counter counterInDB = counterRepository.findByType(counterDTO.getType());
-        Preconditions.checkArgument (counterInDB != null, "Counter has been deleted");
+        Preconditions.checkBusinessLogique(counterInDB!=null,"error patient does not found");
         Counter counter = counterRepository.save(CounterFactory.counterDTOToCounter(counterDTO));
         return CounterFactory.counterToCounterDTO(counter);
     }

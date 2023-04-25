@@ -1,16 +1,11 @@
 package com.csys.template.web.rest;
 
 import com.csys.template.domain.Donation;
-import com.csys.template.domain.Patient;
-import com.csys.template.dto.BloodDTO;
-import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.DonationDTO;
 import com.csys.template.dto.PatientDTO;
 import com.csys.template.search.DonationSearch;
 import com.csys.template.search.PatientSearch;
 import com.csys.template.service.DonationService;
-import com.csys.template.util.Preconditions;
-import com.csys.template.util.RestPreconditions;
 import jakarta.validation.Valid;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +32,7 @@ public class DonationResource {
 
     @GetMapping("/{code}")
     public DonationDTO findOne(@PathVariable String code){
-        DonationDTO donationDTO = donationService.findDonationByCode(code);
+        DonationDTO donationDTO = donationService.findByCode(code);
         return donationDTO;
     }
     @GetMapping

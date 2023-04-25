@@ -13,13 +13,13 @@ public class BloodSearch {
             List<Predicate> predicates = new ArrayList<>();
 
             if(group!=null && !(group.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("bloodGrp"), group));
+                predicates.add(criteriaBuilder.like(root.get("bloodGrp"), group));
             }
             if(given!=null && !(given.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("givenTo"), given));
+                predicates.add(criteriaBuilder.like(root.get("givenTo"), given));
             }
             if(receive!=null && !(receive.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("receivedFrom"), receive));
+                predicates.add(criteriaBuilder.like(root.get("receivedFrom"), receive));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         });

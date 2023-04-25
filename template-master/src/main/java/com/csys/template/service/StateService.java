@@ -7,6 +7,8 @@ import com.csys.template.repository.StateRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.csys.template.TemplateApplication.log;
+
 @Service
 @Transactional
 public class StateService {
@@ -20,6 +22,7 @@ public class StateService {
 
     @Transactional(readOnly = true)
     public StateDTO findByName(String name){
+        log.debug("*** find By Name ***");
         State state;
         switch (name){
             case "1":
@@ -37,6 +40,7 @@ public class StateService {
        return StateFactory.stateToStateDTO(state);
     }
     public State addState(StateDTO stateDTO) {
+        log.debug("*** add State ***");
         State state = StateFactory.stateDTOToState(stateDTO);
         state = stateRepository.save(state);
         return state;

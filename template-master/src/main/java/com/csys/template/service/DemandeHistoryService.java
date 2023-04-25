@@ -33,7 +33,7 @@ public class DemandeHistoryService {
     }
     @Transactional
     public DemandeHistoryDTO addDemandeHistory(DemandeHistoryDTO demandeDTO){
-        Preconditions.checkArgument (demandeDTO != null, "Demande added!");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demandeDTO != null, "error.couldn't-find-demande");
         DemandeHistory d = demandeHistoryRepository.save(DemandeHistoryFactory.demandeHistoryDTOToDemandeHistory(demandeDTO));
         return DemandeHistoryFactory.demandeHistoryToDemandeHistoryDTO(d);
 

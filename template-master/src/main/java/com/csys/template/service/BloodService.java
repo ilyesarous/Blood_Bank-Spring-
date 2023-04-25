@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.csys.template.TemplateApplication.log;
+
 @Service
 @Transactional
 public class BloodService {
@@ -25,6 +27,7 @@ public class BloodService {
 
     @Transactional(readOnly = true)
     public List<BloodDTO> findAll(Specification<Blood> specification) {
+        log.debug("***find All***");
         List<Blood> bloods = bloodRepository.findAll(specification);
         Preconditions.checkBusinessLogique(bloods != null, "error.couldn't-find-bloods");
         for (Blood b : bloods) {
@@ -54,6 +57,7 @@ public class BloodService {
 
 
     public Blood findByGroupAndRhesus(String group, String rhesus) {
+        log.debug("***find By Group And Rhesus***");
         List<Blood> blood = bloodRepository.findBybloodGrp(group);
         Preconditions.checkBusinessLogique(blood != null, "error.couldn't-find-blood");
         for (Blood b : blood) {
@@ -65,11 +69,11 @@ public class BloodService {
 
     @Transactional(readOnly = true)
     public Integer findBloodCodeByType(String ch) {
+        log.debug("***find Blood Code By Type***");
         String rhesus;
         rhesus = ch.substring(ch.length() - 1);
         String group = ch.substring(0, ch.length() - 1);
-        System.out.println("rhesus: " + rhesus);
-        System.out.println("group: " + group);
+
         if (findByGroupAndRhesus(group, rhesus) != null) {
             return findByGroupAndRhesus(group, rhesus).getCodeBlood();
         }
@@ -83,6 +87,7 @@ public class BloodService {
 
     @Transactional(readOnly = true)
     public String findTypeByBloodCode(Integer codeBlood) {
+        log.debug("***find Type By Blood Code***");
         Blood blood = bloodRepository.findByCodeBlood(codeBlood);
         Preconditions.checkBusinessLogique(blood != null, "error.couldn't-find-blood");
         return blood.getBloodGrp() + blood.getRhesus();
@@ -90,6 +95,7 @@ public class BloodService {
 
     @Transactional(readOnly = true)
     public List<String> findAllTypes() {
+        log.debug("***find All Types***");
         return (findAll(null).stream()
                 .map(x -> x.getBloodGrp() + x.getRhesus())
                 .distinct()
@@ -98,6 +104,7 @@ public class BloodService {
 
     @Transactional(readOnly = true)
     public List<String> findAllGroups() {
+        log.debug("***find All Groups***");
         return (findAll(null).stream()
                 .map(BloodDTO::getBloodGrp)
                 .distinct()
@@ -106,6 +113,7 @@ public class BloodService {
 
 
     public BloodDTO addBlood(BloodDTO bloodDTO) {
+        log.debug("***add Blood***");
         Blood b = findByGroupAndRhesus(bloodDTO.getBloodGrp(), bloodDTO.getRhesus());
         Preconditions.checkBusinessLogique(b == null, "error.blood-already-exists");
         if (!Objects.equals(bloodDTO.getGivenTo(), "-")) {
@@ -136,6 +144,7 @@ public class BloodService {
     }
 
     public BloodDTO updateBlood(BloodDTO bloodDTO) {
+        log.debug("***update Blood***");
         Blood bloodInDB = bloodRepository.findByCodeBlood(bloodDTO.getCodeBlood());
         bloodDTO.setCodeBlood(bloodInDB.getCodeBlood());
 //        bloodDTO.setCreationDate(bloodInDB.getCreationDate());
@@ -168,6 +177,7 @@ public class BloodService {
 
     @Transactional(readOnly = true)
     public List<BloodDTO> getListBloodByCode(List<Integer> codes) {
+        log.debug("***get List Blood By Code***");
         Preconditions.checkBusinessLogique(codes != null, "eroor");
         List<BloodDTO> bloodDTOList = new ArrayList<>();
         for (Integer x : codes) {
@@ -177,6 +187,7 @@ public class BloodService {
     }
 
     public BloodDTO updateStatusBlood(Integer code) {
+        log.debug("***update Status Blood***");
         Blood bloodInDB = bloodRepository.findByCodeBlood(code);
         BloodFactory.statusChangeHandler(bloodInDB);
         return BloodFactory.bloodToBloodDTO((bloodRepository.save(bloodInDB)));

@@ -54,19 +54,19 @@ public class DonationHistoryService {
     }
 
     @Transactional
-    public DonationsHistoryDTO addHistorique(DonationsHistoryDTO patientHistoriqueDTO){
-        Preconditions.checkArgument (patientHistoriqueDTO != null, "History Patient added!");
+    public DonationsHistoryDTO addHistorique(DonationsHistoryDTO HistoriqueDTO){
+        com.csys.template.util.Preconditions.checkBusinessLogique(HistoriqueDTO != null, "error.couldn't-find-donateur");
         DonationsHistory p = new DonationsHistory();
 //        p.setState(StateEnum.PENDING.intValue());
         DonationsHistory d = patientHistoriqueRepository.save(DonationsHistoryFactory.
-                patientHisoriqueDTOToPatientHistorique(patientHistoriqueDTO));
+                patientHisoriqueDTOToPatientHistorique(HistoriqueDTO));
         return DonationsHistoryFactory.patientHisoriqueToPatientHistoriqueDTO(d);
     }
 
     public DonationsHistoryDTO updateHistoriy(DonationsHistoryDTO historyDTO){
 
         DonationsHistory historyInDB = patientHistoriqueRepository.findByCode(historyDTO.getCode());
-        Preconditions.checkArgument (historyInDB != null, "Patient has been updated");
+        com.csys.template.util.Preconditions.checkBusinessLogique(historyInDB != null, "error.couldn't-find-donateur");
         DonationsHistory p = new DonationsHistory();
         p= patientHistoriqueRepository.save(DonationsHistoryFactory.patientHisoriqueDTOToPatientHistorique(historyDTO));
         return DonationsHistoryFactory.patientHisoriqueToPatientHistoriqueDTO(p);

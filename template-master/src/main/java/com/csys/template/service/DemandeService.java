@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.csys.template.TemplateApplication.log;
+
 @Service
 @Transactional
 public class DemandeService {
@@ -45,7 +47,7 @@ public class DemandeService {
 
     @Transactional(readOnly = true)
     public List<DemandeDTO> findAll() {
-
+        log.debug("***find All***");
 
         List<Demande> demande=demandeRepository.findByOrderByState();
 
@@ -72,17 +74,19 @@ public class DemandeService {
 
     @Transactional(readOnly = true)
     public DemandeDTO findStockByCode(String code) {
+        log.debug("***find Stock By Code***");
         Demande demande = demandeRepository.findByCode(code);
-        Preconditions.checkArgument(demande != null, "Demande not found ");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-stock");
         DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
 
         return demandeDTO;
     }
 
     @Transactional(readOnly = true)
-    public DemandeDTO findDemandeByCodeMed(String code) {
+    public DemandeDTO findByCodeMed(String code) {
+        log.debug("***find By CodeMed***");
         Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
-        Preconditions.checkArgument(demande != null, "Demande doctor not found !");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-stock");
         DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
 
         return demandeDTO;
@@ -90,7 +94,8 @@ public class DemandeService {
 
     @Transactional
     public DemandeDTO addDemande(DemandeDTO demandeDTO) {
-        Preconditions.checkArgument(demandeDTO != null, "Demande added!");
+        log.debug("***add Demande***");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demandeDTO != null, "demande add ! ");
 
         CounterDTO counter = counterService.findCounterByType("demande");
         demandeDTO.setCode(counter.getPrefix() + counter.getSuffix());
@@ -121,12 +126,12 @@ public class DemandeService {
     @Transactional
     public Demande updateDemande(DemandeDTO demandeDTO) {
 
-
+        log.debug("***update Demande***");
         Demande demande = demandeRepository.findByCode(demandeDTO.getCode());
         String x= bloodService.findTypeByBloodCode(demande.getBlood());
 
         Integer blood = demande.getBlood();
-        Preconditions.checkArgument(demande != null, "demande does not exist!");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande");
         DemandeHistoryDTO demandeHistoryDTO = new DemandeHistoryDTO();
         Demande demande1 = new Demande();
         demandeDTO.setCode(demande.getCode());
@@ -137,12 +142,12 @@ public class DemandeService {
          Integer bl =bloodService.findBloodCodeByType(demandeDTO.getBlood());
 
         Integer qt = stockService.getQantiteTotal(bl);
-        Preconditions.checkArgument(qt != 0, "Blood not existe in storage!"+ demandeDTO.getBlood() );
+
         Integer QD = Integer.parseInt(demandeDTO.getQuantiter());
 
 
         List<StockDTO> stockDTOS = stockService.findByblood(bl);
-        Preconditions.checkArgument(stockDTOS != null, " Blood .............!" );
+
         EntityManager entityManager = null;
 
         if (qt >= QD) {
@@ -189,10 +194,10 @@ public class DemandeService {
 
     @Transactional
     public DemandeDTO updateDemandeToRejected(DemandeDTO demandeDTO) {
+        log.debug("***update Demande To Rejected***");
         Demande demande = demandeRepository.findByCode(demandeDTO.getCode());
-
         String a=demande.getBlood().toString();
-        Preconditions.checkArgument(demande != null, "demande does not exist!");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande");
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
         demandeDTO.setNameMedecin(demande.getNameMedecin());
@@ -211,8 +216,9 @@ public class DemandeService {
 
     @Transactional
     public DemandeDTO remove(String code) {
+        log.debug("***remove demande ***");
         Demande demande = demandeRepository.findByCode(code);
-        Preconditions.checkArgument(demande != null, "Demande remove!"+code);
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande");
         DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
         demandeRepository.deleteById(demande.getCode());
         return demandeDTO;
@@ -220,6 +226,7 @@ public class DemandeService {
 
 //    @Transactional
 //    public DemandeDTO removeByCodeMed(String code) {
+//          log.debug("***remove By CodeMed ***");
 //        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
 //        Preconditions.checkArgument(demande != null, "Demande medecin remove!"+code);
 //        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);

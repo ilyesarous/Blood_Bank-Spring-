@@ -15,10 +15,10 @@ public class DonationSearch {
             List<Predicate> predicates = new ArrayList<>();
 
             if(typeIdentity!=null && !(typeIdentity.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("typeIdentity"), typeIdentity));
+                predicates.add(criteriaBuilder.like(root.get("typeIdentity"), typeIdentity));
             }
             if(numIdentity!=null && !(numIdentity.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("numIdentity"), numIdentity));
+                predicates.add(criteriaBuilder.like(root.get("numIdentity"), numIdentity));
             }
 
 

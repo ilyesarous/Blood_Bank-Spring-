@@ -10,18 +10,18 @@ import java.util.List;
 
 public class PatientSearch {
 
-    public static Specification<Patient> getSearch(String lastNameAr, String phoneNumber, String code){
+    public static Specification<Patient> getSearch(String fullNameAr, String phoneNumber, String code){
         return ((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if(lastNameAr!=null && !(lastNameAr.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("lastNameAr"), lastNameAr));
+            if(fullNameAr!=null && !(fullNameAr.isEmpty())){
+                predicates.add(criteriaBuilder.like(root.get("fullNameAr"), fullNameAr));
             }
             if(phoneNumber!=null && !(phoneNumber.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber));
+                predicates.add(criteriaBuilder.like(root.get("phoneNumber"), phoneNumber));
             }
             if(code!=null && !(code.isEmpty())){
-                predicates.add(criteriaBuilder.equal(root.get("code"), code));
+                predicates.add(criteriaBuilder.like(root.get("code"), code));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.csys.template.TemplateApplication.log;
+
 @Service
 @Transactional
 public class PatientService {
@@ -33,6 +35,7 @@ public class PatientService {
 
     @Transactional(readOnly = true)
     public List<PatientDTO> findAll(Specification<Patient> patient) {
+        log.debug("*** find All ***");
         List<Patient> patients = patientRepository.findAll(patient);
         Preconditions.checkBusinessLogique(patients!=null,"error patient does not found");
         List<Integer> bloodCodes = patients.stream()
@@ -57,6 +60,7 @@ public class PatientService {
     }
 
     public PatientDTO addPatient(PatientDTO patientDTO) {
+        log.debug("*** add Patient ***");
         CounterDTO counter = counterService.findCounterByType("patient");
         patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
@@ -70,6 +74,7 @@ public class PatientService {
     }
 
     public Patient updatePatient(PatientDTO patientDTO){
+        log.debug("*** update Patient ***");
         Patient patientInDB = patientRepository.findByCode(patientDTO.getCode());
         Preconditions.checkBusinessLogique(patientInDB!=null,"error patient does not found");
         patientDTO.setCode(patientInDB.getCode());
