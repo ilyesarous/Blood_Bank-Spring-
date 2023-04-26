@@ -45,6 +45,10 @@ public class BloodResource {
         return bloodService.findAll(specification);
     }
 
+    @GetMapping("/c")
+    public Blood findblood(@RequestBody BloodDTO b){
+        return bloodService.findBya(b.getBloodGrp(), b.getRhesus());
+    }
     @GetMapping("/specifc-type/{code}")
     public String getTypeByCodeBlood(@Valid @PathVariable Integer code) {
         return bloodService.findTypeByBloodCode(code);
@@ -56,7 +60,7 @@ public class BloodResource {
 
     @GetMapping("/type")
     public List<String> getAllTypes() {
-        return bloodService.findAllTypes();
+        return bloodService.findTypes();
     }
 
     @GetMapping("/groups")

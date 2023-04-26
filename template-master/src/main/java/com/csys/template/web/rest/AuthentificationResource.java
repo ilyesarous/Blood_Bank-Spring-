@@ -7,6 +7,7 @@ import com.csys.template.util.Preconditions;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,18 +31,18 @@ public class AuthentificationResource {
         return authentificationService.findAll();
     }
     @GetMapping("/{address}/{code}")
-    public AuthentificationDTO findOne(@RequestBody @PathVariable String address ,@RequestBody @PathVariable String code){
+    public AuthentificationDTO findUser(@PathVariable String address ,@PathVariable String code){
         AuthentificationDTO authentificationDTO = authentificationService.findByAdress(address,code);
         Preconditions.checkBusinessLogique(authentificationDTO != null, ENTITY_NAME + " Counter does Not found!");
         return authentificationDTO;
     }
     @PostMapping
-    public ResponseEntity<AuthentificationDTO> add (@RequestBody @Valid AuthentificationDTO authentificationDTO, BindingResult bindingResult)
+    public ResponseEntity<AuthentificationDTO> addUser (@RequestBody @Valid AuthentificationDTO authentificationDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
-//        if(authentificationDTO.getId()!= null){
-//            bindingResult.addError(new FieldError(ENTITY_NAME, "id", "You can not add a counter with id"));
-//            throw new MethodArgumentNotValidException(null, bindingResult);
-//        }
+       if(authentificationDTO.getCode()!= null){
+           bindingResult.addError(new FieldError(ENTITY_NAME, "id", "You can not add a counter with id"));
+           throw new MethodArgumentNotValidException(null, bindingResult);
+       }
         AuthentificationDTO auth = authentificationService.addAuthentification(authentificationDTO);
         return ResponseEntity.created(new URI("/authentification"+ auth.getAdress())).body(auth);
     }

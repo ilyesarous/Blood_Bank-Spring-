@@ -30,13 +30,15 @@ public class BloodService {
         log.debug("***find All***");
         List<Blood> bloods = bloodRepository.findAll(specification);
         Preconditions.checkBusinessLogique(bloods != null, "error.couldn't-find-bloods");
+       // List<Integer> bloodsCodes = findCodes();
+        List<String> bloodsTypes = findTypes();
         for (Blood b : bloods) {
             if (!Objects.equals(b.getGivenTo(), "-")) {
                 String[] given = b.getGivenTo().split(",");
                 StringBuilder s = new StringBuilder(" ");
                 for (String ch : given) {
                     if (!Objects.equals(ch, "")) {
-                        s.append(findTypeByBloodCode(Integer.parseInt(ch))).append(",");
+                        s.append(bloodsTypes.get(Integer.parseInt(ch)-1)).append(",");
                     }
                 }
                 b.setGivenTo(s.substring(0, s.length() - 1).trim());
@@ -46,7 +48,7 @@ public class BloodService {
                 StringBuilder s1 = new StringBuilder(" ");
                 for (String ch : received) {
                     if (!Objects.equals(ch, "")) {
-                        s1.append(findTypeByBloodCode(Integer.parseInt(ch))).append(",");
+                        s1.append(bloodsTypes.get(Integer.parseInt(ch)-1)).append(",");
                     }
                 }
                 b.setReceivedFrom(s1.substring(0, s1.length() - 1).trim());
@@ -55,16 +57,30 @@ public class BloodService {
         return BloodFactory.bloodsToBloodsDTO(bloods);
     }
 
-
-    public Blood findByGroupAndRhesus(String group, String rhesus) {
-        log.debug("***find By Group And Rhesus***");
-        List<Blood> blood = bloodRepository.findBybloodGrp(group);
-        Preconditions.checkBusinessLogique(blood != null, "error.couldn't-find-blood");
-        for (Blood b : blood) {
-            if (Objects.equals(b.getRhesus(), rhesus))
-                return b;
+    public List<Integer> findCodes(){
+        log.debug("***find All Blood Codes***");
+        List<Blood> bloods = bloodRepository.findAll();
+        return bloods.stream()
+                .map(Blood::getCodeBlood)
+                .distinct()
+                .toList();
+    }
+    public List<String> findTypes(){
+        log.debug("***find All Types***");
+        List<Integer> bloods = findCodes();
+        List<String> types = new ArrayList<>();
+        for(int i : bloods){
+            types.add(findTypeByBloodCode(i));
         }
-        return null;
+        return types;
+    }
+
+    public Blood findBya(String group, String rhesus) {
+        log.debug("***find By Group And Rhesus***");
+        Blood blood = bloodRepository.findBybloodGrpAndRhesus(group,rhesus);
+        Preconditions.checkBusinessLogique(blood != null, "error.couldn't-find-blood");
+
+        return blood;
     }
 
     @Transactional(readOnly = true)
@@ -74,8 +90,8 @@ public class BloodService {
         rhesus = ch.substring(ch.length() - 1);
         String group = ch.substring(0, ch.length() - 1);
 
-        if (findByGroupAndRhesus(group, rhesus) != null) {
-            return findByGroupAndRhesus(group, rhesus).getCodeBlood();
+        if (bloodRepository.findBybloodGrpAndRhesus(group, rhesus) != null) {
+            return bloodRepository.findBybloodGrpAndRhesus(group, rhesus).getCodeBlood();
         }
         return null;
     }
@@ -94,15 +110,6 @@ public class BloodService {
     }
 
     @Transactional(readOnly = true)
-    public List<String> findAllTypes() {
-        log.debug("***find All Types***");
-        return (findAll(null).stream()
-                .map(x -> x.getBloodGrp() + x.getRhesus())
-                .distinct()
-                .toList());
-    }
-
-    @Transactional(readOnly = true)
     public List<String> findAllGroups() {
         log.debug("***find All Groups***");
         return (findAll(null).stream()
@@ -111,10 +118,9 @@ public class BloodService {
                 .toList());
     }
 
-
     public BloodDTO addBlood(BloodDTO bloodDTO) {
         log.debug("***add Blood***");
-        Blood b = findByGroupAndRhesus(bloodDTO.getBloodGrp(), bloodDTO.getRhesus());
+        Blood b = bloodRepository.findBybloodGrpAndRhesus(bloodDTO.getBloodGrp(), bloodDTO.getRhesus());
         Preconditions.checkBusinessLogique(b == null, "error.blood-already-exists");
         if (!Objects.equals(bloodDTO.getGivenTo(), "-")) {
             String[] given = bloodDTO.getGivenTo().split(",");

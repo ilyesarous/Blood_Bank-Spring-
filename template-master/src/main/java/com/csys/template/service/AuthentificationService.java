@@ -28,15 +28,11 @@ public class AuthentificationService {
     @Transactional(readOnly = true)
     public AuthentificationDTO findByAdress(String address , String code) {
 
-        Authentification authentification = authentificationRepository.findByAddress(address);
+        Authentification authentification = authentificationRepository.findByAddressAndCode(address,code);
 //        Authentification authentification1 = authentificationRepository.findBycode(code);
         Preconditions.checkBusinessLogique(authentification != null,"Adress Not found!"+ authentification);
-        if (!authentification.getCode().equals(code))
-        {
-            Preconditions.checkBusinessLogique(authentification != null,"password is not correct !");
-        }
-        AuthentificationDTO authentificationDTO1 = AuthentificationFactory.authentificationToauthentificationDTO(authentification);
-        return authentificationDTO1;
+
+        return AuthentificationFactory.authentificationToauthentificationDTO(authentification);
     }
 
     public AuthentificationDTO addAuthentification(AuthentificationDTO authentificationDTO) {

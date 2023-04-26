@@ -13,7 +13,7 @@ public interface BloodRepository extends JpaRepository<Blood, String> {
 
     List<Blood> findBybloodGrp(String grp);
 
-    Blood findByrhesus(char rhesus);
+    Blood findBybloodGrpAndRhesus(String grp,String rhesus);
     Blood findByCodeBlood(Integer codeBlood);
 
     List<Blood> findAll(Specification<Blood> specification);

@@ -14,10 +14,8 @@ public class Authentification {
 //    @Column(name = "id", nullable = false)
 //    private Integer id;
     @Id
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
-
-
     @Column(name = "code", nullable = false)
     private String code;
 

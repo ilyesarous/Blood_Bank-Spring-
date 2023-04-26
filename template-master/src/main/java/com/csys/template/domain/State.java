@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "state")
-
 public class State {
 
     @Column(name = "code", nullable = false)
