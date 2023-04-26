@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface DemandeRepository extends JpaRepository<Demande,String> {
     Demande findByCode(String code);
-    Demande findDemandeByCodeMedecin(String code);
+   List <Demande> findBycodeMedecin(String codeMed);
     List<Demande> findByOrderByState();
 }

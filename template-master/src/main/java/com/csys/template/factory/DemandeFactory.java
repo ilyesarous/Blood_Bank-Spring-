@@ -98,8 +98,8 @@ public class DemandeFactory {
     public static DemandeHistoryDTO demandeToDemandeHistoryDTO(DemandeDTO demande){
         DemandeHistoryDTO demandeDTO = new DemandeHistoryDTO();
         demandeDTO.setCode(demande.getCode());
-        demandeDTO.setCodeMedecin(demande.getCodeMedecin());
-        demandeDTO.setCodeService(demande.getCodeService());
+        demandeDTO.setCodeMedecin(demande.getCodeMedecin().toString());
+        demandeDTO.setCodeService(demande.getCodeService().toString());
         demandeDTO.setQuantiter(demande.getQuantiter());
         demandeDTO.setState(demande.getState());
         demandeDTO.setBlood(demande.getBlood());
@@ -111,7 +111,7 @@ public class DemandeFactory {
 
     }
 
-    public static List<DemandeDTO> stocksToStocksDTO(List<Demande> demandes){
+    public static List<DemandeDTO> demandesToDemandeDTO(List<Demande> demandes){
         List<DemandeDTO> demandeDTOS = new ArrayList<DemandeDTO>();
         for(Demande demande : demandes){
             demandeDTOS.add(demandeToDemandeDTO(demande));
@@ -119,7 +119,7 @@ public class DemandeFactory {
         return demandeDTOS;
     }
 
-    public static List<Demande> stocksDTOToStocks(List<DemandeDTO> demandeDTOS){
+    public static List<Demande> DemandeDTOToDemandes(List<DemandeDTO> demandeDTOS){
         List<Demande> demandes = new ArrayList<Demande>();
         for(DemandeDTO demandeDTO : demandeDTOS){
             demandes.add(demandeDTOToDemande(demandeDTO));

@@ -26,11 +26,12 @@ public class DemandeResource {
 
     @GetMapping
     public List<DemandeDTO> getAll(){
+
         return demandeService.findAll();
     }
     @GetMapping("codeMed/{code}")
-    public DemandeDTO getWithCodeMed(@PathVariable String code){
-        DemandeDTO demandeDTO = demandeService.findByCodeMed(code);
+    public List<DemandeDTO> getWithCodeMed(@PathVariable String code){
+        List<DemandeDTO> demandeDTO = demandeService.findByCodeMed(code);
         return demandeDTO;
     }
     @PostMapping
@@ -45,23 +46,23 @@ public class DemandeResource {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Demande> updateDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String code)
+    public ResponseEntity<DemandeDTO> updateDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String code)
             throws URISyntaxException {
-        Demande c = demandeService.updateDemande(donationDTO);
+        DemandeDTO c = demandeService.updateDemande(donationDTO);
         return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
     }
 
-    @PutMapping("/rej/{code}")
-    public ResponseEntity<DemandeDTO> updateDemandeRejected(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String code)
+    @PutMapping("/rej/{codeMed}")
+    public ResponseEntity<DemandeDTO> updateDemandeRejected(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String codeMed)
             throws URISyntaxException {
         DemandeDTO c = demandeService.updateDemandeToRejected(donationDTO);
         return ResponseEntity.created(new URI("/donation" + c.getCode())).body(c);
     }
 
-    @DeleteMapping("/{codeMed}")
-    public DemandeDTO  DeleteDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String codeMed)
-            throws URISyntaxException {
-        DemandeDTO c = demandeService.remove(codeMed);
-        return  c;
-    }
+//    @DeleteMapping("/{codeMed}")
+//    public DemandeDTO  DeleteDemande(@RequestBody @Valid DemandeDTO donationDTO, @Valid @PathVariable String codeMed)
+//            throws URISyntaxException {
+//        DemandeDTO c = demandeService.remove(codeMed);
+//        return  c;
+//    }
 }

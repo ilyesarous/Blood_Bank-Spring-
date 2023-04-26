@@ -15,7 +15,7 @@ public class Demande {
     @Id
     private String code;
     @Column(name = "doctor_code", nullable = false)
-    private String codeMedecin;
+    private Integer codeMedecin;
     @Column(name = "doctor_name")
     private String nameMedecin;
     @Column(name = "service_name")
@@ -27,7 +27,7 @@ public class Demande {
     @Column(name = "state", nullable = false)
     private Integer state;
     @Column(name = "service_code", nullable = false)
-    private String serviceCode;
+    private Integer serviceCode;
     @Column(name = "create_Date", nullable = false)
     private LocalDate createDate;
     @Column(name = "User_Create", nullable = false)
@@ -84,11 +84,11 @@ public class Demande {
         this.code = code;
     }
 
-    public String getCodeMedecin() {
+    public Integer getCodeMedecin() {
         return codeMedecin;
     }
 
-    public void setCodeMedecin(String codeMedecin) {
+    public void setCodeMedecin(Integer codeMedecin) {
         this.codeMedecin = codeMedecin;
     }
 
@@ -116,11 +116,11 @@ public class Demande {
         this.state = state;
     }
 
-    public String getCodeService() {
+    public Integer getCodeService() {
         return serviceCode;
     }
 
-    public void setCodeService(String codeService) {
+    public void setCodeService(Integer codeService) {
         this.serviceCode = codeService;
     }
 }

@@ -8,11 +8,11 @@ public class DemandeDTO {
 
     private Integer Id;
     private String code;
-    private String codeMedecin;
+    private Integer codeMedecin;
     private String blood;
     private String quantiter;
     private String state;
-    private String codeService;
+    private Integer codeService;
     private String createDateSt;
 
     private LocalDate createDateLd;
@@ -88,11 +88,11 @@ public class DemandeDTO {
         this.code = code;
     }
 
-    public String getCodeMedecin() {
+    public Integer getCodeMedecin() {
         return codeMedecin;
     }
 
-    public void setCodeMedecin(String codeMedecin) {
+    public void setCodeMedecin(Integer codeMedecin) {
         this.codeMedecin = codeMedecin;
     }
 
@@ -120,11 +120,11 @@ public class DemandeDTO {
         this.state = state;
     }
 
-    public String getCodeService() {
+    public Integer getCodeService() {
         return codeService;
     }
 
-    public void setCodeService(String codeService) {
+    public void setCodeService(Integer codeService) {
         this.codeService = codeService;
     }
 }

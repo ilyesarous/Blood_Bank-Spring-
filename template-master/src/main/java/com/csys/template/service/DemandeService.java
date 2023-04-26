@@ -49,8 +49,16 @@ public class DemandeService {
     public List<DemandeDTO> findAll() {
         log.debug("***find All***");
 
-        List<Demande> demande=demandeRepository.findByOrderByState();
+        List<Demande> demandes=demandeRepository.findByOrderByState();
+        List<Demande> demande= new ArrayList<>();
+        for (Demande d: demandes
+             ) {
+            if (d.getStatus().equals(3))
+            {
+                demande.add(d);
+            }
 
+        }
 
         List<Integer> bloodCodes = demande.stream()
                 .map(Demande::getBlood)
@@ -83,11 +91,11 @@ public class DemandeService {
     }
 
     @Transactional(readOnly = true)
-    public DemandeDTO findByCodeMed(String code) {
+    public List<DemandeDTO> findByCodeMed(String codeMed) {
         log.debug("***find By CodeMed***");
-        Demande demande = demandeRepository.findDemandeByCodeMedecin(code);
+       List <Demande> demande = demandeRepository.findBycodeMedecin(codeMed);
         com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-stock");
-        DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
+        List<DemandeDTO> demandeDTO = DemandeFactory.demandesToDemandeDTO(demande);
 
         return demandeDTO;
     }
@@ -102,9 +110,9 @@ public class DemandeService {
         counter.setSuffix(counter.getSuffix() + 1);
         counterService.updateCounter(counter);
 
-        Integer codeMed = (Integer.parseInt(demandeDTO.getCodeMedecin()));
+        Integer codeMed = demandeDTO.getCodeMedecin();
 //        MedecinDTO medecinDTO = paramMedecinService.serviceFindOne(codeMed);
-        Integer code = (Integer.parseInt(demandeDTO.getCodeService()));
+        Integer code = demandeDTO.getCodeService();
 //        ServiceDTO serviceDTO = paramServiceClient.serviceFindOne(code);
         demandeDTO.setCreateDate(LocalDate.now().toString());
         demandeDTO.setCreateDateLd(LocalDate.now());
@@ -124,9 +132,11 @@ public class DemandeService {
     }
 
     @Transactional
-    public Demande updateDemande(DemandeDTO demandeDTO) {
+    public DemandeDTO updateDemande(DemandeDTO demandeDTO) {
 
         log.debug("***update Demande***");
+
+        com.csys.template.util.Preconditions.checkBusinessLogique(!demandeDTO.getStatus().equals("REJECTED") , "error.couldn't-find-demande");
         Demande demande = demandeRepository.findByCode(demandeDTO.getCode());
         String x= bloodService.findTypeByBloodCode(demande.getBlood());
 
@@ -189,7 +199,7 @@ public class DemandeService {
 
 
 
-        return demande1;
+        return demandeDTO;
     }
 
     @Transactional
@@ -209,7 +219,8 @@ public class DemandeService {
 
         DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
         demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
-        DemandeDTO demandeDTO2 = remove(demandeDTO.getCode());
+        demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
+//        DemandeDTO demandeDTO2 = remove(demandeDTO.getCode());
         return demandeDTO;
 
     }
