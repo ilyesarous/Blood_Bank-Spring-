@@ -39,8 +39,8 @@ public class AuthentificationResource {
     @PostMapping
     public ResponseEntity<AuthentificationDTO> addUser (@RequestBody @Valid AuthentificationDTO authentificationDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
-       if(authentificationDTO.getCode()!= null){
-           bindingResult.addError(new FieldError(ENTITY_NAME, "id", "You can not add a counter with id"));
+       if(authentificationDTO.getCode()== null){
+           bindingResult.addError(new FieldError(ENTITY_NAME, "code", "You can not add a counter with id"));
            throw new MethodArgumentNotValidException(null, bindingResult);
        }
         AuthentificationDTO auth = authentificationService.addAuthentification(authentificationDTO);

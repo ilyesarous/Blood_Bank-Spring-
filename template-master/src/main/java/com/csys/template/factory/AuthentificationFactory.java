@@ -1,9 +1,7 @@
 package com.csys.template.factory;
 
 import com.csys.template.domain.Authentification;
-import com.csys.template.domain.Counter;
 import com.csys.template.dto.AuthentificationDTO;
-import com.csys.template.dto.CounterDTO;
 
 
 
@@ -11,11 +9,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuthentificationFactory {
+
+
+    public static String crypter (String code)
+    {
+        String ch="";
+        for ( int i = 0; i < code.length(); ++i ){
+            char c = code.charAt(i);
+            Integer j = (int) c;
+            j=j+3;
+            if (j>122)
+            {
+                j=(j-122)+96;
+            }
+            String stringA = Character.toString(j);
+            ch= ch+stringA;
+        }
+        return  ch;
+    }
+
+    public static String decrypter (String code)
+    {
+        String ch="";
+        for ( int i = 0; i < code.length(); ++i ){
+            char c = code.charAt(i);
+            Integer j = (int) c;
+            j=j-3;
+            if (j<97)
+            {
+                j=123-(97-j);
+            }
+            String stringA = Character.toString(j);
+            ch= ch+stringA;
+        }
+        return  ch;
+    }
     public static AuthentificationDTO authentificationToauthentificationDTO(Authentification authentication){
         AuthentificationDTO authentificationDTO = new AuthentificationDTO();
-//        authentificationDTO.setId(authentication.getId());
         authentificationDTO.setAdress(authentication.getAdress());
-        authentificationDTO.setCode(authentication.getCode());
+        String code= authentication.getCode();
+        String ch=decrypter(code);
+        authentificationDTO.setCode(ch);
         authentificationDTO.setRole(authentication.getRole());
 
         return authentificationDTO;
@@ -23,9 +57,10 @@ public class AuthentificationFactory {
 
     public static Authentification authentificationDTOToauthentification(AuthentificationDTO authentificationDTO){
         Authentification authentification = new Authentification();
-//        authentification.setId(authentificationDTO.getId());
         authentification.setAdress(authentificationDTO.getAdress());
-        authentification.setCode(authentificationDTO.getCode());
+        String code= authentificationDTO.getCode();
+         String ch= crypter(code);
+        authentification.setCode(ch);
         authentification.setRole(authentificationDTO.getRole());
 
         return authentification;

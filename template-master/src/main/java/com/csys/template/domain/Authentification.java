@@ -10,9 +10,6 @@ import org.hibernate.envers.Audited;
 @AuditTable("Authentification_AUD")
 public class Authentification {
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id", nullable = false)
-//    private Integer id;
     @Id
     @Column(name = "address", nullable = false)
     private String address;
@@ -22,14 +19,6 @@ public class Authentification {
     @Column(name = "role")
     private String role;
 
-
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
 
     public String getRole() {
         return role;

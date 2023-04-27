@@ -27,9 +27,8 @@ public class AuthentificationService {
 
     @Transactional(readOnly = true)
     public AuthentificationDTO findByAdress(String address , String code) {
-
-        Authentification authentification = authentificationRepository.findByAddressAndCode(address,code);
-//        Authentification authentification1 = authentificationRepository.findBycode(code);
+        String codeDe=AuthentificationFactory.crypter(code);
+        Authentification authentification = authentificationRepository.findByAddressAndCode(address,codeDe);
         Preconditions.checkBusinessLogique(authentification != null,"Adress Not found!"+ authentification);
 
         return AuthentificationFactory.authentificationToauthentificationDTO(authentification);
