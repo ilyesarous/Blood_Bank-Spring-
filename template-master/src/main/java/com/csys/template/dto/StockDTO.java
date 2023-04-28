@@ -18,7 +18,7 @@ public class StockDTO {
 
     private String dateperime;
     private Integer quantite;
-    private  Integer quantiteTotal;
+
     private Integer version;
 
 
@@ -30,13 +30,6 @@ public class StockDTO {
         this.dateCreateLd = dateCreateLd;
     }
 
-    public Integer getQuantiteTotal() {
-        return quantiteTotal;
-    }
-
-    public void setQuantiteTotal(Integer quantiteTotal) {
-        this.quantiteTotal = quantiteTotal;
-    }
 
     public Integer getQuantite() {
         return quantite;

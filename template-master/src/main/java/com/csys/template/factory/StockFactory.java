@@ -29,7 +29,6 @@ public class StockFactory {
         stockDTO.setCodedonateur(stock.getCodedonateur());
         stockDTO.setUserCreate(stock.getUserCreate());
         stockDTO.setQuantite(stock.getQuantite());
-        stockDTO.setQuantiteTotal(stock.getQuantiteTotal());
         stockDTO.setVersion(stock.getVersion());
 
         LocalDate d= stock.getDateCreate();
@@ -97,9 +96,9 @@ public class StockFactory {
         stock.setCode(stockDTO.getCode());
         stock.setCodedonateur(stockDTO.getCodedonateur());
         stock.setUserCreate(getUserAuthenticated());
-        stock.setQuantite(1);
+        stock.setQuantite(stockDTO.getQuantite());
         stock.setVersion(0);
-        stock.setQuantiteTotal(stockDTO.getQuantiteTotal());
+
         stock.setDateCreate(d);
         stock.setDateperime(v);
 

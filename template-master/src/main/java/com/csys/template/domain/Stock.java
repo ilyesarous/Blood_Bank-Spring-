@@ -31,19 +31,12 @@ public class Stock {
     private String dateperime;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    @Column(name = "quantityTotal")
-    private Integer quantityTotal;
+
     @Version
     @Column(name = "version", nullable = false)
     private Integer version;
 
-    public Integer getQuantiteTotal() {
-        return quantityTotal;
-    }
 
-    public void setQuantiteTotal(Integer quantiteTotal) {
-        this.quantityTotal = quantiteTotal;
-    }
 
     public Integer getQuantite() {
         return quantity;

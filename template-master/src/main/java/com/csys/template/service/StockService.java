@@ -9,8 +9,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -105,10 +107,30 @@ public class StockService {
         StockHistoryDTO stockHistoryDTO= StockFactory.stockToStockHistoryDTO(stockDTO);
         stockHistoryService.addStockHistory(stockHistoryDTO);
         //quantiter totale
-        stockDTO.setQuantiteTotal(getQantiteTotal(s));
+
 
         Stock d =stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
         return StockFactory.stockToStockDTO(d);
+    }
+
+    @Transactional
+    public StockDTO update(StockDTO stockDTO){
+        log.debug("*** remove  donation in stock ***");
+        Stock stock = stockRepository.findBycode(stockDTO.getCode());
+        stockDTO.setBlood(stockDTO.getBlood());
+        stockDTO.setUserCreate(stock.getUserCreate());
+        stockDTO.setCode(stock.getCode());
+        stockDTO.setVersion(stock.getVersion());
+        stockDTO.setQuantite(0);
+        stockDTO.setDateperime(stock.getDateperime());
+        stockDTO.setCodedonateur(stock.getCodedonateur());
+        stockDTO.setId(stock.getId());
+
+        StockHistoryDTO stockHistoryDTO= StockFactory.DELstockToStockHistoryDTO(stockDTO);
+        stockHistoryService.addStockHistory(stockHistoryDTO);
+        stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
+
+        return stockDTO;
     }
     @Transactional
     public StockDTO remove(String code){

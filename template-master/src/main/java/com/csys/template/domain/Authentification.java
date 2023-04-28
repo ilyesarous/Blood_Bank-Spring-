@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "Authentification")
 @Audited
@@ -15,10 +17,39 @@ public class Authentification {
     private String address;
     @Column(name = "code", nullable = false)
     private String code;
-
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "date_create", nullable = false)
+    private LocalDate datecreate;
     @Column(name = "role")
     private String role;
+    @Column(name = "actif")
+    private Integer actif;
 
+
+    public Integer getActif() {
+        return actif;
+    }
+
+    public void setActif(Integer actif) {
+        this.actif = actif;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getDatecreate() {
+        return datecreate;
+    }
+
+    public void setDatecreate(LocalDate datecreate) {
+        this.datecreate = datecreate;
+    }
 
     public String getRole() {
         return role;

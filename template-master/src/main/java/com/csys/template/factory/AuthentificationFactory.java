@@ -4,7 +4,7 @@ import com.csys.template.domain.Authentification;
 import com.csys.template.dto.AuthentificationDTO;
 
 
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +46,15 @@ public class AuthentificationFactory {
     }
     public static AuthentificationDTO authentificationToauthentificationDTO(Authentification authentication){
         AuthentificationDTO authentificationDTO = new AuthentificationDTO();
+        LocalDate d=authentication.getDatecreate();
+        String date=d.toString();
         authentificationDTO.setAdress(authentication.getAdress());
         String code= authentication.getCode();
         String ch=decrypter(code);
         authentificationDTO.setCode(ch);
+        authentificationDTO.setDatecreate(date);
+        authentificationDTO.setActif(authentication.getActif());
+        authentificationDTO.setName(authentication.getName());
         authentificationDTO.setRole(authentication.getRole());
 
         return authentificationDTO;
@@ -57,10 +62,15 @@ public class AuthentificationFactory {
 
     public static Authentification authentificationDTOToauthentification(AuthentificationDTO authentificationDTO){
         Authentification authentification = new Authentification();
+        LocalDate d = LocalDate.now();
+
         authentification.setAdress(authentificationDTO.getAdress());
         String code= authentificationDTO.getCode();
          String ch= crypter(code);
         authentification.setCode(ch);
+        authentification.setDatecreate(d);
+        authentification.setActif(authentificationDTO.getActif());
+        authentification.setName(authentificationDTO.getName());
         authentification.setRole(authentificationDTO.getRole());
 
         return authentification;

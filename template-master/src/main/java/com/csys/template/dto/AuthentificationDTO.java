@@ -1,22 +1,42 @@
 package com.csys.template.dto;
 
+import jakarta.persistence.Column;
+
+import java.time.LocalDate;
+
 public class AuthentificationDTO {
 
-//    private Integer id;
     private String code;
     private String address;
+    private String name;
+    private String datecreate;
     private String role;
+    private Integer actif;
 
 
+    public Integer getActif() {
+        return actif;
+    }
 
-//
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
+    public void setActif(Integer actif) {
+        this.actif = actif;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDatecreate() {
+        return datecreate;
+    }
+
+    public void setDatecreate(String datecreate) {
+        this.datecreate = datecreate;
+    }
 
     public String getRole() {
         return role;

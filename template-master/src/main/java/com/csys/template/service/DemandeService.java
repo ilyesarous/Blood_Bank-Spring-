@@ -165,11 +165,11 @@ public class DemandeService {
 
 //                Stock stock = entityManager.find(Stock.class, stockDTOS.get(i).getId());
 //                entityManager.lock(stock, LockModeType.OPTIMISTIC);
-                Query query = entityManager.createQuery("from Student where id = :id");
-                query.setParameter("id", stockDTOS.get(i).getId());
-                query.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-                query.getResultList();
-                stockService.remove(stockDTOS.get(i).getCode());
+//                Query query = entityManager.createQuery("from Student where id = :id");
+//                query.setParameter("id", stockDTOS.get(i).getId());
+//                query.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+//                query.getResultList();
+                stockService.update(stockDTOS.get(i));
             }
             demandeDTO.setStatus("SOLVED");
             demandeDTO.setQuantiter("0");
@@ -182,7 +182,7 @@ public class DemandeService {
         else {
             for (int i = 0; i < qt; i++) {
                 Preconditions.checkArgument(stockDTOS.get(i).getCode() != null, "Blood .............!"+stockDTOS.get(i).getCode() );
-                stockService.remove(stockDTOS.get(i).getCode());
+                stockService.update(stockDTOS.get(i));
 
 
             }
