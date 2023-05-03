@@ -111,17 +111,17 @@ public class DemandeService {
         counterService.updateCounter(counter);
 
         Integer codeMed = demandeDTO.getCodeMedecin();
-//        MedecinDTO medecinDTO = paramMedecinService.serviceFindOne(codeMed);
+        MedecinDTO medecinDTO = paramMedecinService.serviceFindOne(codeMed);
         Integer code = demandeDTO.getCodeService();
-//        ServiceDTO serviceDTO = paramServiceClient.serviceFindOne(code);
+        ServiceDTO serviceDTO = paramServiceClient.serviceFindOne(code);
         demandeDTO.setCreateDate(LocalDate.now().toString());
         demandeDTO.setCreateDateLd(LocalDate.now());
         String ch = demandeDTO.getBlood();
         String x = bloodService.findBloodCodeByType(ch).toString();
         demandeDTO.setBlood(x);
-//        String name = paramMedecinService.serviceFindNameByCode(Integer.parseInt(demandeDTO.getCodeMedecin()));
-//        demandeDTO.setNameMedecin(name);
-//        demandeDTO.setNameService(paramServiceClient.serviceFindNameByCode(Integer.parseInt(demandeDTO.getCodeService())));
+       String name = paramMedecinService.serviceFindNameByCode(demandeDTO.getCodeMedecin());
+       demandeDTO.setNameMedecin(name);
+       demandeDTO.setNameService(paramServiceClient.serviceFindNameByCode(demandeDTO.getCodeService()));
 
         Demande d = demandeRepository.save(DemandeFactory.demandeDTOToDemande(demandeDTO));
         DemandeHistoryDTO demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);

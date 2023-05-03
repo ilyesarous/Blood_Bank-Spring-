@@ -1,7 +1,6 @@
 package com.csys.template.web.rest;
 
 import com.csys.template.dto.AuthentificationDTO;
-import com.csys.template.dto.CounterDTO;
 import com.csys.template.service.AuthentificationService;
 import com.csys.template.util.Preconditions;
 import jakarta.validation.Valid;
@@ -26,31 +25,36 @@ public class AuthentificationResource {
     public AuthentificationResource(AuthentificationService authentificationService) {
         this.authentificationService = authentificationService;
     }
+
     @GetMapping
-    public List<AuthentificationDTO> getAll(){
+    public List<AuthentificationDTO> getAll() {
         return authentificationService.findAll();
     }
+
     @GetMapping("/{address}/{code}")
-    public AuthentificationDTO findUser(@PathVariable String address ,@PathVariable String code){
-        AuthentificationDTO authentificationDTO = authentificationService.findByAdress(address,code);
+    public AuthentificationDTO findUser(@PathVariable String address, @PathVariable String code) {
+        AuthentificationDTO authentificationDTO = authentificationService.findByAdress(address, code);
         Preconditions.checkBusinessLogique(authentificationDTO != null, ENTITY_NAME + " Counter does Not found!");
         return authentificationDTO;
     }
+
     @PostMapping
-    public ResponseEntity<AuthentificationDTO> addUser (@RequestBody @Valid AuthentificationDTO authentificationDTO, BindingResult bindingResult)
+    public ResponseEntity<?> addUser(@RequestBody @Valid AuthentificationDTO authentificationDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
-       if(authentificationDTO.getCode()== null){
-           bindingResult.addError(new FieldError(ENTITY_NAME, "code", "You can not add a counter with id"));
-           throw new MethodArgumentNotValidException(null, bindingResult);
-       }
-        AuthentificationDTO auth = authentificationService.addAuthentification(authentificationDTO);
-        return ResponseEntity.created(new URI("/authentification"+ auth.getAdress())).body(auth);
+        if (authentificationDTO.getCode() == null) {
+            bindingResult.addError(new FieldError(ENTITY_NAME, "code", "You can not add a counter with id"));
+        }
+        return authentificationService.saveUser(authentificationDTO);
     }
 
     @PutMapping("/{adress}")
-    public ResponseEntity<AuthentificationDTO> updateAuth(@RequestBody @Valid AuthentificationDTO authentificationDTO, @Valid @PathVariable String adress)
-            throws URISyntaxException {
-        AuthentificationDTO auth = authentificationService.updateCounter(authentificationDTO);
+    public ResponseEntity<AuthentificationDTO> updateAuth(@RequestBody @Valid AuthentificationDTO authentificationDTO, @Valid @PathVariable String adress) throws URISyntaxException {
+        AuthentificationDTO auth = authentificationService.updateUser(authentificationDTO);
+        return ResponseEntity.created(new URI("/donation" + auth.getAdress())).body(auth);
+    }
+    @PutMapping("/update_password")
+    public ResponseEntity<AuthentificationDTO> updatePassword(@RequestBody @Valid AuthentificationDTO authentificationDTO) throws URISyntaxException {
+        AuthentificationDTO auth = authentificationService.updatePassword(authentificationDTO);
         return ResponseEntity.created(new URI("/donation" + auth.getAdress())).body(auth);
     }
 }
