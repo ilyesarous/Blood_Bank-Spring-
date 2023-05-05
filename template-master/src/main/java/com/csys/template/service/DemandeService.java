@@ -49,12 +49,11 @@ public class DemandeService {
     public List<DemandeDTO> findAll() {
         log.debug("***find All***");
 
-        List<Demande> demandes=demandeRepository.findByOrderByState();
-        List<Demande> demande= new ArrayList<>();
-        for (Demande d: demandes
-             ) {
-            if (d.getStatus().equals(3))
-            {
+        List<Demande> demandes = demandeRepository.findByOrderByState();
+        List<Demande> demande = new ArrayList<>();
+        for (Demande d : demandes
+        ) {
+            if (d.getStatus().equals(3)) {
                 demande.add(d);
             }
 
@@ -93,7 +92,7 @@ public class DemandeService {
     @Transactional(readOnly = true)
     public List<DemandeDTO> findByCodeMed(String codeMed) {
         log.debug("***find By CodeMed***");
-       List <Demande> demande = demandeRepository.findBycodeMedecin(codeMed);
+        List<Demande> demande = demandeRepository.findBycodeMedecin(codeMed);
         com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-stock");
         List<DemandeDTO> demandeDTO = DemandeFactory.demandesToDemandeDTO(demande);
 
@@ -131,17 +130,19 @@ public class DemandeService {
 
     }
 
+
     @Transactional
     public DemandeDTO updateDemande(DemandeDTO demandeDTO) {
 
         log.debug("***update Demande***");
 
-        com.csys.template.util.Preconditions.checkBusinessLogique(!demandeDTO.getStatus().equals("REJECTED") , "error.couldn't-find-demande");
+        com.csys.template.util.Preconditions.checkBusinessLogique(!demandeDTO.getStatus().equals("REJECTED"), "error....couldn't-find-demande");
         Demande demande = demandeRepository.findByCode(demandeDTO.getCode());
-        String x= bloodService.findTypeByBloodCode(demande.getBlood());
+
+        String x = bloodService.findTypeByBloodCode(demande.getBlood());
 
         Integer blood = demande.getBlood();
-        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-blood");
         DemandeHistoryDTO demandeHistoryDTO = new DemandeHistoryDTO();
         Demande demande1 = new Demande();
         demandeDTO.setCode(demande.getCode());
@@ -149,53 +150,114 @@ public class DemandeService {
         demandeDTO.setCodeService(demande.getCodeService());
         demandeDTO.setBlood(x);
         demandeDTO.setUsercreate(demande.getUsercreate());
-         Integer bl =bloodService.findBloodCodeByType(demandeDTO.getBlood());
+        Integer bl = bloodService.findBloodCodeByType(demandeDTO.getBlood());
 
-        Integer qt = stockService.getQantiteTotal(bl);
-
-        Integer QD = Integer.parseInt(demandeDTO.getQuantiter());
-
+        Integer Qtstock = stockService.getQantiteTotal(bl);
+        com.csys.template.util.Preconditions.checkBusinessLogique(Qtstock != 0, "error.couldn't-find-stock"+Qtstock);
+        Integer QtDemande = Integer.parseInt(demandeDTO.getQuantiter());
+        com.csys.template.util.Preconditions.checkBusinessLogique(QtDemande != 0, "error.couldn't-find-stock"+QtDemande);
 
         List<StockDTO> stockDTOS = stockService.findByblood(bl);
+        com.csys.template.util.Preconditions.checkBusinessLogique(stockDTOS != null, "hey .......edss"+stockDTOS.toArray());
+//        EntityManager entityManager = null;
+        int i=0;
+        String request="";
+        if (Qtstock >= QtDemande) {
+            while (QtDemande >0 ){
 
-        EntityManager entityManager = null;
-
-        if (qt >= QD) {
-            for (int i = 0; i < QD; i++) {
 
 //                Stock stock = entityManager.find(Stock.class, stockDTOS.get(i).getId());
 //                entityManager.lock(stock, LockModeType.OPTIMISTIC);
-//                Query query = entityManager.createQuery("from Student where id = :id");
+//                Query query = entityManager.createQuery("Select *
+//                from Student where id = :id");
 //                query.setParameter("id", stockDTOS.get(i).getId());
 //                query.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 //                query.getResultList();
-                stockService.update(stockDTOS.get(i));
+
+                String codedonation = stockDTOS.get(i).getCodedonateur().substring(0,1);
+                com.csys.template.util.Preconditions.checkBusinessLogique(codedonation != "F", "hey ......."+codedonation);
+
+                if (codedonation.equals("F")) {
+
+                    Integer Qnt = stockDTOS.get(i).getQuantite();
+                    if (Qnt >= QtDemande) {
+                        int quntity = Qnt - QtDemande;
+                        QtDemande=0;
+                        request=request+demandeDTO.getCode();
+                        stockDTOS.get(i).setQuantite(quntity);
+
+
+                        StockDTO stockDTO=stockService.update(stockDTOS.get(i),quntity,request);
+
+                    } else {
+                        int quntity = QtDemande - Qnt;
+                        String ch = Integer.toString(quntity);
+                        demandeDTO.setQuantiter(ch);
+                        request=request+demandeDTO.getCode();
+                        stockService.update(stockDTOS.get(i),0,request);
+
+                    }
+                } else {
+
+                    Integer Qt= QtDemande-1;
+                    String QtDem=Qt.toString();
+
+                    demandeDTO.setQuantiter(QtDem);
+                    request=request+demandeDTO.getCode();
+                    stockService.update(stockDTOS.get(i),0,request);
+                }
+                i++;
+
+                if (QtDemande==0) break;
             }
-            demandeDTO.setStatus("SOLVED");
+
             demandeDTO.setQuantiter("0");
+            demandeDTO.setStatus("SOLVED");
             demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
             DemandeDTO demandeDTO1 = remove(demandeDTO.getCode());
 
+        } else {
+            int j=0;
+            while (Qtstock>0){
 
 
-        }
-        else {
-            for (int i = 0; i < qt; i++) {
-                Preconditions.checkArgument(stockDTOS.get(i).getCode() != null, "Blood .............!"+stockDTOS.get(i).getCode() );
-                stockService.update(stockDTOS.get(i));
+                String codedonation = stockDTOS.get(j).getCodedonateur().substring(0, 1);
 
+                if (codedonation.equals("F")) {
+
+                    Integer Qnt = stockDTOS.get(j).getQuantite();
+                    int quntity = QtDemande - Qnt;
+                    Qtstock=0;
+                    String ch = Integer.toString(quntity);
+                    demandeDTO.setQuantiter(ch);
+                    request=request+demandeDTO.getCode();
+                    stockService.update(stockDTOS.get(i), 0,request);
+
+
+                }
+                else {
+
+
+                    int quntite = QtDemande - 1;
+                    Qtstock = Qtstock - 1;
+                    String ch = Integer.toString(quntite);
+                    demandeDTO.setQuantiter(ch);
+                    request=request+demandeDTO.getCode();
+                    stockService.update(stockDTOS.get(i), 0,request);
+                    j++;
+                }
 
             }
 
-            int quntite = QD - qt;
-            String ch = Integer.toString(quntite);
-            demandeDTO.setQuantiter(ch);
+
+
             demandeHistoryDTO = DemandeFactory.demandeToDemandeHistoryDTO(demandeDTO);
             demandeDTO.setBlood(blood.toString());
             demande1 = DemandeFactory.demandeDTOToDemande(demandeDTO);
             demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
             demandeRepository.save(demande1);
         }
+
 
 
 
@@ -207,7 +269,7 @@ public class DemandeService {
         log.debug("***update Demande To Rejected***");
         Demande demande = demandeRepository.findByCode(demandeDTO.getCode());
         String a=demande.getBlood().toString();
-        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error..couldn't-find-demande");
         demandeDTO.setCode(demande.getCode());
         demandeDTO.setCodeMedecin(demande.getCodeMedecin());
         demandeDTO.setNameMedecin(demande.getNameMedecin());
@@ -229,7 +291,7 @@ public class DemandeService {
     public DemandeDTO remove(String code) {
         log.debug("***remove demande ***");
         Demande demande = demandeRepository.findByCode(code);
-        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande");
+        com.csys.template.util.Preconditions.checkBusinessLogique(demande != null, "error.couldn't-find-demande bla bla");
         DemandeDTO demandeDTO = DemandeFactory.demandeToDemandeDTO(demande);
         demandeRepository.deleteById(demande.getCode());
         return demandeDTO;

@@ -5,6 +5,7 @@ import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "stock_History")
@@ -32,6 +33,17 @@ public class StockHistory {
     @Column(name = "quantiter", nullable = false)
     private Integer quantite;
 
+    @Column(name = "request", nullable = false)
+    private String resquest;
+
+
+    public String getResquest() {
+        return resquest;
+    }
+
+    public void setResquest(String resquest) {
+        this.resquest = resquest;
+    }
 
     public Integer getQuantite() {
         return quantite;

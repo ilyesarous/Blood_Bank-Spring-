@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StockHistoryFactory {
@@ -35,8 +36,7 @@ public class StockHistoryFactory {
         stockDTO.setDateCreate(x);
         stockDTO.setDateperime(stockHistory.getDateperime());
         stockDTO.setService(stockHistory.getService());
-
-
+        stockDTO.setResquest(stockHistory.getResquest());
         return stockDTO;
 
     }
@@ -66,7 +66,9 @@ public class StockHistoryFactory {
         stock.setQuantite(stockDTO.getQuantite());
         stock.setDateCreate(d);
         stock.setDateperime(v);
+        stock.setResquest(stockDTO.getResquest());
         stock.setService(stockDTO.getService());
+
 
         return stock ;
     }

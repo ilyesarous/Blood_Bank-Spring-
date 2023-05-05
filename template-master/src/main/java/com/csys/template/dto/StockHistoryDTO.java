@@ -1,6 +1,9 @@
 package com.csys.template.dto;
 
+import jakarta.persistence.Column;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class StockHistoryDTO {
 
@@ -14,6 +17,21 @@ public class StockHistoryDTO {
     private String dateperime;
     private String service;
     private Integer quantite;
+
+    private String resquest;
+
+
+
+
+
+
+    public String getResquest() {
+        return resquest;
+    }
+
+    public void setResquest(String resquest) {
+        this.resquest = resquest;
+    }
 
     public Integer getQuantite() {
         return quantite;

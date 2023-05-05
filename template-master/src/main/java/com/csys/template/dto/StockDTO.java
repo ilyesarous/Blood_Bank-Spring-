@@ -1,6 +1,9 @@
 package com.csys.template.dto;
 
+import jakarta.persistence.Column;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class StockDTO {
     private Integer id;
@@ -19,8 +22,18 @@ public class StockDTO {
     private String dateperime;
     private Integer quantite;
 
+    private String resquest;
+
     private Integer version;
 
+
+    public String getResquest() {
+        return resquest;
+    }
+
+    public void setResquest(String resquest) {
+        this.resquest = resquest;
+    }
 
     public LocalDate getDateCreateLd() {
         return dateCreateLd;

@@ -30,10 +30,11 @@ public class StockFactory {
         stockDTO.setUserCreate(stock.getUserCreate());
         stockDTO.setQuantite(stock.getQuantite());
         stockDTO.setVersion(stock.getVersion());
-
+        stockDTO.setResquest(stock.getResquest());
         LocalDate d= stock.getDateCreate();
         String x=d.toString();
         stockDTO.setDateCreate(x);
+        stockDTO.setResquest(stock.getResquest());
         stockDTO.setDateCreateLd(stock.getDateCreate());
         stockDTO.setDateperime(stock.getDateperime());
 
@@ -51,6 +52,8 @@ public class StockFactory {
         stockDTO.setDateCreate(stock.getDateCreate());
         stockDTO.setDateperime(stock.getDateperime());
         stockDTO.setQuantite(stock.getQuantite());
+        stockDTO.setResquest(stock.getResquest());
+
         stockDTO.setService("Add");
 
 
@@ -66,6 +69,7 @@ public class StockFactory {
         stockDTO.setDateCreate(stock.getDateCreate());
         stockDTO.setDateperime(stock.getDateperime());
         stockDTO.setQuantite(stock.getQuantite());
+        stockDTO.setResquest(stock.getResquest());
         stockDTO.setService("Remove");
 
 
@@ -92,13 +96,14 @@ public class StockFactory {
 
         stock.setId(stockDTO.getId());
         Integer bloodcode=Integer.parseInt(stockDTO.getBlood());
+
         stock.setBlood(bloodcode);
         stock.setCode(stockDTO.getCode());
         stock.setCodedonateur(stockDTO.getCodedonateur());
         stock.setUserCreate(getUserAuthenticated());
         stock.setQuantite(stockDTO.getQuantite());
         stock.setVersion(0);
-
+        stock.setResquest(stockDTO.getResquest());
         stock.setDateCreate(d);
         stock.setDateperime(v);
 

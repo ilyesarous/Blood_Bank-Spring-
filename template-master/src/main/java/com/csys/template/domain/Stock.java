@@ -5,6 +5,7 @@ import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "stock")
@@ -21,8 +22,8 @@ public class Stock {
     private Integer bloodCode;
     @Column(name = "code", nullable = false)
     private String code;
-    @Column(name = "code_donateur", nullable = false)
-    private String codedonateur;
+    @Column(name = "code_donation", nullable = false)
+    private String codedonation;
     @Column(name = "user_create", nullable = false)
     private String userCreate;
     @Column(name = "date_create", nullable = false)
@@ -31,12 +32,23 @@ public class Stock {
     private String dateperime;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
+    @Column(name = "request", nullable = false)
+    private String resquest;
 
-    @Version
+//    @Version
     @Column(name = "version", nullable = false)
     private Integer version;
 
 
+
+
+    public String getResquest() {
+        return resquest;
+    }
+
+    public void setResquest(String resquest) {
+        this.resquest = resquest;
+    }
 
     public Integer getQuantite() {
         return quantity;
@@ -88,11 +100,11 @@ public class Stock {
     }
 
     public String getCodedonateur() {
-        return codedonateur;
+        return codedonation;
     }
 
     public void setCodedonateur(String codedonateur) {
-        this.codedonateur = codedonateur;
+        this.codedonation = codedonateur;
     }
 
     public String getUserCreate() {

@@ -62,14 +62,24 @@ public class StockService {
     public List<StockDTO> findAll(Specification<Stock> stockSpecification) {
         log.debug("*** find All stock ***");
         List<Stock> stocks = stockRepository.findAll(stockSpecification);
-        com.csys.template.util.Preconditions.checkBusinessLogique(stocks!=null,"error patient does not found");
-        List<Integer> bloodCodes = stocks.stream()
+        List<Stock> stock=new ArrayList<>();
+
+        for (Stock s: stocks
+        ) {
+            if (s.getQuantite()!=0)
+            {
+                stock.add(s);
+            }
+
+        }
+        com.csys.template.util.Preconditions.checkBusinessLogique(stock!=null,"error patient does not found");
+        List<Integer> bloodCodes = stock.stream()
                 .map(Stock::getBlood)
                 .distinct()
                 .collect(Collectors.toList());
         List<BloodDTO> bloodDTOs = bloodService.getListBloodByCode(bloodCodes);
         List<StockDTO> stockDTOS = new ArrayList<>();
-        stocks.forEach(p -> {
+        stock.forEach(p -> {
             StockDTO stockDTO = StockFactory.stockToStockDTO(p);
             Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
                     .filter(b -> b.getCodeBlood().compareTo(p.getBlood()) == 0)
@@ -87,8 +97,17 @@ public class StockService {
     public List<StockDTO> findByblood(Integer blood) {
         log.debug("*** find By blood ***");
        List <Stock> stock = stockRepository.findBybloodCode(blood);
+       List<Stock> stocks=new ArrayList<>();
         com.csys.template.util.Preconditions.checkBusinessLogique(stock != null,"stock does  Not found!");
-        List<StockDTO> stockDTO = StockFactory.stocksToStocksDTO(stock);
+        for (Stock s: stock
+             ) {
+            if (s.getQuantite()!=0)
+            {
+                stocks.add(s);
+            }
+
+        }
+        List<StockDTO> stockDTO = StockFactory.stocksToStocksDTO(stocks);
 
         return stockDTO;
     }
@@ -104,6 +123,7 @@ public class StockService {
         String bloodcode=bloodService.findBloodCodeByType(blood).toString();
         Integer s=bloodService.findBloodCodeByType(blood);
         stockDTO.setBlood(bloodcode);
+        stockDTO.setResquest("");
         StockHistoryDTO stockHistoryDTO= StockFactory.stockToStockHistoryDTO(stockDTO);
         stockHistoryService.addStockHistory(stockHistoryDTO);
         //quantiter totale
@@ -114,14 +134,38 @@ public class StockService {
     }
 
     @Transactional
-    public StockDTO update(StockDTO stockDTO){
+    public StockDTO update(StockDTO stockDTO,Integer Qut,String req ){
         log.debug("*** remove  donation in stock ***");
         Stock stock = stockRepository.findBycode(stockDTO.getCode());
         stockDTO.setBlood(stockDTO.getBlood());
         stockDTO.setUserCreate(stock.getUserCreate());
         stockDTO.setCode(stock.getCode());
         stockDTO.setVersion(stock.getVersion());
-        stockDTO.setQuantite(0);
+        stockDTO.setQuantite(Qut);
+        stockDTO.setDateperime(stock.getDateperime());
+        stockDTO.setCodedonateur(stock.getCodedonateur());
+        stockDTO.setId(stock.getId());
+        String ch=stock.getResquest();
+        req=ch+","+req;
+        stockDTO.setResquest(req);
+
+
+
+
+        StockHistoryDTO stockHistoryDTO= StockFactory.DELstockToStockHistoryDTO(stockDTO);
+        stockHistoryService.addStockHistory(stockHistoryDTO);
+        stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
+
+        return stockDTO;
+    }
+    @Transactional
+    public StockDTO updateQutFournisseur(StockDTO stockDTO){
+        log.debug("*** remove  donation in stock ***");
+        Stock stock = stockRepository.findBycode(stockDTO.getCode());
+        stockDTO.setBlood(stockDTO.getBlood());
+        stockDTO.setUserCreate(stock.getUserCreate());
+        stockDTO.setCode(stock.getCode());
+        stockDTO.setVersion(stock.getVersion());
         stockDTO.setDateperime(stock.getDateperime());
         stockDTO.setCodedonateur(stock.getCodedonateur());
         stockDTO.setId(stock.getId());
@@ -147,7 +191,19 @@ public class StockService {
     public Integer getQantiteTotal(Integer blood){
         log.debug("*** get Qantite Total for blood ***");
         List<Stock> stocks = stockRepository.findBybloodCode(blood);
-        return stocks.toArray().length;
+        List<Stock> stock=new ArrayList<>();
+        com.csys.template.util.Preconditions.checkBusinessLogique(stocks != null,"stock does  Not found!");
+        Integer quantity=0;
+        for (Stock s: stocks
+        ) {
+            if (s.getQuantite()!=0)
+            {
+                quantity = quantity+s.getQuantite();
+                stock.add(s);
+            }
+
+        }
+        return quantity;
     }
 
 }
