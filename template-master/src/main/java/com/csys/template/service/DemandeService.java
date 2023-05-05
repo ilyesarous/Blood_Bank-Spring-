@@ -160,6 +160,9 @@ public class DemandeService {
         List<StockDTO> stockDTOS = stockService.findByblood(bl);
         com.csys.template.util.Preconditions.checkBusinessLogique(stockDTOS != null, "hey .......edss"+stockDTOS.toArray());
 //        EntityManager entityManager = null;
+
+
+
         int i=0;
         String request="";
         if (Qtstock >= QtDemande) {
@@ -185,8 +188,6 @@ public class DemandeService {
                         QtDemande=0;
                         request=request+demandeDTO.getCode();
                         stockDTOS.get(i).setQuantite(quntity);
-
-
                         StockDTO stockDTO=stockService.update(stockDTOS.get(i),quntity,request);
 
                     } else {
@@ -218,35 +219,33 @@ public class DemandeService {
 
         } else {
             int j=0;
+            int quntite=QtDemande;
             while (Qtstock>0){
 
 
                 String codedonation = stockDTOS.get(j).getCodedonateur().substring(0, 1);
-
+                Integer Qnt = stockDTOS.get(j).getQuantite();
+                quntite = quntite - Qnt;
+                Qtstock=Qtstock-Qnt;
                 if (codedonation.equals("F")) {
+                    request="";
 
-                    Integer Qnt = stockDTOS.get(j).getQuantite();
-                    int quntity = QtDemande - Qnt;
-                    Qtstock=0;
-                    String ch = Integer.toString(quntity);
-                    demandeDTO.setQuantiter(ch);
-                    request=request+demandeDTO.getCode();
-                    stockService.update(stockDTOS.get(i), 0,request);
-
-
-                }
-                else {
-
-
-                    int quntite = QtDemande - 1;
-                    Qtstock = Qtstock - 1;
                     String ch = Integer.toString(quntite);
                     demandeDTO.setQuantiter(ch);
                     request=request+demandeDTO.getCode();
-                    stockService.update(stockDTOS.get(i), 0,request);
-                    j++;
+                    stockService.update(stockDTOS.get(j), 0,request);
                 }
+                else {
 
+                    request="";
+
+                    String ch = Integer.toString(quntite);
+                    demandeDTO.setQuantiter(ch);
+                    request=request+demandeDTO.getCode();
+                    stockService.update(stockDTOS.get(j), 0,request);
+
+                }
+                j++;
             }
 
 
@@ -257,9 +256,6 @@ public class DemandeService {
             demandeHistoryService.addDemandeHistory(demandeHistoryDTO);
             demandeRepository.save(demande1);
         }
-
-
-
 
         return demandeDTO;
     }

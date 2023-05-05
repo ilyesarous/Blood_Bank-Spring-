@@ -146,7 +146,7 @@ public class StockService {
         stockDTO.setCodedonateur(stock.getCodedonateur());
         stockDTO.setId(stock.getId());
         String ch=stock.getResquest();
-        req=ch+","+req;
+        req=ch+", "+req+", ";
         stockDTO.setResquest(req);
 
 
