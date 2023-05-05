@@ -1,18 +1,15 @@
 package com.csys.template.service;
-import com.csys.template.domain.Patient;
 import com.csys.template.domain.Stock;
 import com.csys.template.dto.*;
-import com.csys.template.factory.PatientFactory;
 import com.csys.template.factory.StockFactory;
+import com.csys.template.repository.BonReceptionRepository;
 import com.csys.template.repository.StockRepository;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,12 +22,15 @@ public class StockService {
     private final CounterService counterService;
     private final StockHistoryService stockHistoryService;
     private final BloodService bloodService;
+    private final BonReceptionService bonReceptionService;
 
-    public StockService(StockRepository stockRepository, CounterService counterService, StockHistoryService stockHistoryService, BloodService bloodService) {
+    public StockService(StockRepository stockRepository, CounterService counterService, StockHistoryService stockHistoryService, BloodService bloodService, BonReceptionRepository bonReceptionRepository, BonReceptionService bonReceptionService) {
         this.stockRepository = stockRepository;
         this.counterService = counterService;
         this.stockHistoryService = stockHistoryService;
         this.bloodService = bloodService;
+
+        this.bonReceptionService = bonReceptionService;
     }
 
 //    @Transactional(readOnly = true)
@@ -124,11 +124,17 @@ public class StockService {
         Integer s=bloodService.findBloodCodeByType(blood);
         stockDTO.setBlood(bloodcode);
         stockDTO.setResquest("");
+        String codedonation = stockDTO.getCodedonateur().substring(0,1);
+//        com.csys.template.util.Preconditions.checkBusinessLogique(codedonation != "F", "hey "+codedonation);
+        if (codedonation.equals("F"))
+        {
+            BonReceptionDTO bonReceptionDTO=StockFactory.stockToBonReceptionDTO(stockDTO);
+            bonReceptionService.addBonReception(bonReceptionDTO);
+        }
+
+
         StockHistoryDTO stockHistoryDTO= StockFactory.stockToStockHistoryDTO(stockDTO);
         stockHistoryService.addStockHistory(stockHistoryDTO);
-        //quantiter totale
-
-
         Stock d =stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
         return StockFactory.stockToStockDTO(d);
     }
