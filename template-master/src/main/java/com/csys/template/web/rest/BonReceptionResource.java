@@ -23,5 +23,11 @@ public class BonReceptionResource {
         return bonReceptionService.findAll();
     }
 
+    @GetMapping("/{code}")
+    public List<BonReceptionDTO> getByCode(String code){
+        List<BonReceptionDTO> bonReceptionDTOS=bonReceptionService.findByCode(code);
+        return bonReceptionDTOS;
+    }
+
 
 }

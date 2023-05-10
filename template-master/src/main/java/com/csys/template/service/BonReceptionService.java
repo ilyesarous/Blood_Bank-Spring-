@@ -57,6 +57,16 @@ public class BonReceptionService {
         return bonReceptionDTOS;
     }
 
+    @Transactional(readOnly = true)
+    public List<BonReceptionDTO> findByCode(String code) {
+        log.debug("*** find Bon Reception By Code ***");
+        List<BonReception> bonReceptions = bonReceptionRepository.findByCode(code);
+        com.csys.template.util.Preconditions.checkBusinessLogique(bonReceptions == null,"Bon Reception  Not found!"+bonReceptions);
+        List<BonReceptionDTO> bonReceptionDTOS = BonReceptionFactory.bonReceptionSToBonReceptionsDTO(bonReceptions);
+
+        return bonReceptionDTOS;
+    }
+
 
     @Transactional
     public BonReceptionDTO addBonReception(BonReceptionDTO bonReceptionDTO){
