@@ -76,19 +76,19 @@ public class PatientFactory {
         patient.setEmail(patientDTO.getEmail());
         patient.setBirthDate(patientDTO.getBirthDate());
         String gender= patientDTO.getGender();
-        String result="";
-        switch (gender) {
-            case "10":
-                result = "male";
-                break;
-            case "20":
-                result = "female";
-                break;
-            default:
-                result = "male";
-                break;
-        }
-        patient.setGender(result);
+//        String result="";
+//        switch (gender) {
+//            case "10":
+//                result = "male";
+//                break;
+//            case "20":
+//                result = "female";
+//                break;
+//            default:
+//                result = "male";
+//                break;
+//        }
+        patient.setGender(patientDTO.getGender());
         patient.setPhoneNumber(patientDTO.getPhoneNumber());
         patient.setCreation_date(d);
         Blood codeBlood = new Blood();
