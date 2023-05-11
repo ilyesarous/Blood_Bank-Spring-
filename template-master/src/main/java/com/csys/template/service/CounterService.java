@@ -28,7 +28,7 @@ public class CounterService {
     @Transactional(readOnly = true)
     public CounterDTO findCounterByType(String type){
         Counter counter = counterRepository.findByType(type);
-        com.csys.template.util.Preconditions.checkBusinessLogique(counter!=null,"error type does not exist");
+        com.csys.template.util.Preconditions.checkBusinessLogique(counter!=null,"error type counteur does not exist");
         return CounterFactory.counterToCounterDTO(counter);
     }
     public CounterDTO addCounter(CounterDTO counterDTO) {
@@ -38,7 +38,7 @@ public class CounterService {
     }
     public CounterDTO updateCounter(CounterDTO counterDTO){
         Counter counterInDB = counterRepository.findByType(counterDTO.getType());
-        Preconditions.checkBusinessLogique(counterInDB!=null,"error patient does not found");
+        Preconditions.checkBusinessLogique(counterInDB!=null,"error counteur does not found");
         Counter counter = counterRepository.save(CounterFactory.counterDTOToCounter(counterDTO));
         return CounterFactory.counterToCounterDTO(counter);
     }
