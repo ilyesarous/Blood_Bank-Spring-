@@ -50,6 +50,7 @@ public class DonationService {
         log.debug("*** Get All donation ***");
        List <Donation> donations = donationRepository.findAll(donation);
 
+
        List <DonationDTO> donationDTOS = DonationFactory.DonationsToDonationDTO(donations);
 
         return donationDTOS;
