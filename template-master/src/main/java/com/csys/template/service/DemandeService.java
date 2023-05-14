@@ -202,14 +202,14 @@ public class DemandeService {
 
                     Integer Qt= QtDemande-1;
                     String QtDem=Qt.toString();
-
                     demandeDTO.setQuantiter(QtDem);
                     request=request+demandeDTO.getCode();
                     stockService.update(stockDTOS.get(i),0,request);
                 }
+
                 i++;
 
-                if (QtDemande==0) break;
+//                if (QtDemande==0) break;
             }
 
             demandeDTO.setQuantiter("0");

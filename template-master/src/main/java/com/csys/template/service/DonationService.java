@@ -2,10 +2,8 @@ package com.csys.template.service;
 
 
 import com.csys.template.domain.Donation;
-import com.csys.template.dto.CounterDTO;
-import com.csys.template.dto.DonationDTO;
-import com.csys.template.dto.DonationsHistoryDTO;
-import com.csys.template.dto.StockDTO;
+import com.csys.template.domain.Patient;
+import com.csys.template.dto.*;
 import com.csys.template.factory.DonationFactory;
 import com.csys.template.repository.DonationRepository;
 
@@ -27,13 +25,15 @@ public class DonationService {
     private final CounterService counterService;
     private final DonationHistoryService donationHistoryService;
     private final StockService stockService;
+    private final PatientService patientService;
 
 
-    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService, DonationHistoryService donationHistoryService, StockService stockService) {
+    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService, DonationHistoryService donationHistoryService, StockService stockService, PatientService patientService1) {
         this.donationRepository = donationRepository;
         this.counterService = counterService;
         this.donationHistoryService = donationHistoryService;
         this.stockService = stockService;
+        this.patientService = patientService1;
     }
     @Transactional(readOnly = true)
     public DonationDTO findByCode(String code) {
@@ -85,13 +85,19 @@ public class DonationService {
         donationDTO.setAge(donation.getAge());
         donationDTO.setSexe(donation.getSexe());
         donationDTO.setAdress(donation.getAdress());
-        donationDTO.setTypeIdentity(donation.getTypeIdentity());
-        donationDTO.setNumIdentity(donation.getNumIdentity());
 
         if (donationDTO.getEtat().equals("SOLVED"))
         {
             StockDTO stockDTO= DonationFactory.DonationDTOToStockDTO(donationDTO);
             stockService.addStock(stockDTO);
+        }
+        PatientDTO patientDTO=patientService.findByCode(donationDTO.getCodePatient());
+
+        Preconditions.checkBusinessLogique(patientDTO!=null,"donor does  Not found!"+patientDTO.getBloodCode());
+        if(patientDTO.getBloodCode().equals("--"))
+        {
+            patientDTO.setBloodCode(donationDTO.getBlood());
+            patientService.updateBloodPatient(patientDTO);
         }
         DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
         donationHistoryService.addHistorique(donationsHistoryDTO);

@@ -29,10 +29,7 @@ public class Donation implements Serializable {
     private Integer age;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
-    @Column(name = "type_identity", nullable = false)
-    private String typeIdentity;
-    @Column(name = "num_identity")
-    private String numIdentity;
+
     @Column(name = "sexe")
     private String sexe;
     @Column(name = "address", nullable = false)
@@ -111,21 +108,6 @@ public class Donation implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getTypeIdentity() {
-        return typeIdentity;
-    }
-
-    public void setTypeIdentity(String typeIdentity) {
-        this.typeIdentity = typeIdentity;
-    }
-
-    public String getNumIdentity() {
-        return numIdentity;
-    }
-
-    public void setNumIdentity(String NumIdentity) {
-        numIdentity = NumIdentity;
-    }
 
     public String getSexe() {
         return sexe;

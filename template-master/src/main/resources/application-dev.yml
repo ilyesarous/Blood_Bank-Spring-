@@ -13,6 +13,18 @@ security:
     ignored: /**
 
 spring:
+
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: bankblood222@gmail.com
+        password: hvvzobmhfrcrmsfm
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
     application:
         name: Blood-Bank
     devtools:

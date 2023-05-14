@@ -43,6 +43,13 @@ public List<PatientDTO> getAll(@RequestParam(value = "fullNameAr", required = fa
 
 }
 
+    @GetMapping("/{code}")
+    public PatientDTO getBycode(@PathVariable String code){
+
+       PatientDTO patientDTO= patientService.findByCode(code);
+        return patientDTO;
+
+    }
     @PostMapping
     public ResponseEntity<PatientDTO> addPatient(@RequestBody PatientDTO patientDTO, BindingResult bindingResult)
             throws MethodArgumentNotValidException, URISyntaxException {
@@ -55,13 +62,15 @@ public List<PatientDTO> getAll(@RequestParam(value = "fullNameAr", required = fa
         return ResponseEntity.created(new URI("/patient"+ p.getCode())).body(p);
     }
 
+
+
     @PutMapping("/{code}")
     public ResponseEntity<Patient> updatePatient(@RequestBody @Valid PatientDTO patientDTO, @PathVariable String code, BindingResult bindingResult) throws MethodArgumentNotValidException, URISyntaxException {
         if(patientDTO.getId()!= null){
             bindingResult.addError(new FieldError(ENTITY_NAME, "id", "Put does not allow patient with id"));
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
-        Patient p = patientService.updatePatient(patientDTO);
+        Patient p = patientService.updateBloodPatient(patientDTO);
         return ResponseEntity.created(new URI("/patient"+ p.getCode())).body(p);
     }
 }

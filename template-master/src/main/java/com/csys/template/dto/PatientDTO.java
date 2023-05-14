@@ -1,6 +1,7 @@
 package com.csys.template.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -11,11 +12,6 @@ public class PatientDTO {
     private Integer id;
     private String code;
 //    @NotNull
-    private String firstNameAr;
-    private String lastNameAr;
-    private String fatherNameAr;
-    private String grandFatherNameAr;
-    private String fullNameAr;
     private String firstNameEng;
     private String lastNameEng;
     private String fatherNameEng;
@@ -23,6 +19,8 @@ public class PatientDTO {
     private String fullNameEng;
     private LocalDate birthDate;
     private String birthDay;
+    private String typeIdentity;
+    private String numIdentity;
     private String gender;
     private String phoneNumber;
     private String adress;
@@ -31,6 +29,24 @@ public class PatientDTO {
     private LocalDate creationdateLd;
     private String bloodCode;
 
+
+
+
+    public String getTypeIdentity() {
+        return typeIdentity;
+    }
+
+    public void setTypeIdentity(String typeIdentity) {
+        this.typeIdentity = typeIdentity;
+    }
+
+    public String getNumIdentity() {
+        return numIdentity;
+    }
+
+    public void setNumIdentity(String numIdentity) {
+        this.numIdentity = numIdentity;
+    }
 
     public LocalDate getCreationdateLd() {
         return creationdateLd;
@@ -56,45 +72,6 @@ public class PatientDTO {
         this.code = code;
     }
 
-    public String getLastNameAr() {
-        return lastNameAr;
-    }
-
-    public void setLastNameAr(String lastNameAr) {
-        this.lastNameAr = lastNameAr;
-    }
-
-    public String getFirstNameAr() {
-        return firstNameAr;
-    }
-
-    public void setFirstNameAr(String firstNameAr) {
-        this.firstNameAr = firstNameAr;
-    }
-
-    public String getFatherNameAr() {
-        return fatherNameAr;
-    }
-
-    public void setFatherNameAr(String fatherNameAr) {
-        this.fatherNameAr = fatherNameAr;
-    }
-
-    public String getGrandFatherNameAr() {
-        return grandFatherNameAr;
-    }
-
-    public void setGrandFatherNameAr(String grandFatherNameAr) {
-        this.grandFatherNameAr = grandFatherNameAr;
-    }
-
-    public String getFullNameAr() {
-        return fullNameAr;
-    }
-
-    public void setFullNameAr() {
-        this.fullNameAr = this.getFirstNameAr()+this.getFatherNameAr()+this.getGrandFatherNameAr()+getLastNameAr();
-    }
 
     public String getLastNameEng() {
         return lastNameEng;

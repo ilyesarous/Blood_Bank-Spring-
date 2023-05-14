@@ -1,5 +1,6 @@
 package com.csys.template.service;
 
+import com.csys.template.domain.Counter;
 import com.csys.template.domain.Patient;
 import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
@@ -58,6 +59,17 @@ public class PatientService {
 
         return patientDTOS;
     }
+    @Transactional(readOnly = true)
+    public PatientDTO findByCode(String code){
+        Patient patient = patientRepository.findByCode(code);
+        Integer bloodcode =patient.getCodeBlood();
+        String x=bloodService.findTypeByBloodCode(bloodcode);
+
+        com.csys.template.util.Preconditions.checkBusinessLogique(patient!=null,"patient not existe"+code);
+        PatientDTO patientDTO=PatientFactory.patientToPatientDTO(patient);
+        patientDTO.setBloodCode(x);
+        return patientDTO ;
+    }
 
     public PatientDTO addPatient(PatientDTO patientDTO) {
         log.debug("*** add Patient ***");
@@ -65,7 +77,8 @@ public class PatientService {
         patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
-        String ch =patientDTO.getBloodCode();
+
+        String ch ="--";
         String x=bloodService.findBloodCodeByType(ch).toString();
         patientDTO.setBloodCode(x);
         Patient patient = PatientFactory.patientDTOToPatient(patientDTO);
@@ -79,13 +92,13 @@ public class PatientService {
         Preconditions.checkBusinessLogique(patientInDB!=null,"error patient does not found");
         patientDTO.setCode(patientInDB.getCode());
         patientDTO.setFirstNameEng(patientInDB.getFirstNameEng());
-        patientDTO.setFirstNameAr(patientInDB.getFirstNameAr());
+
         patientDTO.setLastNameEng(patientInDB.getLastNameEng());
-        patientDTO.setLastNameAr(patientInDB.getLastNameAr());
+
         patientDTO.setFatherNameEng(patientInDB.getFatherNameEng());
-        patientDTO.setFatherNameAr(patientInDB.getFatherNameAr());
+
         patientDTO.setGrandFatherNameEng(patientInDB.getGrandFatherNameEng());
-        patientDTO.setGrandFatherNameAr(patientInDB.getGrandFatherNameAr());
+
         patientDTO.setGender(patientInDB.getGender());
         patientDTO.setBirthDate(patientInDB.getBirthDate());
         LocalDate d=patientInDB.getBirthDate();
@@ -95,6 +108,31 @@ public class PatientService {
         String x=bloodService.findBloodCodeByType(ch).toString();
         patientDTO.setBloodCode(x);
         return patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
+    }
+
+    public Patient updateBloodPatient(PatientDTO patientDTO){
+        log.debug("*** update blood  Patient ***");
+        Patient patientInDB = patientRepository.findByCode(patientDTO.getCode());
+        Preconditions.checkBusinessLogique(patientInDB!=null,"error patient does not found");
+        patientDTO.setCode(patientInDB.getCode());
+        patientDTO.setFirstNameEng(patientInDB.getFirstNameEng());
+        patientDTO.setLastNameEng(patientInDB.getLastNameEng());
+        patientDTO.setFatherNameEng(patientInDB.getFatherNameEng());
+        patientDTO.setGrandFatherNameEng(patientInDB.getGrandFatherNameEng());
+        patientDTO.setGender(patientInDB.getGender());
+        patientDTO.setBirthDate(patientInDB.getBirthDate());
+        patientDTO.setAdress(patientInDB.getAdress());
+        patientDTO.setEmail(patientInDB.getEmail());
+
+        LocalDate d=patientInDB.getBirthDate();
+        String y=d.toString();
+        patientDTO.setBirthDay(y);
+
+
+        String ch =patientDTO.getBloodCode();
+        String x=bloodService.findBloodCodeByType(ch).toString();
+        patientDTO.setBloodCode(x);
+        return patientRepository.save(PatientFactory.updatepatientDTOToPatient(patientDTO));
     }
 
 

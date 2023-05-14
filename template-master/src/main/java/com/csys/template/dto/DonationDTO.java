@@ -16,8 +16,6 @@ public class DonationDTO {
     private String fullName;
     private Integer age;
     private String sexe;
-    private String typeIdentity;
-    private String numIdentity;
     private String phoneNumber;
     private String adress;
     private String datecreationSt;
@@ -83,22 +81,6 @@ public class DonationDTO {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public String getTypeIdentity() {
-        return typeIdentity;
-    }
-
-    public void setTypeIdentity(String typeIdentity) {
-        this.typeIdentity = typeIdentity;
-    }
-
-    public String getNumIdentity() {
-        return numIdentity;
-    }
-
-    public void setNumIdentity(String NumIdentity) {
-        numIdentity = NumIdentity;
     }
 
     public String getFullName() {

@@ -17,16 +17,6 @@ public class Patient implements Serializable {
     @Column(name = "code", nullable = false)
     @Id
     private String code;
-    @Column(name = "last_name_ar", nullable = false)
-    private String lastNameAr;
-    @Column(name = "first_name_ar", nullable = false)
-    private String firstNameAr;
-    @Column(name = "father_name_ar", nullable = false)
-    private String fatherNameAr;
-    @Column(name = "grand_father_name_ar", nullable = false)
-    private String grandFatherNameAr;
-    @Column(name = "full_name_ar", nullable = false)
-    private String fullNameAr;
     @Column(name = "last_name_eng", nullable = false)
     private String lastNameEng;
     @Column(name = "first_name_eng", nullable = false)
@@ -39,6 +29,10 @@ public class Patient implements Serializable {
     private String fullNameEng;
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
+    @Column(name = "type_identity", nullable = false)
+    private String typeIdentity;
+    @Column(name = "num_identity", nullable = false)
+    private String numIdentity;
     @Column(name = "gender", nullable = false)
     private String gender;
     @Column(name = "phone_number", nullable = false)
@@ -49,13 +43,30 @@ public class Patient implements Serializable {
     private String email;
     @Column(name = "creation_date", nullable = false)
     private LocalDate creation_date;
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_blood")
-    private Blood bloodCode;
+//    @JsonBackReference
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "code_blood")
+//    private Blood bloodCode;
     //insertable=false, updatable =false
     @Column(name = "blood")
     private Integer codeBlood;
+
+
+    public String getTypeIdentity() {
+        return typeIdentity;
+    }
+
+    public void setTypeIdentity(String typeIdentity) {
+        this.typeIdentity = typeIdentity;
+    }
+
+    public String getNumIdentity() {
+        return numIdentity;
+    }
+
+    public void setNumIdentity(String numIdentity) {
+        this.numIdentity = numIdentity;
+    }
 
     public String getCode() {
         return code;
@@ -63,46 +74,6 @@ public class Patient implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getLastNameAr() {
-        return lastNameAr;
-    }
-
-    public void setLastNameAr(String lastNameAr) {
-        this.lastNameAr = lastNameAr;
-    }
-
-    public String getFirstNameAr() {
-        return firstNameAr;
-    }
-
-    public void setFirstNameAr(String firstNameAr) {
-        this.firstNameAr = firstNameAr;
-    }
-
-    public String getFatherNameAr() {
-        return fatherNameAr;
-    }
-
-    public void setFatherNameAr(String fatherNameAr) {
-        this.fatherNameAr = fatherNameAr;
-    }
-
-    public String getGrandFatherNameAr() {
-        return grandFatherNameAr;
-    }
-
-    public void setGrandFatherNameAr(String grandFatherNameAr) {
-        this.grandFatherNameAr = grandFatherNameAr;
-    }
-
-    public String getFullNameAr() {
-        return fullNameAr;
-    }
-
-    public void setFullNameAr() {
-        this.fullNameAr = this.getFirstNameAr()+this.getFatherNameAr()+this.getGrandFatherNameAr()+getLastNameAr();
     }
 
     public String getLastNameEng() {
@@ -185,13 +156,13 @@ public class Patient implements Serializable {
         this.email = email;
     }
 
-    public Blood getBloodCode() {
-        return bloodCode;
-    }
-
-    public void setBloodCode(Blood bloodCode) {
-        this.bloodCode = bloodCode;
-    }
+//    public Blood getBloodCode() {
+//        return bloodCode;
+//    }
+//
+//    public void setBloodCode(Blood bloodCode) {
+//        this.bloodCode = bloodCode;
+//    }
 
     public LocalDate getCreation_date() {
         return creation_date;

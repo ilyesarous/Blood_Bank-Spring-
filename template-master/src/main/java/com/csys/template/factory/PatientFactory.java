@@ -27,11 +27,6 @@ public class PatientFactory {
         String b=birdh.toString();
 
         patientDTO.setCode(patient.getCode());
-        patientDTO.setFirstNameAr(patient.getFirstNameAr());
-        patientDTO.setFatherNameAr(patient.getFatherNameAr());
-        patientDTO.setGrandFatherNameAr(patient.getGrandFatherNameAr());
-        patientDTO.setLastNameAr(patient.getLastNameAr());
-        patientDTO.setFullNameAr();
 
         patientDTO.setFirstNameEng(patient.getFirstNameEng());
         patientDTO.setFatherNameEng(patient.getFatherNameEng());
@@ -44,10 +39,12 @@ public class PatientFactory {
         patientDTO.setGender(patient.getGender());
         patientDTO.setPhoneNumber(patient.getPhoneNumber());
 
+        patientDTO.setTypeIdentity(patient.getTypeIdentity());
+        patientDTO.setNumIdentity(patient.getNumIdentity());
         patientDTO.setCreation_date(x);
         patientDTO.setBirthDay(b);
         patientDTO.setCreationdateLd(patient.getCreation_date());
-        patientDTO.setBloodCode(patient.getBloodCode().getCodeBlood().toString());
+
 
         return patientDTO;
     }
@@ -55,16 +52,8 @@ public class PatientFactory {
     public static Patient patientDTOToPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
         LocalDate d = LocalDate.now();
-        String ch=patientDTO.getBloodCode();
-
-
 
         patient.setCode(patientDTO.getCode());
-        patient.setFirstNameAr(patientDTO.getFirstNameAr());
-        patient.setFatherNameAr(patientDTO.getFatherNameAr());
-        patient.setGrandFatherNameAr(patientDTO.getGrandFatherNameAr());
-        patient.setLastNameAr(patientDTO.getLastNameAr());
-        patient.setFullNameAr();
 
         patient.setFirstNameEng(patientDTO.getFirstNameEng());
         patient.setFatherNameEng(patientDTO.getFatherNameEng());
@@ -74,29 +63,44 @@ public class PatientFactory {
 
         patient.setAdress(patientDTO.getAdress());
         patient.setEmail(patientDTO.getEmail());
-        patient.setBirthDate(patientDTO.getBirthDate());
-        String gender= patientDTO.getGender();
-//        String result="";
-//        switch (gender) {
-//            case "10":
-//                result = "male";
-//                break;
-//            case "20":
-//                result = "female";
-//                break;
-//            default:
-//                result = "male";
-//                break;
-//        }
+        patient.setBirthDate(d);
+        patient.setGender(patientDTO.getGender());
+        patient.setPhoneNumber(patientDTO.getPhoneNumber());
+        patient.setTypeIdentity(patientDTO.getTypeIdentity());
+        patient.setNumIdentity(patientDTO.getNumIdentity());
+        patient.setCreation_date(d);
+        Integer bloodcode=Integer.parseInt(patientDTO.getBloodCode());
+        patient.setCodeBlood(bloodcode);
+
+        return patient;
+    }
+    public static Patient updatepatientDTOToPatient(PatientDTO patientDTO){
+        Patient patient = new Patient();
+        LocalDate d = LocalDate.now();
+
+        patient.setCode(patientDTO.getCode());
+
+        patient.setFirstNameEng(patientDTO.getFirstNameEng());
+        patient.setFatherNameEng(patientDTO.getFatherNameEng());
+        patient.setGrandFatherNameEng(patientDTO.getGrandFatherNameEng());
+        patient.setLastNameEng(patientDTO.getLastNameEng());
+        patient.setFullNameEng();
+
+        patient.setAdress(patientDTO.getAdress());
+        patient.setEmail(patientDTO.getEmail());
+        patient.setBirthDate(d);
         patient.setGender(patientDTO.getGender());
         patient.setPhoneNumber(patientDTO.getPhoneNumber());
         patient.setCreation_date(d);
-        Blood codeBlood = new Blood();
-        codeBlood.setCodeBlood(Integer.parseInt(patientDTO.getBloodCode()));
-        patient.setBloodCode(codeBlood);
-        patient.setCodeBlood(codeBlood.getCodeBlood());
+        patient.setTypeIdentity(patientDTO.getTypeIdentity());
+        patient.setNumIdentity(patientDTO.getNumIdentity());
+
+        Integer blood= Integer.parseInt(patientDTO.getBloodCode());
+        patient.setCodeBlood(blood);
+
         return patient;
     }
+
 
     public static List<PatientDTO> patientsToPatientsDTO(List<Patient> patients){
         List<PatientDTO> patientDTOS = new ArrayList<PatientDTO>();
