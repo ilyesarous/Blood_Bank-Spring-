@@ -4,6 +4,7 @@ import com.csys.template.dto.*;
 import com.csys.template.factory.StockFactory;
 import com.csys.template.repository.BonReceptionRepository;
 import com.csys.template.repository.StockRepository;
+import com.csys.template.util.Preconditions;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,19 +121,18 @@ public class StockService {
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
         String blood =stockDTO.getBlood();
+        Preconditions.checkBusinessLogique(blood != null , "aaa"+blood);
         String bloodcode=bloodService.findBloodCodeByType(blood).toString();
-        Integer s=bloodService.findBloodCodeByType(blood);
+       // Integer s=bloodService.findBloodCodeByType(blood);
         stockDTO.setBlood(bloodcode);
         stockDTO.setResquest("");
         String codedonation = stockDTO.getCodedonateur().substring(0,1);
-//        com.csys.template.util.Preconditions.checkBusinessLogique(codedonation != "F", "hey "+codedonation);
+       com.csys.template.util.Preconditions.checkBusinessLogique(codedonation != "F", "hey "+codedonation);
         if (codedonation.equals("F"))
         {
             BonReceptionDTO bonReceptionDTO=StockFactory.stockToBonReceptionDTO(stockDTO);
             bonReceptionService.addBonReception(bonReceptionDTO);
         }
-
-
         StockHistoryDTO stockHistoryDTO= StockFactory.stockToStockHistoryDTO(stockDTO);
         stockHistoryService.addStockHistory(stockHistoryDTO);
         Stock d =stockRepository.save(StockFactory.stockDTOToStock(stockDTO));
