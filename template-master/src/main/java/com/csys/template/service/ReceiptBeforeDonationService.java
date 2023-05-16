@@ -66,34 +66,19 @@ public class ReceiptBeforeDonationService {
         List<ReceiptBeforeDonation> receiptBeforeDonations = receiptBeforeDonationRepository.findAll();
 
         com.csys.template.util.Preconditions.checkBusinessLogique(receiptBeforeDonations!=null,"error patient does not found");
-        List<Integer> bloodCodes = receiptBeforeDonations.stream()
-                .map(ReceiptBeforeDonation::getBlood)
-                .distinct()
-                .collect(Collectors.toList());
-        List<BloodDTO> bloodDTOs = bloodService.getListBloodByCode(bloodCodes);
-        List<ReceiptBeforeDonationDTO> receiptBeforeDonationDTOS = new ArrayList<>();
-        receiptBeforeDonations.forEach(p -> {
-            ReceiptBeforeDonationDTO receiptBeforeDonationDTO = ReceiptBeforeDonationFactory.ReceiptbeforedonationToReceiptbeforeDonationDTO(p);
-            Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
-                    .filter(b -> b.getCodeBlood().compareTo(p.getBlood()) == 0)
-                    .findFirst();
-            if (bloodDTOOptional.isPresent()) {
-                receiptBeforeDonationDTO.setBlood(bloodDTOOptional.get().getBloodGrp()+bloodDTOOptional.get().getRhesus());
-            }
-            receiptBeforeDonationDTOS.add(receiptBeforeDonationDTO);
 
-        });
-        ReceiptBeforeDonationDTO receiptBeforeDonation2 = new ReceiptBeforeDonationDTO();
-        Integer taille= receiptBeforeDonationDTOS.size();
+        ReceiptBeforeDonation receiptBeforeDonation2 = new ReceiptBeforeDonation();
+        Integer taille= receiptBeforeDonations.size();
         for (int i=0;i<taille;i++)
         {
             if (i==(taille-1))
             {
-                 receiptBeforeDonation2 = receiptBeforeDonationDTOS.get(i);
+                 receiptBeforeDonation2 = receiptBeforeDonations.get(i);
             }
         }
+        ReceiptBeforeDonationDTO receiptBeforeDonationDTO=ReceiptBeforeDonationFactory.ReceiptbeforedonationToReceiptbeforeDonationDTO(receiptBeforeDonation2);
 
-        return receiptBeforeDonation2 ;
+        return receiptBeforeDonationDTO ;
     }
 
     public ReceiptBeforeDonationDTO addReceipt(ReceiptBeforeDonationDTO receiptBeforeDonationDTO) {
