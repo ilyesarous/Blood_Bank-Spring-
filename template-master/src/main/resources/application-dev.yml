@@ -13,7 +13,21 @@ security:
     ignored: /**
 
 spring:
-
+    application:
+        name: Blood-Bank
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: true
+    datasource:
+        url: jdbc:sqlserver://DESKTOP-SM0TRPN\SQLEXPRESS;databaseName=test1;encrypt=false;trustServerCertificate=true
+        username: sa
+        password: P@ssw0rd
+        #url: jdbc:h2:file:./h2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        #driverClassName: org.h2.Driver
+        #username: SA
+    #password:
     mail:
         host: smtp.gmail.com
         port: 587
@@ -25,21 +39,6 @@ spring:
                     auth: true
                     starttls:
                         enable: true
-    application:
-        name: Blood-Bank
-    devtools:
-        restart:
-            enabled: true
-        livereload:
-            enabled: true
-    datasource:
-        url: jdbc:sqlserver://DESKTOP-E5VJUKK\SQL2019;databaseName=test;encrypt=false;trustServerCertificate=true
-        username: SA
-        password: P@ssw0rd
-        #url: jdbc:h2:file:./h2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-        #driverClassName: org.h2.Driver
-        #username: SA
-        #password:
 
     liquibase:
         #change-log: master.xml

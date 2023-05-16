@@ -13,4 +13,6 @@ public interface PatientRepository extends JpaRepository<Patient, String> {
 
     List<Patient> findAll(Specification<Patient> patient);
 
+    Patient findByTypeIdentityAndNumIdentity(String phone, String numIdentity);
+
 }

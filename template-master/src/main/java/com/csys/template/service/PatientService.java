@@ -65,7 +65,7 @@ public class PatientService {
         Integer bloodcode =patient.getCodeBlood();
         String x=bloodService.findTypeByBloodCode(bloodcode);
 
-        com.csys.template.util.Preconditions.checkBusinessLogique(patient!=null,"patient not existe"+code);
+        Preconditions.checkBusinessLogique(patient!=null,"patient not existe"+code);
         PatientDTO patientDTO=PatientFactory.patientToPatientDTO(patient);
         patientDTO.setBloodCode(x);
         return patientDTO ;
@@ -73,6 +73,9 @@ public class PatientService {
 
     public PatientDTO addPatient(PatientDTO patientDTO) {
         log.debug("*** add Patient ***");
+        Patient p = patientRepository.findByTypeIdentityAndNumIdentity(patientDTO.getTypeIdentity(), patientDTO.getNumIdentity());
+        Preconditions.checkBusinessLogique(p==null, "patient already exists");
+
         CounterDTO counter = counterService.findCounterByType("patient");
         patientDTO.setCode(counter.getPrefix()+counter.getSuffix());
         counter.setSuffix(counter.getSuffix()+1);
@@ -81,8 +84,7 @@ public class PatientService {
         String ch ="--";
         String x=bloodService.findBloodCodeByType(ch).toString();
         patientDTO.setBloodCode(x);
-        Patient patient = PatientFactory.patientDTOToPatient(patientDTO);
-        patient = patientRepository.save(patient);
+        Patient patient = patientRepository.save(PatientFactory.patientDTOToPatient(patientDTO));
         return patientDTO;
     }
 
