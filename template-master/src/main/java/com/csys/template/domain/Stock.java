@@ -28,7 +28,7 @@ public class Stock {
     private String userCreate;
     @Column(name = "date_create", nullable = false)
     private LocalDate dateCreate;
-    @Column(name = "date_per", nullable = false)
+    @Column(name = "date_peremption", nullable = false)
     private String dateperime;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;

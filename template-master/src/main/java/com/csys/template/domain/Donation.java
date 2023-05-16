@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Audited
 @AuditTable("Donation_AUD")
 public class Donation implements Serializable {
+
     @Column(name = "code", nullable = false)
     @Id
     private String code;
@@ -25,8 +26,8 @@ public class Donation implements Serializable {
     private LocalDate dateCreate;
     @Column(name = "full_name", nullable = false)
     private String fullName;
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    @Column(name = "tension", nullable = false)
+    private double tension;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
@@ -92,12 +93,12 @@ public class Donation implements Serializable {
         this.codepatient = codepatient;
     }
 
-    public Integer getAge() {
-        return age;
+    public double getTension() {
+        return tension;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setTension(double tension) {
+        this.tension = tension;
     }
 
     public String getPhoneNumber() {

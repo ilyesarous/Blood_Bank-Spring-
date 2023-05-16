@@ -82,7 +82,7 @@ public class DonationService {
         donationDTO.setFullName(donation.getFullName());
         donationDTO.setCodePatient(donation.getCodepatient());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
-        donationDTO.setAge(donation.getAge());
+        donationDTO.setTension(donation.getTension());
         donationDTO.setSexe(donation.getSexe());
         donationDTO.setAdress(donation.getAdress());
 

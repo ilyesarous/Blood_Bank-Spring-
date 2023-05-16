@@ -14,7 +14,7 @@ public class DonationDTO {
     private String code;
     private String codePatient;
     private String fullName;
-    private Integer age;
+    private double tension;
     private String sexe;
     private String phoneNumber;
     private String adress;
@@ -75,12 +75,12 @@ public class DonationDTO {
         this.codePatient = codePatient;
     }
 
-    public Integer getAge() {
-        return age;
+    public double getTension() {
+        return tension;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setTension(double tension) {
+        this.tension = tension;
     }
 
     public String getFullName() {

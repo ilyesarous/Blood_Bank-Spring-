@@ -38,7 +38,7 @@ public class DonationFactory {
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
         donationDTO.setCodePatient(donation.getCodepatient());
-        donationDTO.setAge(donation.getAge());
+        donationDTO.setTension(donation.getTension());
         donationDTO.setAdress(donation.getAdress());
         donationDTO.setSexe(donation.getSexe());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
@@ -71,7 +71,7 @@ public class DonationFactory {
         donation.setCode(donationDTO.getCode());
         donation.setFullName(donationDTO.getFullName());
         donation.setCodepatient(donationDTO.getCodePatient());
-        donation.setAge(donationDTO.getAge());
+        donation.setTension(donationDTO.getTension());
         donation.setAdress(donationDTO.getAdress());
         donation.setSexe(donationDTO.getSexe());
         donation.setPhoneNumber(donationDTO.getPhoneNumber());
