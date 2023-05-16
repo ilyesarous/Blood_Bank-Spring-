@@ -2,9 +2,7 @@ package com.csys.template.factory;
 
 
 import com.csys.template.domain.Donation;
-import com.csys.template.dto.DonationDTO;
-import com.csys.template.dto.DonationsHistoryDTO;
-import com.csys.template.dto.StockDTO;
+import com.csys.template.dto.*;
 import com.csys.template.service.StateService;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -106,6 +104,26 @@ public class DonationFactory {
         return donation;
     }
 
+    public static ReceiptBeforeDonationDTO DonationDTOToReceiptBeforeDTO(DonationDTO donationDTO) {
+        ReceiptBeforeDonationDTO receiptBeforeDonationDTO = new ReceiptBeforeDonationDTO();
+
+        receiptBeforeDonationDTO.setCodepatient(donationDTO.getCodePatient());
+        receiptBeforeDonationDTO.setBlood(donationDTO.getBlood());
+        receiptBeforeDonationDTO.setEtat(donationDTO.getEtat());
+
+
+        return receiptBeforeDonationDTO;
+    }
+    public static ReceiptAfterDonationDTO DonationDTOToReceiptAfterDTO(DonationDTO donationDTO) {
+        ReceiptAfterDonationDTO receiptAfterDonationDTO = new ReceiptAfterDonationDTO();
+
+        receiptAfterDonationDTO.setCodepatient(donationDTO.getCodePatient());
+        receiptAfterDonationDTO.setBlood(donationDTO.getBlood());
+        receiptAfterDonationDTO.setEtat(donationDTO.getEtat());
+
+
+        return receiptAfterDonationDTO;
+    }
     public static StockDTO DonationDTOToStockDTO(DonationDTO donationDTO) {
         StockDTO stockDTO = new StockDTO();
         stockDTO.setCodedonateur(donationDTO.getCode());

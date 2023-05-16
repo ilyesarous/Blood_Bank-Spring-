@@ -2,7 +2,6 @@ package com.csys.template.service;
 
 
 import com.csys.template.domain.Donation;
-import com.csys.template.domain.Patient;
 import com.csys.template.dto.*;
 import com.csys.template.factory.DonationFactory;
 import com.csys.template.repository.DonationRepository;
@@ -26,14 +25,18 @@ public class DonationService {
     private final DonationHistoryService donationHistoryService;
     private final StockService stockService;
     private final PatientService patientService;
+    private final ReceiptBeforeDonationService receiptBeforeDonationService;
+    private final ReceiptAfterDonationService receiptAfterDonationService;
 
 
-    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService, DonationHistoryService donationHistoryService, StockService stockService, PatientService patientService1) {
+    public DonationService(DonationRepository donationRepository, PatientService patientService, CounterService counterService, DonationHistoryService donationHistoryService, StockService stockService, PatientService patientService1, ReceiptBeforeDonationService receiptBeforeDonationService, ReceiptAfterDonationService receiptAfterDonationService) {
         this.donationRepository = donationRepository;
         this.counterService = counterService;
         this.donationHistoryService = donationHistoryService;
         this.stockService = stockService;
         this.patientService = patientService1;
+        this.receiptBeforeDonationService = receiptBeforeDonationService;
+        this.receiptAfterDonationService = receiptAfterDonationService;
     }
     @Transactional(readOnly = true)
     public DonationDTO findByCode(String code) {
@@ -63,8 +66,10 @@ public class DonationService {
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
         donationDTO.setObservation("---");
+        ReceiptBeforeDonationDTO receiptBeforeDonationDTO=DonationFactory.DonationDTOToReceiptBeforeDTO(donationDTO);
         Donation donation = DonationFactory.DonationDTOToDonation(donationDTO);
         DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
+        ReceiptBeforeDonationDTO receiptBeforeDonationDTO1= receiptBeforeDonationService.addReceipt(receiptBeforeDonationDTO);
         DonationsHistoryDTO donationsHistory= donationHistoryService.addHistorique(donationsHistoryDTO);
         donation = donationRepository.save(donation);
 
@@ -90,6 +95,8 @@ public class DonationService {
         {
             StockDTO stockDTO= DonationFactory.DonationDTOToStockDTO(donationDTO);
             stockService.addStock(stockDTO);
+            ReceiptAfterDonationDTO receiptAfterDonationDTO=DonationFactory.DonationDTOToReceiptAfterDTO(donationDTO);
+            receiptAfterDonationService.addReceiptAfter(receiptAfterDonationDTO);
         }
         PatientDTO patientDTO=patientService.findByCode(donationDTO.getCodePatient());
 
