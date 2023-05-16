@@ -35,8 +35,33 @@ public class ReceiptBeforeDonationService {
         this.bloodService = bloodService;
     }
 
+//    @Transactional(readOnly = true)
+//    public List<ReceiptBeforeDonationDTO> findAll() {
+//        log.debug("*** find All stock ***");
+//        List<ReceiptBeforeDonation> receiptBeforeDonations = receiptBeforeDonationRepository.findAll();
+//        Integer taille= receiptBeforeDonations.size();
+//        com.csys.template.util.Preconditions.checkBusinessLogique(receiptBeforeDonations!=null,"error patient does not found");
+//        List<Integer> bloodCodes = receiptBeforeDonations.stream()
+//                .map(ReceiptBeforeDonation::getBlood)
+//                .distinct()
+//                .collect(Collectors.toList());
+//        List<BloodDTO> bloodDTOs = bloodService.getListBloodByCode(bloodCodes);
+//        List<ReceiptBeforeDonationDTO> receiptBeforeDonationDTOS = new ArrayList<>();
+//        receiptBeforeDonations.forEach(p -> {
+//            ReceiptBeforeDonationDTO receiptBeforeDonationDTO = ReceiptBeforeDonationFactory.ReceiptbeforedonationToReceiptbeforeDonationDTO(p);
+//            Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
+//                    .filter(b -> b.getCodeBlood().compareTo(p.getBlood()) == 0)
+//                    .findFirst();
+//            if (bloodDTOOptional.isPresent()) {
+//                receiptBeforeDonationDTO.setBlood(bloodDTOOptional.get().getBloodGrp()+bloodDTOOptional.get().getRhesus());
+//            }
+//            receiptBeforeDonationDTOS.add(receiptBeforeDonationDTO);
+//        });
+//
+//        return receiptBeforeDonationDTOS;
+//    }
     @Transactional(readOnly = true)
-    public List<ReceiptBeforeDonationDTO> findAll() {
+    public ReceiptBeforeDonationDTO findOne() {
         log.debug("*** find All stock ***");
         List<ReceiptBeforeDonation> receiptBeforeDonations = receiptBeforeDonationRepository.findAll();
 
@@ -56,9 +81,19 @@ public class ReceiptBeforeDonationService {
                 receiptBeforeDonationDTO.setBlood(bloodDTOOptional.get().getBloodGrp()+bloodDTOOptional.get().getRhesus());
             }
             receiptBeforeDonationDTOS.add(receiptBeforeDonationDTO);
-        });
 
-        return receiptBeforeDonationDTOS;
+        });
+        ReceiptBeforeDonationDTO receiptBeforeDonation2 = new ReceiptBeforeDonationDTO();
+        Integer taille= receiptBeforeDonationDTOS.size();
+        for (int i=0;i<taille;i++)
+        {
+            if (i==(taille-1))
+            {
+                 receiptBeforeDonation2 = receiptBeforeDonationDTOS.get(i);
+            }
+        }
+
+        return receiptBeforeDonation2 ;
     }
 
     public ReceiptBeforeDonationDTO addReceipt(ReceiptBeforeDonationDTO receiptBeforeDonationDTO) {
