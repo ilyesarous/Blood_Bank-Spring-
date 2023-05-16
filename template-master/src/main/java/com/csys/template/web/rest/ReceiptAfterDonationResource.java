@@ -29,12 +29,20 @@ public class ReceiptAfterDonationResource {
     }
 
 
+//    @GetMapping
+//    public List<ReceiptAfterDonationDTO> getAll(){
+//
+//        List<ReceiptAfterDonationDTO> receiptAfterDonationDTOS = receiptAfterDonationService.findAll() ;
+//
+//        return receiptAfterDonationDTOS;
+//
+//    }
     @GetMapping
-    public List<ReceiptAfterDonationDTO> getAll(){
+    public ReceiptAfterDonationDTO getOne(){
 
-        List<ReceiptAfterDonationDTO> receiptAfterDonationDTOS = receiptAfterDonationService.findAll() ;
+        ReceiptAfterDonationDTO receiptBeforeDonationDTOS = receiptAfterDonationService.findOne() ;
 
-        return receiptAfterDonationDTOS;
+        return receiptBeforeDonationDTOS;
 
     }
 

@@ -1,6 +1,7 @@
 package com.csys.template.service;
 
 import com.csys.template.domain.ReceiptAfterDonation;
+import com.csys.template.domain.ReceiptBeforeDonation;
 import com.csys.template.dto.BloodDTO;
 import com.csys.template.dto.CounterDTO;
 import com.csys.template.dto.ReceiptAfterDonationDTO;
@@ -35,10 +36,38 @@ public class ReceiptAfterDonationService {
     }
 
 
+//    @Transactional(readOnly = true)
+//    public List<ReceiptAfterDonationDTO> findAll() {
+//        log.debug("*** find All stock ***");
+//        List<ReceiptAfterDonation> receiptAfterDonations = receiptAfterDonationRepository.findAll();
+//
+//        com.csys.template.util.Preconditions.checkBusinessLogique(receiptAfterDonations!=null,"error patient does not found");
+//        List<Integer> bloodCodes = receiptAfterDonations.stream()
+//                .map(ReceiptAfterDonation::getBlood)
+//                .distinct()
+//                .collect(Collectors.toList());
+//        List<BloodDTO> bloodDTOs = bloodService.getListBloodByCode(bloodCodes);
+//        List<ReceiptAfterDonationDTO> receiptAfterDonationDTOS = new ArrayList<>();
+//        receiptAfterDonations.forEach(p -> {
+//            ReceiptAfterDonationDTO receiptAfterDonationDTO = ReceiptAfterDonationFactory.ReceiptAfterdonationToReceiptAfterDonationDTO(p);
+//            Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
+//                    .filter(b -> b.getCodeBlood().compareTo(p.getBlood()) == 0)
+//                    .findFirst();
+//            if (bloodDTOOptional.isPresent()) {
+//                receiptAfterDonationDTO.setBlood(bloodDTOOptional.get().getBloodGrp()+bloodDTOOptional.get().getRhesus());
+//            }
+//            receiptAfterDonationDTOS.add(receiptAfterDonationDTO);
+//        });
+//
+//        return receiptAfterDonationDTOS;
+//    }
+
     @Transactional(readOnly = true)
-    public List<ReceiptAfterDonationDTO> findAll() {
+    public ReceiptAfterDonationDTO findOne() {
         log.debug("*** find All stock ***");
         List<ReceiptAfterDonation> receiptAfterDonations = receiptAfterDonationRepository.findAll();
+
+
 
         com.csys.template.util.Preconditions.checkBusinessLogique(receiptAfterDonations!=null,"error patient does not found");
         List<Integer> bloodCodes = receiptAfterDonations.stream()
@@ -57,8 +86,9 @@ public class ReceiptAfterDonationService {
             }
             receiptAfterDonationDTOS.add(receiptAfterDonationDTO);
         });
-
-        return receiptAfterDonationDTOS;
+        Integer taille=receiptAfterDonationDTOS.size();
+        ReceiptAfterDonationDTO receiptBeforeDonation = receiptAfterDonationDTOS.get(taille-1);
+        return receiptBeforeDonation;
     }
 
     public ReceiptAfterDonationDTO addReceiptAfter(ReceiptAfterDonationDTO receiptAfterDonationDTO) {
