@@ -100,7 +100,8 @@ public class PatientService {
         patientDTO.setFatherNameEng(patientInDB.getFatherNameEng());
 
         patientDTO.setGrandFatherNameEng(patientInDB.getGrandFatherNameEng());
-
+        patientDTO.setNumIdentity(patientInDB.getNumIdentity());
+        patientDTO.setTypeIdentity(patientInDB.getTypeIdentity());
         patientDTO.setGender(patientInDB.getGender());
         patientDTO.setBirthDate(patientInDB.getBirthDate());
         LocalDate d=patientInDB.getBirthDate();
