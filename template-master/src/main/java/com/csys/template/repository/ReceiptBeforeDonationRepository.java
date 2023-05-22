@@ -5,5 +5,6 @@ import com.csys.template.domain.ReceiptBeforeDonation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReceiptBeforeDonationRepository extends JpaRepository<ReceiptBeforeDonation,String> {
-    ReceiptBeforeDonation findByCode(String code);
+
+    ReceiptBeforeDonation findTopByOrderByIdDesc();
 }

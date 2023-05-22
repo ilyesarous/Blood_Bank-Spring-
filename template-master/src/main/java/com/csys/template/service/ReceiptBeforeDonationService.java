@@ -63,20 +63,20 @@ public class ReceiptBeforeDonationService {
     @Transactional(readOnly = true)
     public ReceiptBeforeDonationDTO findOne() {
         log.debug("*** find All stock ***");
-        List<ReceiptBeforeDonation> receiptBeforeDonations = receiptBeforeDonationRepository.findAll();
-
+//        List<ReceiptBeforeDonation> receiptBeforeDonations = receiptBeforeDonationRepository.findAll();
+        ReceiptBeforeDonation receiptBeforeDonations = receiptBeforeDonationRepository.findTopByOrderByIdDesc();
         com.csys.template.util.Preconditions.checkBusinessLogique(receiptBeforeDonations!=null,"error patient does not found");
 
-        ReceiptBeforeDonation receiptBeforeDonation2 = new ReceiptBeforeDonation();
-        Integer taille= receiptBeforeDonations.size();
-        for (int i=0;i<taille;i++)
-        {
-            if (i==(taille-1))
-            {
-                 receiptBeforeDonation2 = receiptBeforeDonations.get(i);
-            }
-        }
-        ReceiptBeforeDonationDTO receiptBeforeDonationDTO=ReceiptBeforeDonationFactory.ReceiptbeforedonationToReceiptbeforeDonationDTO(receiptBeforeDonation2);
+//        ReceiptBeforeDonation receiptBeforeDonation2 = new ReceiptBeforeDonation();
+//        Integer taille= receiptBeforeDonations.size();
+//        for (int i=0;i<taille;i++)
+//        {
+//            if (i==(taille-1))
+//            {
+//                 receiptBeforeDonation2 = receiptBeforeDonations.get(i);
+//            }
+//        }
+        ReceiptBeforeDonationDTO receiptBeforeDonationDTO=ReceiptBeforeDonationFactory.ReceiptbeforedonationToReceiptbeforeDonationDTO(receiptBeforeDonations);
 
         return receiptBeforeDonationDTO ;
     }

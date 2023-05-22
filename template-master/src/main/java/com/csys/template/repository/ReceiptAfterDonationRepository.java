@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReceiptAfterDonationRepository extends JpaRepository<ReceiptAfterDonation,String> {
 
-    ReceiptAfterDonation findByCode(String code);
+    ReceiptAfterDonation findTopByOrderByIdDesc();
 
 }

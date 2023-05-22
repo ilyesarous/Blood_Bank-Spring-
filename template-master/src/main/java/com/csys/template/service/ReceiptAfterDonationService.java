@@ -65,30 +65,16 @@ public class ReceiptAfterDonationService {
     @Transactional(readOnly = true)
     public ReceiptAfterDonationDTO findOne() {
         log.debug("*** find All stock ***");
-        List<ReceiptAfterDonation> receiptAfterDonations = receiptAfterDonationRepository.findAll();
-
-
+        ReceiptAfterDonation receiptAfterDonations = receiptAfterDonationRepository.findTopByOrderByIdDesc();
 
         com.csys.template.util.Preconditions.checkBusinessLogique(receiptAfterDonations!=null,"error patient does not found");
-        List<Integer> bloodCodes = receiptAfterDonations.stream()
-                .map(ReceiptAfterDonation::getBlood)
-                .distinct()
-                .collect(Collectors.toList());
-        List<BloodDTO> bloodDTOs = bloodService.getListBloodByCode(bloodCodes);
-        List<ReceiptAfterDonationDTO> receiptAfterDonationDTOS = new ArrayList<>();
-        receiptAfterDonations.forEach(p -> {
-            ReceiptAfterDonationDTO receiptAfterDonationDTO = ReceiptAfterDonationFactory.ReceiptAfterdonationToReceiptAfterDonationDTO(p);
-            Optional<BloodDTO> bloodDTOOptional = bloodDTOs.stream()
-                    .filter(b -> b.getCodeBlood().compareTo(p.getBlood()) == 0)
-                    .findFirst();
-            if (bloodDTOOptional.isPresent()) {
-                receiptAfterDonationDTO.setBlood(bloodDTOOptional.get().getBloodGrp()+bloodDTOOptional.get().getRhesus());
-            }
-            receiptAfterDonationDTOS.add(receiptAfterDonationDTO);
-        });
-        Integer taille=receiptAfterDonationDTOS.size();
-        ReceiptAfterDonationDTO receiptBeforeDonation = receiptAfterDonationDTOS.get(taille-1);
-        return receiptBeforeDonation;
+        ReceiptAfterDonationDTO receiptAfterDonationDTO=ReceiptAfterDonationFactory.ReceiptAfterdonationToReceiptAfterDonationDTO(receiptAfterDonations);
+
+        Integer bloodcode= Integer.parseInt(receiptAfterDonationDTO.getBlood());
+        String ch = bloodService.findTypeByBloodCode(bloodcode);
+        receiptAfterDonationDTO.setBlood(ch);
+
+        return receiptAfterDonationDTO;
     }
 
     public ReceiptAfterDonationDTO addReceiptAfter(ReceiptAfterDonationDTO receiptAfterDonationDTO) {
