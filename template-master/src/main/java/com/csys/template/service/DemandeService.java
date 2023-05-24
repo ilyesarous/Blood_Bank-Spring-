@@ -201,6 +201,7 @@ public class DemandeService {
                 } else {
 
                     Integer Qt= QtDemande-1;
+                    QtDemande=QtDemande-1;
                     String QtDem=Qt.toString();
                     demandeDTO.setQuantiter(QtDem);
                     request=request+demandeDTO.getCode();
