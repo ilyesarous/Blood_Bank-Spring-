@@ -192,6 +192,7 @@ public class DemandeService {
 
                     } else {
                         int quntity = QtDemande - Qnt;
+                        QtDemande=QtDemande-Qnt;
                         String ch = Integer.toString(quntity);
                         demandeDTO.setQuantiter(ch);
                         request=request+demandeDTO.getCode();
