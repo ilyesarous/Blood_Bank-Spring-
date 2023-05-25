@@ -194,9 +194,10 @@ public class StockService {
         return stockDTO;
     }
 
-    public Integer getQantiteTotal(Integer blood){
+    public Integer getQantiteTotal(String blood){
         log.debug("*** get Qantite Total for blood ***");
-        List<Stock> stocks = stockRepository.findBybloodCode(blood);
+        Integer codeBlood=bloodService.findBloodCodeByType(blood);
+        List<Stock> stocks = stockRepository.findBybloodCode(codeBlood);
         List<Stock> stock=new ArrayList<>();
         com.csys.template.util.Preconditions.checkBusinessLogique(stocks != null,"stock does  Not found!");
         Integer quantity=0;

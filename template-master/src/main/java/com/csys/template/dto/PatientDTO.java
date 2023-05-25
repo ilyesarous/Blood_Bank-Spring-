@@ -110,7 +110,7 @@ public class PatientDTO {
     }
 
     public void setFullNameEng() {
-        this.fullNameEng = this.getFirstNameEng()+this.getFatherNameEng()+this.getGrandFatherNameEng()+getLastNameEng();
+        this.fullNameEng = this.getFirstNameEng()+" "+this.getFatherNameEng()+" "+this.getGrandFatherNameEng()+" "+getLastNameEng();
     }
 
     public LocalDate getBirthDate() {

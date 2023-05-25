@@ -152,7 +152,7 @@ public class DemandeService {
         demandeDTO.setUsercreate(demande.getUsercreate());
         Integer bl = bloodService.findBloodCodeByType(demandeDTO.getBlood());
 
-        Integer Qtstock = stockService.getQantiteTotal(bl);
+        Integer Qtstock = stockService.getQantiteTotal(demandeDTO.getBlood());
         com.csys.template.util.Preconditions.checkBusinessLogique(Qtstock != 0, "error.couldn't-find-stock"+Qtstock);
         Integer QtDemande = Integer.parseInt(demandeDTO.getQuantiter());
         com.csys.template.util.Preconditions.checkBusinessLogique(QtDemande != 0, "error.couldn't-find-stock"+QtDemande);

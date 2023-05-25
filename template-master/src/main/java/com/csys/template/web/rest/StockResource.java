@@ -48,16 +48,12 @@ public List<StockDTO> getAll(@RequestParam(value = "blood", required = false) St
     return stockService.findAll(stock);
 
 }
-//    @GetMapping("/date/{dateperime}")
-//    public StockDTO getBydateperime( @PathVariable @Valid String dateperime){
-//        StockDTO stockDTOS = stockService.findStockBydateperimé(dateperime);
-//        return stockDTOS;
-//    }
-//    @GetMapping("/blood/{blood}")
-//    public List<StockDTO> getByblood( @PathVariable @Valid String blood){
-//        List<StockDTO> stockDTOS = stockService.findByblood(blood);
-//        return stockDTOS;
-//    }
+    @GetMapping("/{code}")
+    public Integer QuntityBlood(@PathVariable @RequestBody String code)
+            throws  URISyntaxException {
+        Integer qauntity= stockService.getQantiteTotal(code);
+        return qauntity ;
+    }
 
     @PostMapping
     public ResponseEntity<StockDTO> addStock(@RequestBody StockDTO stockDTO, BindingResult bindingResult)
