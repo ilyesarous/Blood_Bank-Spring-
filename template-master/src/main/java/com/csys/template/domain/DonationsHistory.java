@@ -26,6 +26,10 @@ public class DonationsHistory {
     private Integer state;
     @Column(name = "observation", nullable = false)
     private String observation;
+    @Column(name = "diastolic_blood_pressure", nullable = false)
+    private Integer diastolicPressure;
+    @Column(name = "systolic_blood_pressure", nullable = false)
+    private Integer systolicPressure;
     @Column(name = "user_create", nullable = false)
     private String userCreate;
     @Column(name = "date_create", nullable = false)
@@ -70,6 +74,22 @@ public class DonationsHistory {
 
     public void setObservation(String observation) {
         this.observation = observation;
+    }
+
+    public Integer getDiastolicPressure() {
+        return diastolicPressure;
+    }
+
+    public void setDiastolicPressure(Integer diastolicPressure) {
+        this.diastolicPressure = diastolicPressure;
+    }
+
+    public Integer getSystolicPressure() {
+        return systolicPressure;
+    }
+
+    public void setSystolicPressure(Integer systolicPressure) {
+        this.systolicPressure = systolicPressure;
     }
 
     public String getUserCreate() {

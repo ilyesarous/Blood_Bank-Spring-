@@ -36,7 +36,9 @@ public class DonationFactory {
         donationDTO.setCode(donation.getCode());
         donationDTO.setFullName(donation.getFullName());
         donationDTO.setCodePatient(donation.getCodepatient());
-        donationDTO.setTension(donation.getTension());
+        donationDTO.setDiastolicPressure(donation.getDiastolicPressure());
+        donationDTO.setSystolicPressure(donation.getSystolicPressure());
+
         donationDTO.setAdress(donation.getAdress());
         donationDTO.setSexe(donation.getSexe());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
@@ -69,7 +71,9 @@ public class DonationFactory {
         donation.setCode(donationDTO.getCode());
         donation.setFullName(donationDTO.getFullName());
         donation.setCodepatient(donationDTO.getCodePatient());
-        donation.setTension(donationDTO.getTension());
+        donation.setDiastolicPressure(donationDTO.getDiastolicPressure());
+        donation.setSystolicPressure(donationDTO.getSystolicPressure());
+
         donation.setAdress(donationDTO.getAdress());
         donation.setSexe(donationDTO.getSexe());
         donation.setPhoneNumber(donationDTO.getPhoneNumber());
@@ -99,6 +103,8 @@ public class DonationFactory {
         donation.setState(donationDTO.getEtat());
         donation.setObservation(donationDTO.getObservation());
         donation.setUserCreate(getUserAuthenticated());
+        donation.setDiastolicPressure(donationDTO.getDiastolicPressure());
+        donation.setSystolicPressure(donationDTO.getSystolicPressure());
 
 
         return donation;

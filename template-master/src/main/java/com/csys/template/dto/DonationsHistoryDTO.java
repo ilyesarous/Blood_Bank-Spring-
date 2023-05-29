@@ -1,5 +1,7 @@
 package com.csys.template.dto;
 
+import jakarta.persistence.Column;
+
 import java.time.LocalDate;
 
 public class DonationsHistoryDTO {
@@ -7,6 +9,8 @@ public class DonationsHistoryDTO {
     private String code;
     private String codePatient;
     private String state;
+    private Integer diastolicPressure;
+    private Integer systolicPressure;
     private String observation;
     private String userCreate;
     private String dateCreate;
@@ -34,6 +38,22 @@ public class DonationsHistoryDTO {
 
     public void setCodePatient(String codePatient) {
         this.codePatient = codePatient;
+    }
+
+    public Integer getDiastolicPressure() {
+        return diastolicPressure;
+    }
+
+    public void setDiastolicPressure(Integer diastolicPressure) {
+        this.diastolicPressure = diastolicPressure;
+    }
+
+    public Integer getSystolicPressure() {
+        return systolicPressure;
+    }
+
+    public void setSystolicPressure(Integer systolicPressure) {
+        this.systolicPressure = systolicPressure;
     }
 
     public String getState() {

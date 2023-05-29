@@ -14,7 +14,8 @@ public class DonationDTO {
     private String code;
     private String codePatient;
     private String fullName;
-    private double tension;
+    private Integer diastolicPressure;
+    private Integer systolicPressure;
     private String sexe;
     private String phoneNumber;
     private String adress;
@@ -75,12 +76,20 @@ public class DonationDTO {
         this.codePatient = codePatient;
     }
 
-    public double getTension() {
-        return tension;
+    public Integer getDiastolicPressure() {
+        return diastolicPressure;
     }
 
-    public void setTension(double tension) {
-        this.tension = tension;
+    public void setDiastolicPressure(Integer diastolicPressure) {
+        this.diastolicPressure = diastolicPressure;
+    }
+
+    public Integer getSystolicPressure() {
+        return systolicPressure;
+    }
+
+    public void setSystolicPressure(Integer systolicPressure) {
+        this.systolicPressure = systolicPressure;
     }
 
     public String getFullName() {

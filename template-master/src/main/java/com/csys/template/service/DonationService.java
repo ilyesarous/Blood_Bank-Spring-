@@ -66,6 +66,14 @@ public class DonationService {
         counter.setSuffix(counter.getSuffix()+1);
         counterService.updateCounter(counter);
         donationDTO.setObservation("---");
+        Integer tensionDiag=donationDTO.getDiastolicPressure();
+        Integer tensionSys = donationDTO.getSystolicPressure();
+        Integer tens=tensionSys-tensionDiag;
+
+        Preconditions.checkBusinessLogique(tensionDiag>5 && tensionDiag<10,"error-you 're diastolicPressure is low or high");
+        Preconditions.checkBusinessLogique(tensionSys>9 && tensionSys<15 ,"error-you 're systolicPressure is low or high");
+        Preconditions.checkBusinessLogique(tens<5 && tens>1,"error-you 're tension is low or high");
+
         ReceiptBeforeDonationDTO receiptBeforeDonationDTO=DonationFactory.DonationDTOToReceiptBeforeDTO(donationDTO);
         Donation donation = DonationFactory.DonationDTOToDonation(donationDTO);
         DonationsHistoryDTO donationsHistoryDTO= DonationFactory.DonationDTOToDonationHistory(donationDTO);
@@ -87,7 +95,8 @@ public class DonationService {
         donationDTO.setFullName(donation.getFullName());
         donationDTO.setCodePatient(donation.getCodepatient());
         donationDTO.setPhoneNumber(donation.getPhoneNumber());
-        donationDTO.setTension(donation.getTension());
+        donationDTO.setSystolicPressure(donation.getSystolicPressure());
+        donationDTO.setDiastolicPressure(donation.getDiastolicPressure());
         donationDTO.setSexe(donation.getSexe());
         donationDTO.setAdress(donation.getAdress());
 

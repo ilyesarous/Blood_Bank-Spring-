@@ -28,6 +28,8 @@ public class DonationsHistoryFactory {
         patientHistoriqueDTO.setState(i);
         patientHistoriqueDTO.setObservation(patientHistorique.getObservation());
         patientHistoriqueDTO.setDateCreate(x);
+        patientHistoriqueDTO.setDiastolicPressure(patientHistorique.getDiastolicPressure());
+        patientHistoriqueDTO.setSystolicPressure(patientHistorique.getSystolicPressure());
         patientHistoriqueDTO.setUserCreate(patientHistorique.getUserCreate());
 
         return patientHistoriqueDTO;
@@ -49,6 +51,8 @@ public class DonationsHistoryFactory {
 
         patientHistorique.setState(i);
         patientHistorique.setObservation(patientHistoriqueDTO.getObservation());
+        patientHistorique.setDiastolicPressure(patientHistoriqueDTO.getDiastolicPressure());
+        patientHistorique.setSystolicPressure(patientHistoriqueDTO.getSystolicPressure());
         patientHistorique.setDateCreate(d);
         patientHistorique.setUserCreate(patientHistoriqueDTO.getUserCreate());
 

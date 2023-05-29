@@ -26,8 +26,10 @@ public class Donation implements Serializable {
     private LocalDate dateCreate;
     @Column(name = "full_name", nullable = false)
     private String fullName;
-    @Column(name = "tension", nullable = false)
-    private double tension;
+    @Column(name = "diastolic_blood_pressure", nullable = false)
+    private Integer diastolicPressure;
+    @Column(name = "systolic_blood_pressure", nullable = false)
+    private Integer systolicPressure;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
@@ -93,12 +95,20 @@ public class Donation implements Serializable {
         this.codepatient = codepatient;
     }
 
-    public double getTension() {
-        return tension;
+    public Integer getDiastolicPressure() {
+        return diastolicPressure;
     }
 
-    public void setTension(double tension) {
-        this.tension = tension;
+    public void setDiastolicPressure(Integer diastolicPressure) {
+        this.diastolicPressure = diastolicPressure;
+    }
+
+    public Integer getSystolicPressure() {
+        return systolicPressure;
+    }
+
+    public void setSystolicPressure(Integer systolicPressure) {
+        this.systolicPressure = systolicPressure;
     }
 
     public String getPhoneNumber() {
